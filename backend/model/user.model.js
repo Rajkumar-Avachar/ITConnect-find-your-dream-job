@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const validateURL = (url) => {
-  const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)\S*$/;
-  return urlRegex.test(url);
-};
+// const validateURL = (url) => {
+//   const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)\S*$/;
+//   return urlRegex.test(url);
+// };
 
 const userSchema = new mongoose.Schema(
   {
@@ -48,16 +48,16 @@ const userSchema = new mongoose.Schema(
         default: "fresher",
       },
       location: { type: String, default: "" },
-      github: {
-        type: String,
-        default: "",
-        validate: { validator: validateURL, message: "Invalid GitHub URL" },
-      },
-      portfolio: {
-        type: String,
-        default: "",
-        validate: { validator: validateURL, message: "Invalid Portfolio URL" },
-      },
+      // github: {
+      //   type: String,
+      //   default: "",
+      //   validate: { validator: validateURL, message: "Invalid GitHub URL" },
+      // },
+      // portfolio: {
+      //   type: String,
+      //   default: "",
+      //   validate: { validator: validateURL, message: "Invalid Portfolio URL" },
+      // },
     },
 
     //For Recruiters
@@ -66,31 +66,31 @@ const userSchema = new mongoose.Schema(
       ref: "Company",
       default: null,
     },
-    companyWebsite: {
-      type: String,
-      default: "",
-      validate: { validator: validateURL, message: "Invalid website URL" },
-    },
+    // companyWebsite: {
+    //   type: String,
+    //   default: "",
+    //   validate: { validator: validateURL, message: "Invalid website URL" },
+    // },
     position: { type: String, default: "" },
-    linkedin: {
-      type: String,
-      default: "",
-      validate: { validator: validateURL, message: "Invalid LinkedIn URL" },
-    },
+    // linkedin: {
+    //   type: String,
+    //   default: "",
+    //   validate: { validator: validateURL, message: "Invalid LinkedIn URL" },
+    // },
   },
   { timestamps: true }
 );
 
-// **Hash Password Before Saving**
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
+// // **Hash Password Before Saving**
+// userSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) return next();
+//   this.password = await bcrypt.hash(this.password, 10);
+//   next();
+// });
 
-// **Compare Password for Login**
-userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
+// // **Compare Password for Login**
+// userSchema.methods.comparePassword = async function (enteredPassword) {
+//   return await bcrypt.compare(enteredPassword, this.password);
+// };
 
 export const User = mongoose.model("User", userSchema);

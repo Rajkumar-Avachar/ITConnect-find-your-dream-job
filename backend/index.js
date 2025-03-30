@@ -5,9 +5,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config({});
+import userRoute from "./routes/user.route.js";
 // import connectDB from "./config/db.js";
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 //middlewares
 app.use(express.json());
@@ -30,11 +32,7 @@ const connectDB = async () => {
 };
 connectDB();
 
-app.get("/", (req, res) => {
-  res.send("Done");
-});
-
-const PORT = process.env.PORT || 5000;
+app.use("/api/v1/user", userRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);

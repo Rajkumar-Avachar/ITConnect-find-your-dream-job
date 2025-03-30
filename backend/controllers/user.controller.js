@@ -77,7 +77,7 @@ export const login = async (req, res) => {
       userId: user._id,
     };
 
-    const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {
+    const token = jwt.sign(tokenData, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
@@ -149,9 +149,9 @@ export const updateProfile = async (req, res) => {
 
     //cloudinary will come here
 
-    const skillsArray = skills.split(",");
+    // const skillsArray = skills.split(",");
 
-    const userId = req.id;
+    const userId = req.user.userId;
     let user = await User.findById(userId);
 
     if (!user) {
