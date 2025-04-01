@@ -10,6 +10,7 @@ const companySchema = new mongoose.Schema(
     },
     about: {
       type: String,
+      default: "",
     },
     website: {
       type: String,

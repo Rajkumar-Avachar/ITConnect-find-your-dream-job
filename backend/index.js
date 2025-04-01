@@ -5,7 +5,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 dotenv.config({});
-import userRoute from "./routes/user.route.js";
+import userRoutes from "./routes/user.route.js";
+import companyRoutes from "./routes/company.route.js";
 // import connectDB from "./config/db.js";
 
 const app = express();
@@ -32,7 +33,8 @@ const connectDB = async () => {
 };
 connectDB();
 
-app.use("/api/v1/user", userRoute);
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/companies", companyRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);

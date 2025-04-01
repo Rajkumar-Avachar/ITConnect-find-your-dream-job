@@ -22,3 +22,13 @@ export const isAuthenticated = async (req, res, next) => {
     });
   }
 };
+
+export const isRecruiter = (req, res, next) => {
+  if (req.user.role !== "recruiter") {
+    return res.status(403).json({
+      message: "You are not a Recruiter",
+      success: false,
+    });
+  }
+  next();
+};

@@ -2,7 +2,7 @@ import { User } from "../model/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-//Register
+//Register User
 export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
@@ -42,7 +42,7 @@ export const register = async (req, res) => {
   }
 };
 
-//Login
+//Login User
 export const login = async (req, res) => {
   try {
     const { email, password, role } = req.body;
@@ -75,6 +75,7 @@ export const login = async (req, res) => {
 
     const tokenData = {
       userId: user._id,
+      role: user.role,
     };
 
     const token = jwt.sign(tokenData, process.env.JWT_SECRET, {
@@ -111,7 +112,7 @@ export const login = async (req, res) => {
   }
 };
 
-//Logout
+//Logout User
 export const logout = async (req, res) => {
   try {
     return res.status(200).cookie("token", "", { maxAge: 0 }).json({
@@ -156,7 +157,7 @@ export const updateProfile = async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        message: "User Not Found",
+        message: "Please login to update profile",
         success: false,
       });
     }
