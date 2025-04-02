@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 dotenv.config({});
 import userRoutes from "./routes/user.route.js";
 import companyRoutes from "./routes/company.route.js";
+import jobRoutes from "./routes/job.route.js";
+
 // import connectDB from "./config/db.js";
 
 const app = express();
@@ -35,6 +37,7 @@ connectDB();
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/companies", companyRoutes);
+app.use("/api/v1/jobs", jobRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
