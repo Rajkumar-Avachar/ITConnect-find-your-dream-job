@@ -7,7 +7,7 @@ const applicationSchema = new mongoose.Schema({
     required: true,
   },
   applicant: {
-    type: mongoose.Schema.types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
@@ -21,3 +21,5 @@ const applicationSchema = new mongoose.Schema({
     default: "pending",
   },
 });
+
+export const Application = mongoose.model("Application", applicationSchema);

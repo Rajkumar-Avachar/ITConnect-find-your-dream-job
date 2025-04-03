@@ -32,3 +32,13 @@ export const isRecruiter = (req, res, next) => {
   }
   next();
 };
+
+export const isApplicant = (req, res, next) => {
+  if (req.user.role !== "applicant") {
+    return res.status(403).json({
+      message: "You are not an Applicant",
+      success: false,
+    });
+  }
+  next();
+};
