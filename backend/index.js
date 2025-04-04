@@ -36,6 +36,7 @@ const connectDB = async () => {
 };
 connectDB();
 
+//apis
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/companies", companyRoutes);
 app.use("/api/v1/jobs", jobRoutes);
