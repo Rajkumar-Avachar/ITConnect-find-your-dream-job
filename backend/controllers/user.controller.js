@@ -15,10 +15,25 @@ export const register = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
-        message: "User alreay exist with this email",
+        message: "Email already registered",
         success: false,
       });
     }
+    const registeredPhoneNumber = await User.findOne({ phoneNumber });
+    if (registeredPhoneNumber) {
+      return res.status(400).json({
+        message: "Phone number already registered!",
+        success: false,
+      });
+    }
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      return res.status(400).json({
+        message: "Phone number must be exactly 10 digits",
+        success: false,
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
@@ -48,7 +63,7 @@ export const login = async (req, res) => {
     const { email, password, role } = req.body;
     if (!email || !password || !role) {
       return res.status(400).json({
-        message: "Something is missing",
+        message: "Please fill all the details",
         success: false,
       });
     }
