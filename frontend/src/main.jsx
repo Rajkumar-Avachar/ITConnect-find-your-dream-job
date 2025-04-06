@@ -6,7 +6,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./index.css";
 import "./styles/colors.css";
-import "./styles/global.css";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 
