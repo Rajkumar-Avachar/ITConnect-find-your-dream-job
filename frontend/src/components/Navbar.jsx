@@ -2,15 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import LogoDevIcon from "@mui/icons-material/LogoDev";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-white px-sm-5 border-bottom">
+    <nav className="navbar navbar-expand-lg bg-white px-sm-5 border-bottom py-1">
       <div className="container-fluid px-xl-5">
         <Link className="navbar-brand fw-bold fs-2 me-5" to="/">
-
           <LogoDevIcon className="fs-1 mb-2" />
-          <span className="text-danger">Junction</span>
+          <span className="navy">Junction</span>
         </Link>
         <button
           className="navbar-toggler"
@@ -48,12 +48,10 @@ const Navbar = () => {
           </ul>
           <div className="text-center mt-4 mt-lg-0 d-flex flex-column flex-lg-row gap-2 gap-lg-3">
             <Link to="/login">
-              <button className="btn btn-outline-dark me-lg-3 w-100">
-                Login
-              </button>
+              <button className="btn text-light me-lg-3 w-100 nav-btn">Login</button>
             </Link>
             <Link to="signup">
-              <button className="btn btn-dark w-100">Signup</button>
+              <button className="btn text-light w-100 nav-btn">Signup</button>
             </Link>
           </div>
           <Avatar src="/broken-image.jpg" className="ms-5 d-none" />

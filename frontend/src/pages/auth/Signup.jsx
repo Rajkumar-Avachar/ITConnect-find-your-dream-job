@@ -4,6 +4,8 @@ import axios from "axios";
 import { USER_API } from "../../utils/apis";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../redux/authSlice";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -19,10 +21,13 @@ const Signup = () => {
   };
 
   const navigate = useNavigate();
+  const { loading } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API}/register`, input, {
         withCredentials: true,
       });
@@ -44,21 +49,24 @@ const Signup = () => {
         autoClose: 2000,
       });
       console.error(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className="container mt-5">
+    <div className="userbg py-5">
+    <div className="container">
       <div className="row mx-2">
         <form
           onSubmit={handleFormSubmit}
-          className="col-md-8 col-xl-5 mx-auto p-4 p-lg-5 rounded-4"
+          className="col-md-8 col-xl-5 mx-auto p-4 p-lg-5 rounded-4 text-center"
         >
-          <h1 className="mb-5 fw-bold text-center text-danger">Sign up</h1>
+          <h1 className="mb-5 fw-bold text-center text-light">Sign up</h1>
           <div className="form-floating mb-3">
             <input
               type="text"
-              className="form-control"
+              className="form-control bg-input"
               id="floatingName"
               placeholder="Full name"
               value={input.fullname}
@@ -70,7 +78,7 @@ const Signup = () => {
           <div className="form-floating mb-3">
             <input
               type="email"
-              className="form-control"
+              className="form-control bg-input"
               id="floatingEmail"
               placeholder="Email address"
               value={input.email}
@@ -82,7 +90,7 @@ const Signup = () => {
           <div className="form-floating mb-3">
             <input
               type="tel"
-              className="form-control"
+              className="form-control bg-input"
               id="floatingPhonenumber"
               maxLength={10}
               inputMode="numeric"
@@ -97,7 +105,7 @@ const Signup = () => {
           <div className="form-floating">
             <input
               type="password"
-              className="form-control"
+              className="form-control bg-input"
               id="floatingPassword"
               placeholder="Password"
               value={input.password}
@@ -117,7 +125,7 @@ const Signup = () => {
                 checked={input.role === "applicant"}
                 onChange={handleInputChange}
               />
-              <label className="form-check-label" htmlFor="radioDefault1">
+              <label className="form-check-label text-light" htmlFor="radioDefault1">
                 Applicant
               </label>
             </div>
@@ -131,20 +139,33 @@ const Signup = () => {
                 checked={input.role === "recruiter"}
                 onChange={handleInputChange}
               />
-              <label className="form-check-label" htmlFor="radioDefault2">
+              <label className="form-check-label text-light" htmlFor="radioDefault2">
                 Recruiter
               </label>
             </div>
           </div>
-          <button className="btn btn-dark  w-100 mt-4">Sign up</button>
-          <p className="text-center text-muted mt-5">
+          {loading ? (
+            <button className="btn btn-danger w-50 mt-4" disabled>
+              <span
+                className="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Please wait...
+            </button>
+          ) : (
+            <button className="btn btn-danger w-50 mt-4">Sign up</button>
+          )}
+          
+          <p className="text-center text-light mt-5">
             Already have any account?
-            <Link to="/login" className="text-decoration-none ms-1">
+            <Link to="/login" className="text-decoration-none ms-1 text-danger">
               Login
             </Link>
           </p>
         </form>
       </div>
+    </div>
     </div>
   );
 };

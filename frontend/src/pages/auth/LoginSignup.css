@@ -1,0 +1,19 @@
+/* body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #000814, #001d3d, #001233);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #ffffff;
+  } */
+
+.userbg {
+    background: radial-gradient( white,hsl(234, 82%, 18%),#050a30,#050a30,#050a30,#050a30);
+    height: 100vh;
+}
+
+form {
+  /* box-shadow: 1px 1px 10px white; */
+  border: 0.5px solid white;
+  background-color: #001233;
+}

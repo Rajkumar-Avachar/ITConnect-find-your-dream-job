@@ -4,6 +4,9 @@ import axios from "axios";
 import { USER_API } from "../../utils/apis";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../redux/authSlice";
+import "./LoginSignup.css";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -17,11 +20,14 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
+  const { loading } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API}/login`, input, {
         withCredentials: true,
       });
@@ -43,79 +49,106 @@ const Login = () => {
         autoClose: 2000,
       });
       console.error(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row mx-2">
-        <form
-          onSubmit={handleFormSubmit}
-          className="col-md-8 col-xl-5 mx-auto p-4 p-lg-5 rounded-4"
-        >
-          <h1 className="mb-5 fw-bold text-center text-danger">Log in</h1>
-          <div className="form-floating mb-3">
-            <input
-              type="email"
-              className="form-control"
-              id="floatingInput"
-              placeholder="Email address"
-              value={input.email}
-              name="email"
-              onChange={handleInputChange}
-            />
-            <label htmlFor="floatingInput">Email address</label>
-          </div>
-          <div className="form-floating">
-            <input
-              type="password"
-              className="form-control"
-              id="floatingPassword"
-              placeholder="Password"
-              value={input.password}
-              name="password"
-              onChange={handleInputChange}
-            />
-            <label htmlFor="floatingPassword">Password</label>
-          </div>
-          <div className="d-flex mt-4 flex-wrap">
-            <div className="form-check">
+    <div className="userbg py-5">
+      <div className="container">
+        <div className="row mx-2">
+          <form
+            onSubmit={handleFormSubmit}
+            className="col-md-8 col-xl-5 mx-auto p-4 p-lg-5 rounded-4 text-center"
+          >
+            <h1 className="mb-5 fw-bold text-center text-light">Log in</h1>
+            <div className="form-floating mb-3">
               <input
-                className="form-check-input border border-black"
-                type="radio"
-                name="role"
-                value="applicant"
-                id="radioDefault1"
-                checked={input.role === "applicant"}
+                type="email"
+                className="form-control bg-input"
+                id="floatingInput"
+                placeholder="Email address"
+                value={input.email}
+                name="email"
                 onChange={handleInputChange}
               />
-              <label className="form-check-label" htmlFor="radioDefault1">
-                Applicant
-              </label>
+              <label htmlFor="floatingInput">Email address</label>
             </div>
-            <div className="form-check ms-3">
+            <div className="form-floating">
               <input
-                className="form-check-input border border-black"
-                type="radio"
-                name="role"
-                value="recruiter"
-                id="radioDefault2"
-                checked={input.role === "recruiter"}
+                type="password"
+                className="form-control bg-input"
+                id="floatingPassword"
+                placeholder="Password"
+                value={input.password}
+                name="password"
                 onChange={handleInputChange}
               />
-              <label className="form-check-label" htmlFor="radioDefault2">
-                Recruiter
-              </label>
+              <label htmlFor="floatingPassword">Password</label>
             </div>
-          </div>
-          <button className="btn btn-dark  w-100 mt-4">Log in</button>
-          <p className="text-center text-muted mt-5">
-            Already have any account?
-            <Link to="/signup" className="text-decoration-none ms-1">
-              Signup
-            </Link>
-          </p>
-        </form>
+            <div className="d-flex mt-4 flex-wrap">
+              <div className="form-check">
+                <input
+                  className="form-check-input border border-black"
+                  type="radio"
+                  name="role"
+                  value="applicant"
+                  id="radioDefault1"
+                  checked={input.role === "applicant"}
+                  onChange={handleInputChange}
+                />
+                <label
+                  className="form-check-label text-light"
+                  htmlFor="radioDefault1"
+                >
+                  Applicant
+                </label>
+              </div>
+              <div className="form-check ms-3">
+                <input
+                  className="form-check-input border border-black "
+                  type="radio"
+                  name="role"
+                  value="recruiter"
+                  id="radioDefault2"
+                  checked={input.role === "recruiter"}
+                  onChange={handleInputChange}
+                />
+                <label
+                  className="form-check-label text-light"
+                  htmlFor="radioDefault2"
+                >
+                  Recruiter
+                </label>
+              </div>
+            </div>
+            {loading ? (
+              <button className="btn btn-danger w-50 mx-auto mt-4" disabled>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Please wait...
+              </button>
+            ) : (
+              <button className="btn btn-danger w-50 mx-auto mt-4">
+                Log in
+              </button>
+            )}
+
+            <p className="text-center mt-5 text-light">
+              Already have any account?
+              <Link
+                to="/signup"
+                className="text-decoration-none ms-1 text-danger"
+              >
+                Signup
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
