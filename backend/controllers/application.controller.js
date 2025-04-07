@@ -93,6 +93,7 @@ export const getApplicationsForRecruiter = async (req, res) => {
       createdBy: recruiterId,
     }).populate({
       path: "applications",
+      options: { sort: { createdAt: 1 } },
       populate: {
         path: "applicant",
         select: "fullname email",

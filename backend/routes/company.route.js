@@ -2,6 +2,7 @@ import express from "express";
 import {
   createCompany,
   getCompanies,
+  getAllCompanies,
   getCompanyById,
   updateCompany,
   deleteCompany,
@@ -11,7 +12,9 @@ const router = express.Router();
 
 router.route("/").post(isAuthenticated, isRecruiter, createCompany);
 
-router.route("/").get(isAuthenticated, getCompanies);
+router.route("/all-companies").get(isAuthenticated, getAllCompanies);
+
+router.route("/").get(isAuthenticated, isRecruiter, getCompanies);
 
 router.route("/:id").get(isAuthenticated, getCompanyById);
 

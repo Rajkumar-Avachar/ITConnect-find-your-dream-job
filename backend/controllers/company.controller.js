@@ -42,17 +42,41 @@ export const createCompany = async (req, res) => {
 };
 
 //Get all companies
+export const getAllCompanies = async (req, res) => {
+  try {
+    const companies = await Company.find({});
+    if (companies.length === 0) {
+      return res.status(404).json({
+        message: "Companies Not Found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      companies,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+};
+
+//Get companies created by recruiter
 export const getCompanies = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const companies = await Company.find({ createdBy: userId });
-    if (!companies) {
+    const companies = await Company.find({ createdBy: userId }).sort({
+      createdAt: -1,
+    });
+    if (companies.length === 0) {
       return res.status(404).json({
         message: "You have not created any Company yet",
-        success: true,
+        success: false,
       });
     }
-    console.log(companies);
     return res.status(200).json({
       companies,
       success: true,
