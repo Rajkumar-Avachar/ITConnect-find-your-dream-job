@@ -5,7 +5,7 @@ import LogoDevIcon from "@mui/icons-material/LogoDev";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-white px-sm-5 border-bottom py-1">
+    <nav className="navbar navbar-expand-lg bg-white px-sm-5 border-bottom py-1 sticky-top ">
       <div className="container-fluid px-xl-5">
         <Link className="navbar-brand fw-bold fs-2 me-5" to="/">
           <LogoDevIcon className="fs-1 mb-2" />
@@ -45,7 +45,7 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <div className="text-center mt-4 mt-lg-0 d-flex flex-column flex-lg-row gap-2 gap-lg-3">
+          <div className="text-center mt-4 mt-lg-0 d-flex flex-column flex-lg-row gap-2 gap-lg-3 pb-4 pb-lg-0">
             <Link to="/login">
               <button className="btn text-light me-lg-3 w-100 nav-btn">Login</button>
             </Link>

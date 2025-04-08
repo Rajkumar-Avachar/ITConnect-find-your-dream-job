@@ -7,7 +7,7 @@ const Error = () => {
         <span className="text-danger fs-1">404</span>
         <br /> Page Not Found!
       </h1> */}
-      <img src="public/404.jpg" alt="404 Page Not Found" />
+      <img src="public/images/404.jpg" alt="404 Page Not Found" />
     </div>
   );
 };

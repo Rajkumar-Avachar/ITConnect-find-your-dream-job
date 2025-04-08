@@ -2,14 +2,14 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="text-center p-5 bg-dark-blue">
+    <div className="text-center p-3 p-lg-5 bg-dark-blue heroDiv">
       <h1 className="fw-bold text-light pt-5">Find Your Dream Job Today</h1>
-      <p className="text-light fs-5">
+      <p className="text-light heroP">
         Discover thousands of job opportunities with all the information you
         need.
       </p>
-      <div className="categories col-7 mx-auto mt-3 bg-light p-4 mb-5 rounded-4">
-        <div className="d-flex gap-3 ">
+      <div className="categories col-12 col-xl-8 mx-auto mt-5 bg-light p-4 mb-5 rounded-4">
+        <div className="d-flex gap-3 flex-wrap flex-lg-nowrap">
           <div className="position-relative flex-grow-1">
             <i
               className="bi bi-search position-absolute top-50 start-0 ms-3 translate-middle-y text-muted"

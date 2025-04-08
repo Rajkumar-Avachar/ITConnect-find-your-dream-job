@@ -10,8 +10,6 @@ footer {
   margin-top: 20rem;
 }
 
-
-
 footer .row .col p + p {
   margin-bottom: 12px !important;
 }
@@ -20,3 +18,4 @@ body {
   margin: 0;
   padding: 0;
 }
+

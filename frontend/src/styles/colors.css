@@ -16,3 +16,9 @@
 .bg-input {
   background-color: rgb(241, 241, 241) !important;
 }
+
+.border-dark-blue {
+  border-color:navy !important;
+}
+
+

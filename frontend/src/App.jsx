@@ -9,10 +9,12 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Error from "./pages/error/Error";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
