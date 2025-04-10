@@ -5,7 +5,7 @@ import { USER_API } from "../../utils/apis";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoading } from "../../redux/authSlice";
+import { setLoading, setUser } from "../../redux/authSlice";
 import "./LoginSignup.css";
 
 const Login = () => {
@@ -32,6 +32,7 @@ const Login = () => {
         withCredentials: true,
       });
       if (res.data.success) {
+        dispatch(setUser(res.data.user));
         navigate("/");
         toast.success("Login successful!", {
           position: "bottom-right",

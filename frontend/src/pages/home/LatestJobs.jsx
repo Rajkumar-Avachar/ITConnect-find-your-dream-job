@@ -7,9 +7,9 @@ const LatestJobs = () => {
   return (
     <div className="container my-5 py-5">
       <div className="d-flex justify-content-between align-items-center">
-        <h3 className="dark-blue fw-bold my-5">Latest Job Openings</h3>
+        <h3 className="navy fw-bold my-5">Latest Job Openings</h3>
         {/* <button className="btn btn-outline-primary">View All Jobs</button> */}
-        <Link className="text-decoration-none navy d-none d-sm-block">
+        <Link className="text-decoration-none navy d-none d-sm-block fw-bold">
           View All Jobs →
         </Link>
       </div>
@@ -21,7 +21,7 @@ const LatestJobs = () => {
         ))}
       </div>
       <div className=" text-center mt-5">
-        <Link className="text-decoration-none navy fw-bold">View All Jobs →</Link>
+        <Link className="text-decoration-none navy fw-bold d-sm-none">View All Jobs →</Link>
       </div>
     </div>
   );

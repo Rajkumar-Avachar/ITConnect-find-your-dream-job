@@ -1,0 +1,33 @@
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 1055;
+    transition: left 0.3s ease-in-out;
+  }
+  
+  .mobile-drawer.show {
+    left: 0;
+  }
+  
+  .drawer-header {
+    background-color: #fff;
+    height: 3.5rem;
+  }
+  
+  .drawer-body {
+    overflow-y: auto;
+    height: calc(100% - 60px);
+  }
+  
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1050;
+  }
+  
