@@ -23,6 +23,16 @@ const Popover = () => {
         <li>
           <Link
             className="dropdown-item d-flex align-items-center gap-2"
+            to="/profile"
+            onClick={closeNavbar}
+          >
+            <i class="bi bi-person"></i>
+            Profile
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="dropdown-item d-flex align-items-center gap-2"
             to="/dashboard"
             onClick={closeNavbar}
           >

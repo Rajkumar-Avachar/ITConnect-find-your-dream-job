@@ -5,15 +5,20 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import "./Footer.css";
 
 const Footer = () => {
   return (
     <footer className="p-4 bg-dark-blue text-light">
       <div className="row ms-lg-5 ps-lg-5 gx-5">
         <div className="col-12 col-md-3">
-          <Link className="navbar-brand fw-bold text-light fs-2 me-5 mb-5" to="/">
+          <Link
+            className="navbar-brand fw-bold text-light fs-2 me-5 mb-5"
+            to="/"
+          >
             {/* <LogoDevIcon className="fs-1 mb-1" /> */}
-            <span className="text-danger">Dev</span><span className="text-light">Junction</span>
+            <span className="text-danger">Dev</span>
+            <span className="text-light">Junction</span>
           </Link>
           <p className="mt-2">
             Your destination for discovering career opportunities and connecting

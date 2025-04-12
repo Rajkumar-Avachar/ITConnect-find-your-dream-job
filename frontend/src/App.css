@@ -2,20 +2,9 @@
   font-size: 1.1rem;
 }
 .fs-8 {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
-.nav-btn {
-  background-color: #050a30 !important;
-}
-
-footer {
-  margin-top: 20rem;
-}
-
-footer .row .col p + p {
-  margin-bottom: 12px !important;
-}
 
 body {
   margin: 0;

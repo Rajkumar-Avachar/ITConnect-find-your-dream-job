@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
     },
     isVerified: { type: Boolean, default: false },
     profile: {
-      bio: { type: String, maxlength: 500, default: "" },
+      about: { type: String, maxlength: 500, default: "" },
       skills: { type: [String], default: [] },
       resume: { type: String, default: "" },
       resumeOriginalName: { type: String, default: "" },
@@ -80,17 +80,5 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-// // **Hash Password Before Saving**
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) return next();
-//   this.password = await bcrypt.hash(this.password, 10);
-//   next();
-// });
-
-// // **Compare Password for Login**
-// userSchema.methods.comparePassword = async function (enteredPassword) {
-//   return await bcrypt.compare(enteredPassword, this.password);
-// };
 
 export const User = mongoose.model("User", userSchema);

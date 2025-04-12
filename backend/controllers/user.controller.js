@@ -146,10 +146,10 @@ export const logout = async (req, res) => {
 //Update Profile
 export const updateProfile = async (req, res) => {
   try {
-    const { fullname, email, phoneNumber, bio, skills } = req.body;
+    const { fullname, email, phoneNumber, about, skills } = req.body;
     const file = req.file;
 
-    // if (!fullname || !email || !phoneNumber || !bio || !skills) {
+    // if (!fullname || !email || !phoneNumber || !about || !skills) {
     //   return res.status(400).json({
     //     message: "Something is missing",
     //     success: false,
@@ -182,7 +182,7 @@ export const updateProfile = async (req, res) => {
     // user.fullname = fullname;
     // user.email = email;
     // user.phoneNumber = phoneNumber;
-    // user.profile.bio = bio;
+    // user.profile.about = about;
     // user.profile.skills = skillsArray;
     //resume
 
@@ -190,7 +190,7 @@ export const updateProfile = async (req, res) => {
     //   fullname,
     //   email,
     //   phoneNumber,
-    //   "profile.bio": bio,
+    //   "profile.about": about,
     //   "profile.skills": skills.split(","),
     // };
 
@@ -198,7 +198,7 @@ export const updateProfile = async (req, res) => {
     if (fullname) updatedFields.fullname = fullname;
     if (email) updatedFields.email = email;
     if (phoneNumber) updatedFields.phoneNumber = phoneNumber;
-    if (bio) updatedFields["profile.bio"] = bio;
+    if (about) updatedFields["profile.about"] = about;
     if (skills) updatedFields["profile.skills"] = skills.split(",");
 
     const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {

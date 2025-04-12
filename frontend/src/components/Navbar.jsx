@@ -87,7 +87,7 @@ const Navbar = () => {
 
       {/* Mobile Drawer */}
       <div className={`mobile-drawer ${mobileDrawerOpen ? "show" : ""}`}>
-        {user ? (
+        {!user ? (
           <div className="account p-4 border-bottom">
             <img
               src="images/codingBoy.webp"
@@ -120,6 +120,11 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link " to="/" onClick={closeMobileDrawer}>
                 <AiFillHome className="fs-5 mb-1 me-2" /> Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link " to="/dashboard" onClick={closeMobileDrawer}>
+              <i class="bi bi-grid-fill me-2 fs-7"></i> Dashboard
               </Link>
             </li>
             <li className="nav-item">

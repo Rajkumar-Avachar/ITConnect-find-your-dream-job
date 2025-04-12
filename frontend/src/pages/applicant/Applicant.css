@@ -1,0 +1,9 @@
+/* In your main CSS file */
+@media (min-width: 576px) {
+  .border-sm {
+    border: 1px solid #dee2e6; /* Default Bootstrap border color */
+  }
+  .shadow-small {
+    box-shadow: 0.1px 0.1px 50px rgb(227, 227, 227) !important;
+  }
+}
