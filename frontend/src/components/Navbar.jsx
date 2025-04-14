@@ -7,6 +7,7 @@ import { TiHomeOutline } from "react-icons/ti";
 import { AiFillHome } from "react-icons/ai";
 import { BsBuildingsFill } from "react-icons/bs";
 import { IoLogOut } from "react-icons/io5";
+import LanguageIcon from "@mui/icons-material/Language";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -23,8 +24,12 @@ const Navbar = () => {
             to="/"
             onClick={closeMobileDrawer}
           >
-            <span className="text-danger">Dev</span>
-            <span className="navy">Junction</span>
+            <span className="text-danger">IT</span>
+            <span className="navy">
+              C
+              <LanguageIcon style={{ fontSize: "2rem", marginBottom: "5px" }} />
+              NNECT
+            </span>
           </Link>
 
           {/* Hamburger toggle */}
@@ -88,20 +93,28 @@ const Navbar = () => {
       {/* Mobile Drawer */}
       <div className={`mobile-drawer ${mobileDrawerOpen ? "show" : ""}`}>
         {!user ? (
-          <div className="account p-4 border-bottom">
-            <img
-              src="images/codingBoy.webp"
-              alt="Avatar"
-              className="rounded-circle"
-              width="70"
-              height="70"
-              data-bs-toggle="dropdown"
-              style={{ cursor: "pointer" }}
-            />
-            <p className="fw-bold fs-5 navy mt-3 mb-1">Rajkumar Avachar</p>
-            <p className="fs-8 mb-2">Full Stack Web Developer</p>
-            <p className="text-muted fs-8 mb-0">Jalgaon, Maharashtra, India</p>
-          </div>
+          <Link
+            className="text-decoration-none"
+            to="/profile"
+            onClick={closeMobileDrawer}
+          >
+            <div className="account p-4 border-bottom">
+              <img
+                src="images/codingBoy.webp"
+                alt="Avatar"
+                className="rounded-circle"
+                width="70"
+                height="70"
+                data-bs-toggle="dropdown"
+                style={{ cursor: "pointer" }}
+              />
+              <p className="fw-bold fs-5 navy mt-3 mb-1">Rajkumar Avachar</p>
+              <p className="fs-8 mb-2 text-muted">Full Stack Web Developer</p>
+              <p className="text-muted fs-8 mb-0">
+                Jalgaon, Maharashtra, India
+              </p>
+            </div>
+          </Link>
         ) : (
           <div className="border p-4 text-center">
             <Link
@@ -123,8 +136,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link " to="/dashboard" onClick={closeMobileDrawer}>
-              <i class="bi bi-grid-fill me-2 fs-7"></i> Dashboard
+              <Link
+                className="nav-link "
+                to="/dashboard"
+                onClick={closeMobileDrawer}
+              >
+                <i class="bi bi-grid-fill me-2 fs-7"></i> Dashboard
               </Link>
             </li>
             <li className="nav-item">

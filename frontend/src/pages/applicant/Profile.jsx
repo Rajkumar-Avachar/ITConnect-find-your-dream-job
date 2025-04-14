@@ -101,9 +101,10 @@ const Profile = () => {
             <p className="fs-4 fw-bold mb-4 dark-blue">Skills</p>
             <div className="d-flex flex-wrap gap-3">
               {skills.map((item, index) => (
-                <span className="px-3 py-1 bg-input rounded-4 border fs-8">
-                  {item}
-                </span>
+                // <span className="px-3 py-1 bg-input rounded-4 border fs-8">
+                //   {item}
+                // </span>
+                <span class="badge rounded-pill text-bg-dark">{item}</span>
               ))}
             </div>
           </div>
@@ -131,7 +132,9 @@ const Profile = () => {
                       <i class="bi bi-calendar me-2"></i>Jan 2025 - Jun 2025
                     </p>
                   </div>
-                  <p className="mb-0 text-muted fs-8">Pune, Maharashtra, India</p>
+                  <p className="mb-0 text-muted fs-8">
+                    Pune, Maharashtra, India
+                  </p>
                   <p className="mb-0 mt-3 fs-8">
                     Built interactive websites and web applications using HTML,
                     CSS, and JavaScript. Created responsive layouts and
@@ -161,7 +164,9 @@ const Profile = () => {
                     GF's Godavari College of Engineering
                   </p>
                   <div className="d-flex justify-content-between flex-wrap">
-                    <p className="mb-0 me-5 fs-8">B.Tech - Computer Engineering</p>
+                    <p className="mb-0 me-5 fs-8">
+                      B.Tech - Computer Engineering
+                    </p>
                     <p className="mb-0 text-muted fs-8">
                       <i class="bi bi-calendar me-2"></i>Sep 2023 - Jun 2026
                     </p>

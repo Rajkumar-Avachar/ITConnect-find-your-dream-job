@@ -2,8 +2,10 @@ import React from "react";
 import LatestJobCard from "./LatestJobCard";
 import { Link } from "react-router-dom";
 
+
 const array = ["raj", "akshay", "rahul", "raju", "gaurav", "anuj"];
 const LatestJobs = () => {
+  
   return (
     <div className="container my-5 py-5">
       <div className="d-flex justify-content-between align-items-center">

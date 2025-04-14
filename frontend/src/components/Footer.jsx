@@ -6,6 +6,7 @@ import XIcon from "@mui/icons-material/X";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import "./Footer.css";
+import LanguageIcon from "@mui/icons-material/Language";
 
 const Footer = () => {
   return (
@@ -17,8 +18,12 @@ const Footer = () => {
             to="/"
           >
             {/* <LogoDevIcon className="fs-1 mb-1" /> */}
-            <span className="text-danger">Dev</span>
-            <span className="text-light">Junction</span>
+            <span className="text-danger">IT</span>
+            <span>
+              C
+              <LanguageIcon style={{ fontSize: "2rem", marginBottom: "5px" }} />
+              NNECT
+            </span>
           </Link>
           <p className="mt-2">
             Your destination for discovering career opportunities and connecting
@@ -65,7 +70,7 @@ const Footer = () => {
       </div>
 
       <p className="text-center mt-4">
-        &copy; 2025 DevJunction. All rights reserved.
+        &copy; 2025 ITConnect. All rights reserved.
       </p>
     </footer>
   );
