@@ -1,10 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-
-// const validateURL = (url) => {
-//   const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)\S*$/;
-//   return urlRegex.test(url);
-// };
 
 const userSchema = new mongoose.Schema(
   {

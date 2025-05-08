@@ -12,20 +12,21 @@ import ScrollToTop from "./utils/ScrollToTop";
 import Dashboard from "./pages/applicant/Dashboard";
 import Profile from "./pages/applicant/Profile";
 import UpdateProfile from "./pages/applicant/UpdateProfile";
-import JobsPage from "./pages/jobs/JobsPage";
+import JobsPage from "./pages/jobs/JobsPage/JobsPage";
 import Companies from "./pages/companies/Companies";
-
+import JobDetailsPage from "./pages/jobs/JobDetailsPage/JobDetailsPage";
 
 function App() {
   return (
     <Router>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/job/:id" element={<JobDetailsPage />} />
         <Route path="/companies" element={<Companies />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/update-profile" element={<UpdateProfile />} />

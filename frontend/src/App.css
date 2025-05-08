@@ -1,13 +1,15 @@
 .fs-7 {
-  font-size: 1.1rem;
+  font-size: 1.1rem !important;
 }
 .fs-8 {
-  font-size: 0.95rem;
+  font-size: 0.95rem !important;
 }
-
 
 body {
   margin: 0;
   padding: 0;
 }
 
+.hover-effect:hover {
+  color: navy !important;
+}

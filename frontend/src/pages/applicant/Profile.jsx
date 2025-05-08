@@ -31,7 +31,7 @@ const Profile = () => {
       <div className="shadow-small d-flex align-items-center gap-2 mb-sm-5 flex-wrap p-2 p-sm-4 rounded-4 profile">
         <div className="me-4">
           <img
-            src="images/codingBoy.webp"
+            src="/images/codingBoy.webp"
             alt="Profile-Photo"
             width={150}
             className="rounded-circle"
