@@ -49,7 +49,6 @@ const Login = () => {
         position: "bottom-right",
         autoClose: 2000,
       });
-      console.error(error);
     } finally {
       dispatch(setLoading(false));
     }

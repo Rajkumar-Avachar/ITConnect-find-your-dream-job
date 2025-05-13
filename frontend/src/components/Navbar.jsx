@@ -92,7 +92,7 @@ const Navbar = () => {
 
       {/* Mobile Drawer */}
       <div className={`mobile-drawer ${mobileDrawerOpen ? "show" : ""}`}>
-        {!user ? (
+        {user ? (
           <Link
             className="text-decoration-none"
             to="/profile"

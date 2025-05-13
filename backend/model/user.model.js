@@ -31,7 +31,12 @@ const userSchema = new mongoose.Schema(
     },
     isVerified: { type: Boolean, default: false },
     profile: {
-      about: { type: String, maxlength: 500, default: "" },
+      headline: { type: String, default: "" },
+      about: { type: String, maxlength: 2000, default: "" },
+      gender: {
+        type: String,
+        enum: ["Male", "Female", "Other"],
+      },
       skills: { type: [String], default: [] },
       resume: { type: String, default: "" },
       resumeOriginalName: { type: String, default: "" },

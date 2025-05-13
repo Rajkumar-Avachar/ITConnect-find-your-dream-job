@@ -10,8 +10,7 @@ import Footer from "./components/Footer";
 import Error from "./pages/error/Error";
 import ScrollToTop from "./utils/ScrollToTop";
 import Dashboard from "./pages/applicant/Dashboard";
-import Profile from "./pages/applicant/Profile";
-import UpdateProfile from "./pages/applicant/UpdateProfile";
+import ProfilePage from "./pages/applicant/ProfilePage";
 import JobsPage from "./pages/jobs/JobsPage/JobsPage";
 import Companies from "./pages/companies/Companies";
 import JobDetailsPage from "./pages/jobs/JobDetailsPage/JobDetailsPage";
@@ -28,16 +27,9 @@ function App() {
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/job/:id" element={<JobDetailsPage />} />
         <Route path="/companies" element={<Companies />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/update-profile" element={<UpdateProfile />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/*" element={<Error />} />
-
-        {/* Dashboard Nested Routes
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route path="profile" element={<Profile />} />
-          <Route path="settings" element={<Settings />} />
-        </Route> */}
       </Routes>
       <ToastContainer />
       <Footer />

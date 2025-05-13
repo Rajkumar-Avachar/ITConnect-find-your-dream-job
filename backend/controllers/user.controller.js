@@ -146,26 +146,46 @@ export const logout = async (req, res) => {
 //Update Profile
 export const updateProfile = async (req, res) => {
   try {
-    const { fullname, email, phoneNumber, about, skills } = req.body;
-    const file = req.file;
-
-    // if (!fullname || !email || !phoneNumber || !about || !skills) {
-    //   return res.status(400).json({
-    //     message: "Something is missing",
-    //     success: false,
-    //   });
-    // }
-
-    if (!Object.keys(req.body).length) {
+    const { data } = req.body;
+    if (!Object.keys(data).length) {
       return res.status(400).json({
         message: "At least one field is required to update the profile",
         success: false,
       });
     }
 
-    //cloudinary will come here
+    const {
+      fullname,
+      headline,
+      location,
+      gender,
+      email,
+      phoneNumber,
+      about,
+      skills,
+    } = data;
 
-    // const skillsArray = skills.split(",");
+    // Only validate fullname if it is being updated
+    if (fullname !== undefined && !fullname.trim()) {
+      return res.status(400).json({
+        message: "Full Name is required",
+        success: false,
+      });
+    }
+    // Only validate email if it is being updated
+    if (email !== undefined && !email.trim()) {
+      return res.status(400).json({
+        message: "Email is required",
+        success: false,
+      });
+    }
+    // Only validate phoneNumber if it is being updated
+    if (phoneNumber !== undefined && !phoneNumber.toString().trim()) {
+      return res.status(400).json({
+        message: "Phone number is required",
+        success: false,
+      });
+    }
 
     const userId = req.user.userId;
     let user = await User.findById(userId);
@@ -177,35 +197,30 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    //updating profile data
-
-    // user.fullname = fullname;
-    // user.email = email;
-    // user.phoneNumber = phoneNumber;
-    // user.profile.about = about;
-    // user.profile.skills = skillsArray;
-    //resume
-
-    // const updatedFields = {
-    //   fullname,
-    //   email,
-    //   phoneNumber,
-    //   "profile.about": about,
-    //   "profile.skills": skills.split(","),
-    // };
-
     const updatedFields = {};
-    if (fullname) updatedFields.fullname = fullname;
-    if (email) updatedFields.email = email;
-    if (phoneNumber) updatedFields.phoneNumber = phoneNumber;
-    if (about) updatedFields["profile.about"] = about;
-    if (skills) updatedFields["profile.skills"] = skills.split(",");
+
+    updatedFields.fullname = fullname;
+
+    if (headline !== undefined) updatedFields["profile.headline"] = headline;
+
+    if (location !== undefined) updatedFields["profile.location"] = location;
+
+    if (gender !== undefined && gender !== "")
+      updatedFields["profile.gender"] = gender;
+
+    updatedFields.email = email;
+
+    updatedFields.phoneNumber = phoneNumber;
+
+    if (about !== undefined) updatedFields["profile.about"] = about;
+
+    if (skills !== undefined && skills.trim() !== "")
+      updatedFields["profile.skills"] = skills.split(",");
 
     const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
       new: true,
       runValidators: true,
     });
-
     if (!updatedUser) {
       return res.status(404).json({
         message: "User not found",
@@ -226,3 +241,89 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
+
+
+
+// //Update Profile
+// export const updateProfile = async (req, res) => {
+//   try {
+//     const { fullname, email, phoneNumber, bio, skills } = req.body;
+//     const file = req.file;
+
+//     // if (!fullname || !email || !phoneNumber || !bio || !skills) {
+//     //   return res.status(400).json({
+//     //     message: "Something is missing",
+//     //     success: false,
+//     //   });
+//     // }
+
+//     if (!Object.keys(req.body).length) {
+//       return res.status(400).json({
+//         message: "At least one field is required to update the profile",
+//         success: false,
+//       });
+//     }
+
+//     //cloudinary will come here
+
+//     // const skillsArray = skills.split(",");
+
+//     const userId = req.user.userId;
+//     let user = await User.findById(userId);
+
+//     if (!user) {
+//       return res.status(400).json({
+//         message: "Please login to update profile",
+//         success: false,
+//       });
+//     }
+
+//     //updating profile data
+
+//     // user.fullname = fullname;
+//     // user.email = email;
+//     // user.phoneNumber = phoneNumber;
+//     // user.profile.bio = bio;
+//     // user.profile.skills = skillsArray;
+//     //resume
+
+//     // const updatedFields = {
+//     //   fullname,
+//     //   email,
+//     //   phoneNumber,
+//     //   "profile.bio": bio,
+//     //   "profile.skills": skills.split(","),
+//     // };
+
+//     const updatedFields = {};
+//     if (fullname) updatedFields.fullname = fullname;
+//     if (email) updatedFields.email = email;
+//     if (phoneNumber) updatedFields.phoneNumber = phoneNumber;
+//     if (bio) updatedFields["profile.bio"] = bio;
+//     if (skills) updatedFields["profile.skills"] = skills.split(",");
+
+//     const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
+//       new: true,
+//       runValidators: true,
+//     });
+
+//     if (!updatedUser) {
+//       return res.status(404).json({
+//         message: "User not found",
+//         success: false,
+//       });
+//     }
+
+//     return res.status(200).json({
+//       message: "Profile updated successfully",
+//       user: updatedUser,
+//       success: true,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       message: "Internal Server Error",
+//       success: false,
+//     });
+//   }
+// };

@@ -15,7 +15,9 @@ const AboutCompanyCard = () => {
         computing, computer software, quantum computing, e-commerce, consumer
         electronics, and artificial intelligence.
       </p>
-      <button className="btn border w-100">View Company Profile</button>
+      <div className="text-center">
+        <button className="btn border w-25">View Company Profile</button>
+      </div>
     </div>
   );
 };
