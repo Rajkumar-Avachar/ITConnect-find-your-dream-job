@@ -220,8 +220,12 @@ export const updateProfile = async (req, res) => {
     if (github !== undefined) updatedFields["profile.github"] = github;
     if (linkedin !== undefined) updatedFields["profile.linkedin"] = linkedin;
 
-    if (skills !== undefined && skills.trim() !== "")
-      updatedFields["profile.skills"] = skills.split(",");
+    if (skills !== undefined) {
+      updatedFields["profile.skills"] =
+        skills.trim() === ""
+          ? []
+          : skills.split(",").map((skill) => skill.trim());
+    }
 
     const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
       new: true,

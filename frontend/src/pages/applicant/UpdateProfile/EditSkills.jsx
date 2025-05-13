@@ -5,12 +5,11 @@ import axios from "axios";
 import { setUser } from "../../../redux/authSlice";
 import { toast } from "react-toastify";
 
-const EditAbout = ({ editAbout, setEditAbout }) => {
+const EditSkills = ({ editSkills, setEditSkills }) => {
   const handleClose = () => setEditAbout(false);
-
   const { user } = useSelector((store) => store.auth);
   const [input, setInput] = useState({
-    about: user?.profile?.about || "",
+    skills: user?.profile?.skills || [],
   });
   const dispatch = useDispatch();
 
@@ -38,49 +37,39 @@ const EditAbout = ({ editAbout, setEditAbout }) => {
       );
       if (res.data.success) {
         dispatch(setUser(res.data.user));
-        toast.success("About Updated successfully", {
+        toast.success("Skills Updated successfully", {
           position: "bottom-right",
           autoClose: 2000,
         });
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to Update About.", {
+      toast.error(error.response?.data?.message || "Failed to Update Skills.", {
         position: "bottom-right",
         autoClose: 2000,
       });
     }
-    setEditAbout(false);
+    setEditSkills(false);
   };
-
   return (
     <>
-      <p className="fs-4 fw-bold dark-blue">Edit About</p>
+      <p className="fs-4 fw-bold dark-blue">Edit Skills</p>
 
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">
-          Professional Summary
-        </label>
+      <div className="mb-3">
         <textarea
-          class="form-control border-2"
+          className="form-control"
           id="exampleFormControlTextarea1"
-          name="about"
-          rows="4"
-          value={input.about}
+          rows="3"
+          value={input.skills}
+          name="skills"
           onChange={handleInputChange}
         ></textarea>
-        <div className="d-flex gap-3 justify-content-end my-3">
-          <button className="btn btn-light border d-flex" onClick={handleClose}>
-            <i class="bi bi-x-lg me-2"></i>
-            Cancel
-          </button>
-          <button className="btn btn-primary" onClick={handleSubmit}>
-            <i class="bi bi-floppy fs-8 me-2"></i>
-            Save
-          </button>
-        </div>
       </div>
+
+      <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+        Save Changes
+      </button>
     </>
   );
 };
 
-export default EditAbout;
+export default EditSkills;

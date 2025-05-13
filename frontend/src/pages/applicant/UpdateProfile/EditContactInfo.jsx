@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { USER_API } from "../../../utils/apis";
 import axios from "axios";
@@ -132,14 +131,14 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
         </div>
 
         <div className="d-flex gap-3 justify-content-end my-3">
-          <Button className="btn btn-light border d-flex" onClick={handleClose}>
+          <button className="btn btn-light border d-flex" onClick={handleClose}>
             <i class="bi bi-x-lg me-2"></i>
             Cancel
-          </Button>
-          <Button type="submit">
+          </button>
+          <button type="submit" className="btn btn-primary">
             <i class="bi bi-floppy fs-8 me-2"></i>
             Save
-          </Button>
+          </button>
         </div>
       </form>
     </>
