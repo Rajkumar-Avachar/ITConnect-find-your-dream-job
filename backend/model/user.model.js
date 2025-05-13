@@ -39,7 +39,6 @@ const userSchema = new mongoose.Schema(
       },
       skills: { type: [String], default: [] },
       resume: { type: String, default: "" },
-      resumeOriginalName: { type: String, default: "" },
       profilePhoto: { type: String, default: "" },
       experienceLevel: {
         type: String,

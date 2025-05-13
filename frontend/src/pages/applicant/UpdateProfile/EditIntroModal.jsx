@@ -73,7 +73,7 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
         <Modal.Body>
           <Form className="bg-light" onSubmit={handleFormSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Full Name</Form.Label>
+              <Form.Label>Full Name *</Form.Label>
               <Form.Control
                 type="text"
                 name="fullname"
