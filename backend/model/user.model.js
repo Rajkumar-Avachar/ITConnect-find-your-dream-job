@@ -47,16 +47,18 @@ const userSchema = new mongoose.Schema(
         default: "fresher",
       },
       location: { type: String, default: "" },
-      // github: {
-      //   type: String,
-      //   default: "",
-      //   validate: { validator: validateURL, message: "Invalid GitHub URL" },
-      // },
-      // portfolio: {
-      //   type: String,
-      //   default: "",
-      //   validate: { validator: validateURL, message: "Invalid Portfolio URL" },
-      // },
+      github: {
+        type: String,
+        default: "",
+      },
+      portfolio: {
+        type: String,
+        default: "",
+      },
+      linkedin: {
+        type: String,
+        default: "",
+      },
     },
 
     //For Recruiters
@@ -71,11 +73,6 @@ const userSchema = new mongoose.Schema(
     //   validate: { validator: validateURL, message: "Invalid website URL" },
     // },
     position: { type: String, default: "" },
-    // linkedin: {
-    //   type: String,
-    //   default: "",
-    //   validate: { validator: validateURL, message: "Invalid LinkedIn URL" },
-    // },
   },
   { timestamps: true }
 );

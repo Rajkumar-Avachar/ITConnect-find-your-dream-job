@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import EditIntroModal from "./UpdateProfile/EditIntroModal";
 import { useSelector } from "react-redux";
-import EditContactInfoModal from "./UpdateProfile/EditContactInfoModal";
 import EditAbout from "./UpdateProfile/EditAbout";
+import EditContactInfo from "./UpdateProfile/EditContactInfo";
 
 const skills = [
   "HTML",
@@ -27,6 +27,7 @@ const education = [1, 2];
 const ProfilePage = () => {
   const [showIntroModal, setShowIntroModal] = useState(false);
   const [editAbout, setEditAbout] = useState(false);
+  const [editContactInfo, setEditContactInfo] = useState(false);
 
   const { user } = useSelector((store) => store.auth);
   return (
@@ -70,50 +71,86 @@ const ProfilePage = () => {
       <div className="row gap-4 mx-1 mainDiv">
         {/* contact info */}
         <div className="shadow-small p-2 p-sm-4 rounded-4 col-12 col-lg-3 h-100">
-          <p className="fs-4 fw-bold dark-blue mb-4">Contact Information</p>
-          <p className="mb-1 text-muted fs-8">
-            <i className="bi bi-telephone me-2"></i> Phone
-          </p>
-          <p className="ms-4 fs-8">+91 9322148848</p>
-          <p className="mb-1 text-muted fs-8">
-            <i className="bi bi-envelope me-2"></i> Email
-          </p>
-          <p className="ms-4 fs-8">rajavachar59@gmail.com</p>
-          {/* <p className="mb-1 text-muted fs-8">
-            <i className="bi bi-github me-2"></i> Github
-          </p>
-          <Link to="https://github.com/Rajkumar-Avachar" className="ms-4 fs-8">
-            @Rajkumar-Avachar
-          </Link>
-          <p className="my-2 text-muted fs-8">
-            <i class="bi bi-linkedin me-2"></i> Linkedin
-          </p>
-          <Link to="https://www.linkedin.com/in/rajkumar-avachar/" className="ms-4 fs-8">
-            @Rajkumar-Avachar
-          </Link> */}
-          <p className="mb-3 text-muted fs-8">
-            <i className="bi bi-github me-2"></i>{" "}
-            <Link
-              to="https://github.com/Rajkumar-Avachar"
-              className="fs-8"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @Rajkumar-Avachar
-            </Link>
-          </p>
+          {editContactInfo ? (
+            <EditContactInfo
+              editContactInfo={editContactInfo}
+              setEditContactInfo={setEditContactInfo}
+            />
+          ) : (
+            <>
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <p className="fs-4 fw-bold dark-blue mb-0">
+                  Contact Info
+                </p>
+                <button
+                  className="btn"
+                  onClick={() => setEditContactInfo(true)}
+                >
+                  <EditOutlinedIcon />
+                </button>
+              </div>
 
-          <p className="text-muted fs-8">
-            <i class="bi bi-linkedin me-2"></i>{" "}
-            <Link
-              to="https://www.linkedin.com/in/rajkumar-avachar/"
-              className="fs-8"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              in/rajkumar-avachar
-            </Link>
-          </p>
+              {/* Phone */}
+              <div className="mb-3 fs-8 text-muted">
+                <i className="bi bi-telephone me-2"></i>Phone
+                <p className="ms-4 mb-0 text-dark">{user?.phoneNumber}</p>
+              </div>
+
+              {/* Email */}
+              <div className="mb-3 fs-8 text-muted">
+                <i className="bi bi-envelope me-2"></i>Email
+                <p className="ms-4 mb-0 text-dark">{user?.email}</p>
+              </div>
+
+              {/* Portfolio */}
+              {user?.profile?.portfolio && (
+                <div className="mb-3 fs-8 text-muted">
+                  <i className="bi bi-person-video2 me-2"></i>Portfolio
+                  <a
+                    href={user?.profile?.portfolio}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ms-4 d-block"
+                  >
+                    {user?.profile?.portfolio?.replace("https://", "")}
+                  </a>
+                </div>
+              )}
+
+              {/* GitHub */}
+              {user?.profile?.github && (
+                <div className="mb-3 fs-8 text-muted">
+                  <i className="bi bi-github me-2"></i>GitHub
+                  <a
+                    href={user?.profile?.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ms-4 d-block"
+                  >
+                    {user?.profile?.github?.replace("https://github.com/", "@")}
+                  </a>
+                </div>
+              )}
+
+              {/* LinkedIn */}
+              {user?.profile?.linkedin && (
+                <div className="fs-8 text-muted">
+                  <i className="bi bi-linkedin me-2"></i>LinkedIn
+                  <a
+                    href={user?.profile?.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ms-4 d-block"
+                  >
+                    {user?.profile?.linkedin?.replace(
+                      "https://www.linkedin.com/in/",
+                      "in/"
+                    )}
+                  </a>
+                </div>
+              )}
+            </>
+          )}
         </div>
 
         <hr className="bg-dark d-sm-none" style={{ height: "7px" }} />
@@ -229,8 +266,6 @@ const ProfilePage = () => {
         showIntroModal={showIntroModal}
         setShowIntroModal={setShowIntroModal}
       />
-      {/* <EditContactInfoModal show={show} setShow={setShow} /> */}
-     
     </div>
   );
 };

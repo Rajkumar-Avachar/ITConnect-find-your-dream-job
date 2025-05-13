@@ -163,23 +163,25 @@ export const updateProfile = async (req, res) => {
       phoneNumber,
       about,
       skills,
+      portfolio,
+      github,
+      linkedin,
     } = data;
 
-    // Only validate fullname if it is being updated
     if (fullname !== undefined && !fullname.trim()) {
       return res.status(400).json({
         message: "Full Name is required",
         success: false,
       });
     }
-    // Only validate email if it is being updated
+
     if (email !== undefined && !email.trim()) {
       return res.status(400).json({
         message: "Email is required",
         success: false,
       });
     }
-    // Only validate phoneNumber if it is being updated
+
     if (phoneNumber !== undefined && !phoneNumber.toString().trim()) {
       return res.status(400).json({
         message: "Phone number is required",
@@ -214,6 +216,10 @@ export const updateProfile = async (req, res) => {
 
     if (about !== undefined) updatedFields["profile.about"] = about;
 
+    if (portfolio !== undefined) updatedFields["profile.portfolio"] = portfolio;
+    if (github !== undefined) updatedFields["profile.github"] = github;
+    if (linkedin !== undefined) updatedFields["profile.linkedin"] = linkedin;
+
     if (skills !== undefined && skills.trim() !== "")
       updatedFields["profile.skills"] = skills.split(",");
 
@@ -241,8 +247,6 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
-
-
 
 // //Update Profile
 // export const updateProfile = async (req, res) => {

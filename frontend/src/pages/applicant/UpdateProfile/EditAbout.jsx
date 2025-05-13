@@ -54,38 +54,33 @@ const EditAbout = ({ editAbout, setEditAbout }) => {
   };
 
   return (
-    editAbout && (
-      <>
-        <p className="fs-4 fw-bold dark-blue">Edit About</p>
+    <>
+      <p className="fs-4 fw-bold dark-blue">Edit About</p>
 
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">
-            Professional Summary
-          </label>
-          <textarea
-            class="form-control"
-            id="exampleFormControlTextarea1"
-            name="about"
-            rows="4"
-            value={input.about}
-            onChange={handleInputChange}
-          ></textarea>
-          <div className="d-flex gap-3 justify-content-end my-3">
-            <Button
-              className="btn btn-light border d-flex"
-              onClick={handleClose}
-            >
-              <i class="bi bi-x-lg me-2"></i>
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit}>
-              <i class="bi bi-floppy fs-8 me-2"></i>
-              Save
-            </Button>
-          </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">
+          Professional Summary
+        </label>
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          name="about"
+          rows="4"
+          value={input.about}
+          onChange={handleInputChange}
+        ></textarea>
+        <div className="d-flex gap-3 justify-content-end my-3">
+          <Button className="btn btn-light border d-flex" onClick={handleClose}>
+            <i class="bi bi-x-lg me-2"></i>
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit}>
+            <i class="bi bi-floppy fs-8 me-2"></i>
+            Save
+          </Button>
         </div>
-      </>
-    )
+      </div>
+    </>
   );
 };
 
