@@ -96,6 +96,15 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Resume Link</Form.Label>
+              <Form.Control
+                type="text"
+                name="resume"
+                value={input.resume}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Location</Form.Label>
               <Form.Control
                 type="text"

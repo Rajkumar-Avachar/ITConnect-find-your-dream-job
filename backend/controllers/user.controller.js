@@ -166,6 +166,7 @@ export const updateProfile = async (req, res) => {
       portfolio,
       github,
       linkedin,
+      resume,
     } = data;
 
     if (fullname !== undefined && !fullname.trim()) {
@@ -219,6 +220,7 @@ export const updateProfile = async (req, res) => {
     if (portfolio !== undefined) updatedFields["profile.portfolio"] = portfolio;
     if (github !== undefined) updatedFields["profile.github"] = github;
     if (linkedin !== undefined) updatedFields["profile.linkedin"] = linkedin;
+    if (resume !== undefined) updatedFields["profile.resume"] = resume;
 
     if (skills !== undefined) {
       updatedFields["profile.skills"] =

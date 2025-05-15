@@ -21,6 +21,16 @@ const Intro = () => {
         <div className="flex-grow-1 py-3">
           <p className="mb-2 fs-4 fw-bold dark-blue">{user?.fullname}</p>
           <p className="mb-2 dark-blue">{user?.profile?.headline}</p>
+          {user?.profile?.resume && (
+            <a
+              href={user?.profile?.resume}
+              target="_blank"
+              rel="noreferrer"
+              className="text-decoration-none fw-bold"
+            >
+              Resume<i class="bi bi-box-arrow-in-up-right ms-1"></i>
+            </a>
+          )}
           <hr />
           {user?.profile?.location && (
             <p className="text-muted mb-2 fs-8">
