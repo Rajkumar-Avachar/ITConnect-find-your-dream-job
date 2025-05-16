@@ -7,22 +7,9 @@ const jobSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
-    requirements: {
-      type: [String],
-      required: true,
-      default: [],
-    },
-    skillsRequired: {
-      type: [String],
-      default: [],
-    },
-    salary: {
-      type: Number,
-      currency: { type: String, default: "Rs" },
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
       required: true,
     },
     location: {
@@ -33,14 +20,12 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    company: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Company",
+    minSalary: {
+      type: Number,
       required: true,
     },
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    maxSalary: {
+      type: Number,
       required: true,
     },
     applications: [
@@ -49,6 +34,31 @@ const jobSchema = new mongoose.Schema(
         ref: "Application",
       },
     ],
+    openings: {
+      type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    responsibilities: {
+      type: String,
+      required: true,
+    },
+    eligibility: {
+      type: String,
+      required: true,
+    },
+    skillsRequired: {
+      type: [String],
+      default: [],
+    },
+    // createdBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
     status: {
       type: String,
       enum: ["Open", "Closed"],

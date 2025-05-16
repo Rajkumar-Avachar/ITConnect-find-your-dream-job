@@ -6,50 +6,73 @@ export const createJob = async (req, res) => {
   try {
     const {
       title,
-      description,
-      requirements,
-      skillsRequired,
-      salary,
+      company,
       location,
       jobType,
+      minSalary,
+      maxSalary,
+      openings,
+      description,
+      responsibilities,
+      eligibility,
+      skillsRequired,
     } = req.body;
 
     const recruiterId = req.user.userId;
 
-    const company = await Company.findOne({ createdBy: recruiterId });
+    const isCompany = await Company.findOne({ createdBy: recruiterId });
 
-    if (!company) {
+    if (!isCompany) {
       return res.status(403).json({
         message: "You are not associated with any company",
         success: false,
       });
     }
 
-    if (
-      !title ||
-      !description ||
-      !requirements ||
-      !skillsRequired ||
-      !salary ||
-      !location ||
-      !jobType
-    ) {
-      return res.status(400).json({
-        message: "All required fields must be provided",
+    if (company !== isCompany.name) {
+      return res.status(403).json({
+        message: "You can only post jobs for your associated company",
         success: false,
       });
     }
 
+    const requiredFields = [
+      "title",
+      "company",
+      "location",
+      "jobType",
+      "minSalary",
+      "maxSalary",
+      "openings",
+      "description",
+      "responsibilities",
+      "eligibility",
+      "skillsRequired",
+    ];
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res.status(400).json({
+          message: `${field} is required`,
+          success: false,
+        });
+      }
+    }
+
     const job = await Job.create({
       title,
-      description,
-      requirements: requirements.split(","),
-      skillsRequired: skillsRequired.split(","),
-      salary,
+      company: isCompany._id,
       location,
       jobType,
-      company: company.id,
-      createdBy: req.user.userId,
+      minSalary,
+      maxSalary,
+      openings,
+      description,
+      responsibilities,
+      eligibility,
+      skillsRequired:
+        typeof skillsRequired === "string"
+          ? skillsRequired.split(",").map((s) => s.trim())
+          : [],
     });
 
     return res.status(201).json({
@@ -58,7 +81,7 @@ export const createJob = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).json({
       message: "Internal Server Error",
       success: false,
@@ -137,11 +160,48 @@ export const getJobsByRecruiter = async (req, res) => {
   }
 };
 
-// Update job details
+// // Update job details
+// export const updateJob = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const updatedFields = req.body;
+
+//     const job = await Job.findById(id);
+//     if (!job) {
+//       return res.status(404).json({
+//         message: "Job not found",
+//         success: false,
+//       });
+//     }
+//     if (!job.createdBy || job.createdBy.toString() !== req.user.userId) {
+//       return res.status(403).json({
+//         message: "You are not authorized to update this job",
+//         success: false,
+//       });
+//     }
+
+//     const updatedJob = await Job.findByIdAndUpdate(id, updatedFields, {
+//       new: true,
+//       runValidators: true,
+//     });
+
+//     return res.status(200).json({
+//       message: "Job updated successfully",
+//       job: updatedJob,
+//       success: true,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({
+//       message: "Internal Server Error",
+//       success: false,
+//     });
+//   }
+// };
+
 export const updateJob = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedFields = req.body;
 
     const job = await Job.findById(id);
     if (!job) {
@@ -150,6 +210,7 @@ export const updateJob = async (req, res) => {
         success: false,
       });
     }
+
     if (!job.createdBy || job.createdBy.toString() !== req.user.userId) {
       return res.status(403).json({
         message: "You are not authorized to update this job",
@@ -157,10 +218,36 @@ export const updateJob = async (req, res) => {
       });
     }
 
-    const updatedJob = await Job.findByIdAndUpdate(id, updatedFields, {
-      new: true,
-      runValidators: true,
+    const jobData = [
+      "title",
+      "company",
+      "location",
+      "jobType",
+      "minSalary",
+      "maxSalary",
+      "openings",
+      "description",
+      "responsibilities",
+      "eligibility",
+      "skillsRequired",
+    ];
+
+    const updatedFields = {};
+
+    jobData.forEach((key) => {
+      if (req.body[key] !== undefined) {
+        updatedFields[key] = req.body[key];
+      }
     });
+
+    const updatedJob = await Job.findByIdAndUpdate(
+      id,
+      { $set: updatedFields },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     return res.status(200).json({
       message: "Job updated successfully",

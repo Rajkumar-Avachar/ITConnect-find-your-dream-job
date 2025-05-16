@@ -6,10 +6,10 @@ import { setUser } from "../../../redux/authSlice";
 import { toast } from "react-toastify";
 
 const EditSkills = ({ editSkills, setEditSkills }) => {
-  const handleClose = () => setEditAbout(false);
+  const handleClose = () => setEditSkills(false);
   const { user } = useSelector((store) => store.auth);
   const [input, setInput] = useState({
-    skills: user?.profile?.skills || [],
+    skills: (user?.profile?.skills || []).join(", "),
   });
   const dispatch = useDispatch();
 
@@ -65,9 +65,16 @@ const EditSkills = ({ editSkills, setEditSkills }) => {
         ></textarea>
       </div>
 
-      <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-        Save Changes
-      </button>
+      <div className="d-flex gap-3 justify-content-end my-3">
+        <button className="btn btn-light border d-flex" onClick={handleClose}>
+          <i class="bi bi-x-lg me-2"></i>
+          Cancel
+        </button>
+        <button className="btn btn-primary" onClick={handleSubmit}>
+          <i class="bi bi-floppy fs-8 me-2"></i>
+          Save
+        </button>
+      </div>
     </>
   );
 };
