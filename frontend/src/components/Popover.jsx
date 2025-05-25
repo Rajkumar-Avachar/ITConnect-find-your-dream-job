@@ -1,5 +1,10 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { USER_API } from "../utils/apis";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/authSlice";
+import { toast } from "react-toastify";
 
 const Popover = () => {
   const closeNavbar = () => {
@@ -8,6 +13,31 @@ const Popover = () => {
       new window.bootstrap.Collapse(navbar).toggle();
     }
   };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success("Logout successful!", {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+      toast.error(error.response?.data?.message || "Logout failed.", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
+    }
+  };
+
   return (
     <div className="dropdown">
       <img
@@ -44,14 +74,9 @@ const Popover = () => {
           <hr className="dropdown-divider" />
         </li>
         <li>
-          <Link
-            className="dropdown-item d-flex align-items-center gap-2"
-            to="/logout"
-            onClick={closeNavbar}
-          >
-            <i className="bi bi-box-arrow-right"></i>
-            Logout
-          </Link>
+          <button className="btn dropdown-item d-flex align-items-center gap-2" onClick={logoutHandler}>
+            <i className="bi bi-box-arrow-right"></i>Logout
+          </button>
         </li>
       </ul>
     </div>

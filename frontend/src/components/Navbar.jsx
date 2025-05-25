@@ -1,19 +1,47 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Popover from "./Popover";
 import "./Navbar.css";
-import { TiHomeOutline } from "react-icons/ti";
 import { AiFillHome } from "react-icons/ai";
 import { BsBuildingsFill } from "react-icons/bs";
 import { IoLogOut } from "react-icons/io5";
 import LanguageIcon from "@mui/icons-material/Language";
+import { USER_API } from "../utils/apis";
+import { setUser } from "../redux/authSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const closeMobileDrawer = () => setMobileDrawerOpen(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success("Logout successful!", {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+      toast.error(error.response?.data?.message || "Logout failed.", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
+    }
+  };
 
   return (
     <>
@@ -182,14 +210,21 @@ const Navbar = () => {
           )}
 
           {user && (
-            <Link
-              className="dropdown-item d-flex align-items-center gap-2 mt-5 pt-5"
-              to="/logout"
-              onClick={closeMobileDrawer}
+            // <Link
+            //   className="dropdown-item d-flex align-items-center gap-2 mt-5 pt-5"
+            //   to="/logout"
+            //   onClick={closeMobileDrawer}
+            // >
+            //   <IoLogOut className="fs-2" />
+            //   Logout
+            // </Link>
+            <button
+              className="btn dropdown-item d-flex align-items-center gap-2"
+              onClick={logoutHandler}
             >
               <IoLogOut className="fs-2" />
               Logout
-            </Link>
+            </button>
           )}
         </div>
       </div>
