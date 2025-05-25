@@ -81,16 +81,16 @@ export const getApplicationsByApplicant = async (req, res) => {
   }
 };
 
-//Get all applications for a recruiter (Recruiter only)
-export const getApplicationsForRecruiter = async (req, res) => {
+//Get all applications for a employer (employer only)
+export const getApplicationsForEmployer = async (req, res) => {
   try {
-    const recruiterId = req.user.userId;
+    const employerId = req.user.userId;
     const jobId = req.params.id;
 
-    // Check if the job exists and belongs to the recruiter
+    // Check if the job exists and belongs to the employer
     const job = await Job.findOne({
       _id: jobId,
-      createdBy: recruiterId,
+      createdBy: employerId,
     }).populate({
       path: "applications",
       options: { sort: { createdAt: 1 } },
@@ -121,7 +121,7 @@ export const getApplicationsForRecruiter = async (req, res) => {
   }
 };
 
-//Update application status (Recruiter only)
+//Update application status (employer only)
 export const updateApplicationStatus = async (req, res) => {
   try {
     const applicationId = req.params.id;
@@ -145,7 +145,7 @@ export const updateApplicationStatus = async (req, res) => {
       });
     }
 
-    // Ensure only the recruiter who posted the job can update the application status
+    // Ensure only the employer who posted the job can update the application status
     if (application.job.createdBy.toString() !== req.user.userId) {
       return res.status(403).json({
         message:

@@ -134,13 +134,13 @@ const Signup = () => {
                 className="form-check-input border border-black"
                 type="radio"
                 name="role"
-                value="recruiter"
+                value="employer"
                 id="radioDefault2"
-                checked={input.role === "recruiter"}
+                checked={input.role === "employer"}
                 onChange={handleInputChange}
               />
               <label className="form-check-label text-light" htmlFor="radioDefault2">
-                Recruiter
+                Employer
               </label>
             </div>
           </div>

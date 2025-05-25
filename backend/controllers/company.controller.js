@@ -64,7 +64,7 @@ export const getAllCompanies = async (req, res) => {
   }
 };
 
-//Get companies created by recruiter
+//Get companies created by employer
 export const getCompanies = async (req, res) => {
   try {
     const userId = req.user.userId;

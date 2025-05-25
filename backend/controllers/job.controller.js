@@ -18,9 +18,9 @@ export const createJob = async (req, res) => {
       skillsRequired,
     } = req.body;
 
-    const recruiterId = req.user.userId;
+    const employerId = req.user.userId;
 
-    const isCompany = await Company.findOne({ createdBy: recruiterId });
+    const isCompany = await Company.findOne({ createdBy: employerId });
 
     if (!isCompany) {
       return res.status(403).json({
@@ -137,11 +137,11 @@ export const getJobById = async (req, res) => {
   }
 };
 
-// Get all jobs created by recruiter (for recruiters only)
-export const getJobsByRecruiter = async (req, res) => {
+// Get all jobs created by employer (for employers only)
+export const getJobsByEmployer = async (req, res) => {
   try {
-    const recruiterId = req.user.userId;
-    const jobs = await Job.find({ createdBy: recruiterId }).sort({
+    const employerId = req.user.userId;
+    const jobs = await Job.find({ createdBy: employerId }).sort({
       createdAt: 1,
     });
     if (jobs.length === 0) {

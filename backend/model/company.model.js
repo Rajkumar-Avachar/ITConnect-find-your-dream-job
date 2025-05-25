@@ -22,7 +22,7 @@ const companySchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    recruiters: [
+    employers: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

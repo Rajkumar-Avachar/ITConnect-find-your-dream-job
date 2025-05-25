@@ -2,13 +2,13 @@ import express from "express";
 import {
   applyJob,
   getApplicationsByApplicant,
-  getApplicationsForRecruiter,
+  getApplicationsForEmployer,
   updateApplicationStatus,
   cancelApplication,
 } from "../controllers/application.controller.js";
 import {
   isAuthenticated,
-  isRecruiter,
+  isEmployer,
   isApplicant,
 } from "../middlewares/authMiddleware.js";
 const router = express.Router();
@@ -19,9 +19,9 @@ router.route("/").get(isAuthenticated, isApplicant, getApplicationsByApplicant);
 
 router
   .route("/job/:id")
-  .get(isAuthenticated, isRecruiter, getApplicationsForRecruiter);
+  .get(isAuthenticated, isEmployer, getApplicationsForEmployer);
 
-router.route("/:id").put(isAuthenticated, isRecruiter, updateApplicationStatus);
+router.route("/:id").put(isAuthenticated, isEmployer, updateApplicationStatus);
 
 router.route("/:id").delete(isAuthenticated, isApplicant, cancelApplication);
 

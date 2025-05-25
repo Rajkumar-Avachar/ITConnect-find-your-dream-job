@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["applicant", "recruiter"],
+      enum: ["applicant", "employer"],
       required: true,
     },
     isVerified: { type: Boolean, default: false },
@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema(
       },
     },
 
-    //For Recruiters
+    //For Employers
     company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",

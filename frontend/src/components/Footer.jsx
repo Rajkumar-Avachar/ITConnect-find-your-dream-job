@@ -53,7 +53,7 @@ const Footer = () => {
           <p>Saved Jobs</p>
         </div>
         <div className="col-6 col-md-3 mt-5 mt-md-0">
-          <p className="fs-5 mb-3 mt-2 fw-bold">For Recruiters &nbsp;&nbsp;</p>
+          <p className="fs-5 mb-3 mt-2 fw-bold">For Employers &nbsp;&nbsp;</p>
           <p>Post a Job</p>
           <p>Hiring Solutions</p>
           <p>Pricing</p>

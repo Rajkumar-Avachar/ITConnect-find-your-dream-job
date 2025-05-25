@@ -23,10 +23,10 @@ export const isAuthenticated = async (req, res, next) => {
   }
 };
 
-export const isRecruiter = (req, res, next) => {
-  if (req.user.role !== "recruiter") {
+export const isEmployer = (req, res, next) => {
+  if (req.user.role !== "employer") {
     return res.status(403).json({
-      message: "You are not a Recruiter",
+      message: "You are not an Employer",
       success: false,
     });
   }
