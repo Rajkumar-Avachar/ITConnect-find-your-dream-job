@@ -146,14 +146,6 @@ export const logout = async (req, res) => {
 //Update Profile
 export const updateProfile = async (req, res) => {
   try {
-    const { data } = req.body;
-    if (!Object.keys(data).length) {
-      return res.status(400).json({
-        message: "At least one field is required to update the profile",
-        success: false,
-      });
-    }
-
     const {
       fullname,
       headline,
@@ -167,7 +159,14 @@ export const updateProfile = async (req, res) => {
       github,
       linkedin,
       resume,
-    } = data;
+    } = req.body;
+
+    if (!Object.keys(req.body).length) {
+      return res.status(400).json({
+        message: "At least one field is required to update the profile",
+        success: false,
+      });
+    }
 
     if (fullname !== undefined && !fullname.trim()) {
       return res.status(400).json({

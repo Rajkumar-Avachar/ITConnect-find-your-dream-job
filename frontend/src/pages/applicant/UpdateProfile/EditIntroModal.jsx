@@ -35,15 +35,9 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
       return;
     }
     try {
-      const res = await axios.put(
-        `${USER_API}/updateProfile`,
-        {
-          data: input,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.put(`${USER_API}/updateProfile`, input, {
+        withCredentials: true,
+      });
       if (res.data.success) {
         dispatch(setUser(res.data.user));
         toast.success("Intro Updated successfully", {
@@ -62,11 +56,7 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
 
   return (
     <div>
-      <Modal
-        show={showIntroModal}
-        onHide={handleClose}
-        className="fs-8"
-      >
+      <Modal show={showIntroModal} onHide={handleClose} className="fs-8">
         <Modal.Header closeButton>
           <Modal.Title>Edit Intro</Modal.Title>
         </Modal.Header>

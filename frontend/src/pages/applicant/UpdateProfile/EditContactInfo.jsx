@@ -29,15 +29,9 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
       return;
     }
     try {
-      const res = await axios.put(
-        `${USER_API}/updateProfile`,
-        {
-          data: input,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.put(`${USER_API}/updateProfile`, input, {
+        withCredentials: true,
+      });
       if (res.data.success) {
         dispatch(setUser(res.data.user));
         toast.success("Contact Info Updated successfully", {
