@@ -1,5 +1,5 @@
 import React from "react";
-import "./Applicant.css";
+import "./Jobseeker.css";
 import Intro from "./ProfileComponents/Intro";
 import ContactInfo from "./ProfileComponents/ContactInfo";
 import About from "./ProfileComponents/About";

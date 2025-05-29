@@ -9,13 +9,13 @@ import {
 import {
   isAuthenticated,
   isEmployer,
-  isApplicant,
+  isJobseeker,
 } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
-router.route("/").post(isAuthenticated, isApplicant, applyJob);
+router.route("/").post(isAuthenticated, isJobseeker, applyJob);
 
-router.route("/").get(isAuthenticated, isApplicant, getApplicationsByApplicant);
+router.route("/").get(isAuthenticated, isJobseeker, getApplicationsByApplicant);
 
 router
   .route("/job/:id")
@@ -23,6 +23,6 @@ router
 
 router.route("/:id").put(isAuthenticated, isEmployer, updateApplicationStatus);
 
-router.route("/:id").delete(isAuthenticated, isApplicant, cancelApplication);
+router.route("/:id").delete(isAuthenticated, isJobseeker, cancelApplication);
 
 export default router;

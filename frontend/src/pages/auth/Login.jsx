@@ -93,16 +93,16 @@ const Login = () => {
                   className="form-check-input border border-black"
                   type="radio"
                   name="role"
-                  value="applicant"
+                  value="jobseeker"
                   id="radioDefault1"
-                  checked={input.role === "applicant"}
+                  checked={input.role === "jobseeker"}
                   onChange={handleInputChange}
                 />
                 <label
                   className="form-check-label text-light"
                   htmlFor="radioDefault1"
                 >
-                  Applicant
+                  Job Seeker
                 </label>
               </div>
               <div className="form-check ms-3">

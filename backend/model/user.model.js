@@ -26,10 +26,9 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["applicant", "employer"],
+      enum: ["jobseeker", "employer"],
       required: true,
     },
-    isVerified: { type: Boolean, default: false },
     profile: {
       headline: { type: String, default: "" },
       about: { type: String, maxlength: 2000, default: "" },
@@ -40,11 +39,6 @@ const userSchema = new mongoose.Schema(
       skills: { type: [String], default: [] },
       resume: { type: String, default: "" },
       profilePhoto: { type: String, default: "" },
-      experienceLevel: {
-        type: String,
-        enum: ["fresher", "experienced"],
-        default: "fresher",
-      },
       location: { type: String, default: "" },
       github: {
         type: String,
@@ -71,7 +65,6 @@ const userSchema = new mongoose.Schema(
     //   default: "",
     //   validate: { validator: validateURL, message: "Invalid website URL" },
     // },
-    position: { type: String, default: "" },
   },
   { timestamps: true }
 );

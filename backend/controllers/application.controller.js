@@ -183,7 +183,7 @@ export const cancelApplication = async (req, res) => {
     });
     if (!application) {
       return res.status(404).json({
-        message: "Application not found or you are not authorized to cancel it",
+        message: "Application Not Found",
         success: false,
       });
     }

@@ -33,10 +33,10 @@ export const isEmployer = (req, res, next) => {
   next();
 };
 
-export const isApplicant = (req, res, next) => {
-  if (req.user.role !== "applicant") {
+export const isJobseeker = (req, res, next) => {
+  if (req.user.role !== "jobseeker") {
     return res.status(403).json({
-      message: "You are not an Applicant",
+      message: "You are not a Jobseeker",
       success: false,
     });
   }
