@@ -18,7 +18,7 @@ const EditSkills = ({ editSkills, setEditSkills }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!user || !user._id) {
+    if (!user) {
       toast.error("You must be logged in to update your profile.", {
         position: "bottom-right",
         autoClose: 2000,

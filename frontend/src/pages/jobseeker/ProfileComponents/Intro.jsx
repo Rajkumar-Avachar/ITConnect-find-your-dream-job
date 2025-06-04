@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import EditIntroModal from "../UpdateProfile/EditIntroModal.jsx";
 import { useSelector } from "react-redux";
+import EditProfilePhoto from "../UpdateProfile/EditProfilePhoto.jsx";
 
 const Intro = () => {
   const [showIntroModal, setShowIntroModal] = useState(false);
+  const [showProfilePhotoModal, setShowProfilePhotoModal] = useState(false);
   const { user } = useSelector((store) => store.auth);
 
   return (
@@ -12,14 +14,17 @@ const Intro = () => {
       <div className="shadow-small border-sm d-flex gap-2 mb-sm-5 flex-column flex-sm-row px-2 pt-4 p-sm-4 rounded-4 profile align-items-sm-center">
         <div className="me-4">
           <img
-            src="/images/codingBoy.webp"
+            src={user?.profile?.profilePhoto || "images/codingBoy.webp"}
             alt="Profile-Photo"
-            className="rounded-circle profile-photo"
+            className="rounded-circle profile-photo border border-5"
+            onClick={() => setShowProfilePhotoModal(true)}
           />
         </div>
         <div className="d-flex justify-content-between flex-grow-1 gap-2">
           <div className="py-3 flex-grow-1">
-            <h4 className="mb-2 fw-medium">{user?.fullname || "Your Name"}</h4>
+            <h4 className="mb-2 fw-semibold">
+              {user?.fullname || "Your Name"}
+            </h4>
             <p className="mb-2">{user?.profile?.headline}</p>
             {user?.profile?.resume && (
               <a
@@ -58,6 +63,10 @@ const Intro = () => {
       <EditIntroModal
         showIntroModal={showIntroModal}
         setShowIntroModal={setShowIntroModal}
+      />
+      <EditProfilePhoto
+        showProfilePhotoModal={showProfilePhotoModal}
+        setShowProfilePhotoModal={setShowProfilePhotoModal}
       />
     </>
   );

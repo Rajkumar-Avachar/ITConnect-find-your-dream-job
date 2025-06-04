@@ -19,20 +19,6 @@ export const register = async (req, res) => {
         success: false,
       });
     }
-    // const registeredPhoneNumber = await User.findOne({ phoneNumber });
-    // if (registeredPhoneNumber) {
-    //   return res.status(400).json({
-    //     message: "Phone number already registered!",
-    //     success: false,
-    //   });
-    // }
-    // const phoneRegex = /^\d{10}$/;
-    // if (!phoneRegex.test(phoneNumber)) {
-    //   return res.status(400).json({
-    //     message: "Phone number must be exactly 10 digits",
-    //     success: false,
-    //   });
-    // }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -81,12 +67,6 @@ export const login = async (req, res) => {
         success: false,
       });
     }
-    // if (role != user.role) {
-    //   return res.status(400).json({
-    //     message: "Account doesn't exist with the current role",
-    //     success: false,
-    //   });
-    // }
 
     const tokenData = {
       userId: user._id,
@@ -161,7 +141,9 @@ export const updateProfile = async (req, res) => {
       resume,
     } = req.body;
 
-    if (!Object.keys(req.body).length) {
+    const profilePhotoUrl = req.file?.path || null;
+
+    if (!Object.keys(req.body).length && !profilePhotoUrl) {
       return res.status(400).json({
         message: "At least one field is required to update the profile",
         success: false,
@@ -200,6 +182,8 @@ export const updateProfile = async (req, res) => {
     }
 
     const updatedFields = {};
+
+    updatedFields["profile.profilePhoto"] = profilePhotoUrl;
 
     updatedFields.fullname = fullname;
 

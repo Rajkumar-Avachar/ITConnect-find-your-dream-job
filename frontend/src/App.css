@@ -21,10 +21,12 @@
 
 .profile-photo {
   width: 10rem;
+  height: 10rem;
 }
 
 @media (max-width: 576px) {
   .profile-photo {
-    width: 8rem;
+    width: 9rem;
+    height: 9rem;
   }
 }
