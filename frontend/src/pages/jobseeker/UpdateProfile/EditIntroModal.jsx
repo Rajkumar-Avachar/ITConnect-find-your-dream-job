@@ -56,12 +56,12 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
 
   return (
     <div>
-      <Modal show={showIntroModal} onHide={handleClose} className="fs-8">
+      <Modal show={showIntroModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Intro</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form className="bg-light" onSubmit={handleFormSubmit}>
+          <Form onSubmit={handleFormSubmit} className="fs-14">
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Full Name *</Form.Label>
               <Form.Control
@@ -113,7 +113,7 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
                 onChange={handleInputChange}
                 name="gender"
                 value={input.gender}
-                className="fs-8"
+                className="fs-14"
               >
                 <option value="">Select your gender</option>
                 <option value="Male">Male</option>
@@ -122,11 +122,11 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
               </Form.Select>
             </Form.Group>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
+              <Button variant="secondary" onClick={handleClose} className="fs-14 fw-medium">
                 Close
               </Button>
 
-              <Button variant="primary" type="submit">
+              <Button type="submit" className="btn bg-blue fs-14 fw-medium">
                 Save Changes
               </Button>
             </Modal.Footer>

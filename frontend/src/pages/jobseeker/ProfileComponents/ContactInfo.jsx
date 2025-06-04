@@ -9,7 +9,7 @@ const ContactInfo = () => {
 
   return (
     <>
-      <div className="shadow-small p-2 p-sm-4 rounded-4 col-12 col-lg-3 h-100">
+      <div className="shadow-small p-2 p-sm-4 rounded-4 col-12 col-lg-3 h-100 border-sm">
         {editContactInfo ? (
           <EditContactInfo
             editContactInfo={editContactInfo}
@@ -18,27 +18,27 @@ const ContactInfo = () => {
         ) : (
           <>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <p className="fs-4 fw-bold dark-blue mb-0">Contact Info</p>
-              <button className="btn" onClick={() => setEditContactInfo(true)}>
+              <h5 className="fw-bold mb-0">Contact Info</h5>
+              <button className="btn " onClick={() => setEditContactInfo(true)}>
                 <EditOutlinedIcon />
               </button>
             </div>
 
             {/* Phone */}
-            <div className="mb-3 fs-8 text-muted">
+            <div className="mb-3  text-muted fs-14">
               <i className="bi bi-telephone me-2"></i>Phone
               <p className="ms-4 mb-0 text-dark">{user?.phoneNumber}</p>
             </div>
 
             {/* Email */}
-            <div className="mb-3 fs-8 text-muted">
+            <div className="mb-3 text-muted fs-14">
               <i className="bi bi-envelope me-2"></i>Email
               <p className="ms-4 mb-0 text-dark">{user?.email}</p>
             </div>
 
             {/* Portfolio */}
             {user?.profile?.portfolio && (
-              <div className="mb-3 fs-8 text-muted">
+              <div className="mb-3  text-muted fs-14">
                 <i className="bi bi-person-video2 me-2"></i>Portfolio
                 <a
                   href={user?.profile?.portfolio}
@@ -53,7 +53,7 @@ const ContactInfo = () => {
 
             {/* GitHub */}
             {user?.profile?.github && (
-              <div className="mb-3 fs-8 text-muted">
+              <div className="mb-3  text-muted fs-14">
                 <i className="bi bi-github me-2"></i>GitHub
                 <a
                   href={user?.profile?.github}
@@ -68,7 +68,7 @@ const ContactInfo = () => {
 
             {/* LinkedIn */}
             {user?.profile?.linkedin && (
-              <div className="fs-8 text-muted">
+              <div className="text-muted fs-14">
                 <i className="bi bi-linkedin me-2"></i>LinkedIn
                 <a
                   href={user?.profile?.linkedin}
@@ -87,7 +87,7 @@ const ContactInfo = () => {
         )}
       </div>
 
-      <hr className="bg-dark d-sm-none" style={{ height: "7px" }} />
+      <hr className="bg-dark d-sm-none m-0" style={{ height: "5px" }} />
     </>
   );
 };

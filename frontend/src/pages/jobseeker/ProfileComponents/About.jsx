@@ -8,25 +8,25 @@ const About = () => {
   const { user } = useSelector((store) => store.auth);
   return (
     <>
-      <div className="about shadow-small rounded-4 p-2 p-sm-4">
+      <div className="about shadow-small rounded-4 px-2 pb-2 p-sm-4 border-sm">
         {editAbout ? (
           <EditAbout editAbout={editAbout} setEditAbout={setEditAbout} />
         ) : (
           <>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <p className="fs-4 fw-bold dark-blue my-0">About</p>
+              <h5 className="fw-bold my-0">About</h5>
               <button className="btn" onClick={() => setEditAbout(true)}>
                 <EditOutlinedIcon />
               </button>
             </div>
-            <p className="text-muted fs-8" style={{ textAlign: "justify" }}>
+            <p className="fs-14" style={{ textAlign: "justify" }}>
               {user?.profile?.about}
             </p>
           </>
         )}
       </div>
 
-      <hr className="bg-dark d-sm-none" style={{ height: "7px" }} />
+      <hr className="bg-dark d-sm-none m-0" style={{ height: "5px" }} />
     </>
   );
 };

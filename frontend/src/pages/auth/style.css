@@ -17,9 +17,10 @@
   height: 100vh;
 }
 
-form {
-  /* box-shadow: 1px 1px 10px white; */
-  /* border: 1px solid white; */
-  background-color: #050925;
-  /* box-shadow: 1px 1px 10px white; */
+.light-gray-bg {
+  background-color: #f7f6f6 !important;
+}
+
+::placeholder, .icon {
+  color: #9b9a9a !important;
 }

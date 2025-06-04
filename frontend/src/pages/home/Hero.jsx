@@ -2,9 +2,9 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="text-center p-3 p-lg-5 bg-dark-blue heroDiv">
+    <div className="text-center p-3 p-lg-5 hero-gradient heroDiv">
       <h1 className="fw-bold text-light pt-5">Find Your Dream Job Today</h1>
-      <p className="text-light heroP">
+      <p className="text-light heroP mt-3">
         Discover thousands of job opportunities with all the information you
         need.
       </p>
@@ -44,7 +44,7 @@ const Hero = () => {
             <option value="4">Internship</option>
           </select>
         </div>
-        <button className="btn bg-dark-blue text-light mt-4 px-4 py-2">
+        <button className="btn bg-blue text-light mt-3 px-4 py-2 fw-medium">
           Search Jobs
         </button>
       </div>

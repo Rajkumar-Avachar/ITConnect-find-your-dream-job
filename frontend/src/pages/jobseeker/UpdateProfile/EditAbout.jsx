@@ -48,14 +48,14 @@ const EditAbout = ({ editAbout, setEditAbout }) => {
 
   return (
     <>
-      <p className="fs-4 fw-bold dark-blue">Edit About</p>
+      <h5 className="fw-bold dark-blue mt-2">Edit About</h5>
 
       <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">
+        <label for="exampleFormControlTextarea1" class="form-label fs-14">
           Professional Summary
         </label>
         <textarea
-          class="form-control border-2"
+          class="form-control border-2 fs-14"
           id="exampleFormControlTextarea1"
           name="about"
           rows="4"
@@ -63,12 +63,12 @@ const EditAbout = ({ editAbout, setEditAbout }) => {
           onChange={handleInputChange}
         ></textarea>
         <div className="d-flex gap-3 justify-content-end my-3">
-          <button className="btn btn-light border d-flex" onClick={handleClose}>
+          <button className="btn btn-light border d-flex fs-14 fw-medium" onClick={handleClose}>
             <i class="bi bi-x-lg me-2"></i>
             Cancel
           </button>
-          <button className="btn btn-primary" onClick={handleSubmit}>
-            <i class="bi bi-floppy fs-8 me-2"></i>
+          <button className="btn bg-blue fw-medium fs-14" onClick={handleSubmit}>
+            <i class="bi bi-floppy me-2"></i>
             Save
           </button>
         </div>

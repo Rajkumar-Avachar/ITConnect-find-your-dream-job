@@ -2,9 +2,9 @@ import React from "react";
 
 const JobFilters = () => {
   return (
-    <div className="border col-3 p-4 rounded-4 d-none d-lg-block">
+    <div className="border col-3 p-4 rounded-4 d-none d-lg-block h-100 bg-white">
       <p className="fw-bold fs-5">Filters</p>
-      <div className="mb-3">
+      <div className="mb-3 fs-15">
         <label className="form-label">Job Type</label>
         <div className="form-check">
           <input
@@ -51,7 +51,7 @@ const JobFilters = () => {
           </label>
         </div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 fs-15">
         <label className="form-label">Experience Level</label>
         <div className="form-check">
           <input
@@ -109,7 +109,7 @@ const JobFilters = () => {
           </label>
         </div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 fs-15">
         <label className="form-label">Salary Range</label>
         <div class="form-check">
           <input
@@ -161,8 +161,10 @@ const JobFilters = () => {
         </div>
       </div>
       <div className="text-center mt-5 d-flex flex-column gap-3 align-items-center">
-      <button className="btn text-light bg-dark-blue w-75">Apply Filters</button>
-        <button className="btn btn-gray border border-2 w-75">Reset Filters</button>
+        <button className="btn text-light bg-blue w-75">Apply Filters</button>
+        <button className="btn btn-light border border-2 w-75">
+          Reset Filters
+        </button>
       </div>
     </div>
   );

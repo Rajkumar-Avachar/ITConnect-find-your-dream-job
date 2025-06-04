@@ -2,9 +2,9 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <>
-      <p className="fw-bold fs-3 dark-blue">Find Your Perfect Job</p>
-      <div className="col-12 mx-auto mt-2  p-3 mb-5 rounded-4 text-center border">
+    <div className="mx-xl-5">
+      <h4 className="fw-bold">Find Your Perfect Job</h4>
+      <div className="col-12 mx-auto mt-4  p-3 mb-5 rounded-3 text-center border bg-white">
         <div className="d-flex gap-3 flex-wrap flex-lg-nowrap col-md-9 mx-auto">
           <div className="position-relative flex-grow-1">
             <i
@@ -32,19 +32,12 @@ const Hero = () => {
             />
           </div>
 
-          {/* <select class="form-select w-25 py-2 bg-input flex-grow-1">
-            <option selected>All Job Types</option>
-            <option value="1">Full-time</option>
-            <option value="2">Part-time</option>
-            <option value="3">Remote</option>
-            <option value="4">Internship</option>
-          </select> */}
         </div>
-        <button className="btn bg-dark-blue text-light mt-4 px-4 py-2">
+        <button className="btn bg-blue text-light mt-3 px-4 py-2 fw-medium fs-14">
           Search Jobs
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

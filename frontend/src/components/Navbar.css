@@ -34,3 +34,13 @@
 .nav-btn {
   background-color: #050a30 !important;
 }
+
+.nav-logo {
+  width: 8rem;
+}
+
+@media (min-width: 768px) {
+  .nav-logo {
+    width: 10rem;
+  }
+}

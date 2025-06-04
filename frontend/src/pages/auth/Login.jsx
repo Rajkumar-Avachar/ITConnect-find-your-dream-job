@@ -6,13 +6,13 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading, setUser } from "../../redux/authSlice";
-import "./LoginSignup.css";
+import "./style.css";
+import { Mail, Lock, ArrowRight, LogIn } from "lucide-react";
 
 const Login = () => {
   const [input, setInput] = useState({
     email: "",
     password: "",
-    role: "",
   });
 
   const handleInputChange = (e) => {
@@ -55,99 +55,96 @@ const Login = () => {
   };
 
   return (
-    <div className="userbg py-5">
+    <div className="py-5">
       <div className="container pt-5">
         <div className="row mx-2">
-          <form
-            onSubmit={handleFormSubmit}
-            className="col-md-8 col-xl-5 mx-auto p-4 p-lg-5 rounded-4 text-center"
-          >
-            <h1 className="mb-5 fw-bold text-center text-light">Log in</h1>
-            <div className="form-floating mb-3">
-              <input
-                type="email"
-                className="form-control bg-input"
-                id="floatingInput"
-                placeholder="Email address"
-                value={input.email}
-                name="email"
-                onChange={handleInputChange}
-              />
-              <label htmlFor="floatingInput">Email address</label>
-            </div>
-            <div className="form-floating">
-              <input
-                type="password"
-                className="form-control bg-input"
-                id="floatingPassword"
-                placeholder="Password"
-                value={input.password}
-                name="password"
-                onChange={handleInputChange}
-              />
-              <label htmlFor="floatingPassword">Password</label>
-            </div>
-            <div className="d-flex mt-4 flex-wrap">
-              <div className="form-check">
-                <input
-                  className="form-check-input border border-black"
-                  type="radio"
-                  name="role"
-                  value="jobseeker"
-                  id="radioDefault1"
-                  checked={input.role === "jobseeker"}
-                  onChange={handleInputChange}
-                />
-                <label
-                  className="form-check-label text-light"
-                  htmlFor="radioDefault1"
-                >
-                  Job Seeker
-                </label>
-              </div>
-              <div className="form-check ms-3">
-                <input
-                  className="form-check-input border border-black "
-                  type="radio"
-                  name="role"
-                  value="employer"
-                  id="radioDefault2"
-                  checked={input.role === "employer"}
-                  onChange={handleInputChange}
-                />
-                <label
-                  className="form-check-label text-light"
-                  htmlFor="radioDefault2"
-                >
-                  Employer
-                </label>
-              </div>
-            </div>
-            {loading ? (
-              <button className="btn btn-danger w-50 mx-auto mt-4" disabled>
-                <span
-                  className="spinner-border spinner-border-sm me-2"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-                Please wait...
-              </button>
-            ) : (
-              <button className="btn btn-danger w-50 mx-auto mt-4">
-                Log in
-              </button>
-            )}
-
-            <p className="text-center mt-5 text-light">
-              Already have any account?
-              <Link
-                to="/signup"
-                className="text-decoration-none ms-1 text-danger"
-              >
-                Signup
+          <LogIn className="text-primary" size={48} />
+          <div className="text-center">
+            <h3 className="fw-bold mb-0 mt-3">Log in to your account</h3>
+            <p>
+              Or{" "}
+              <Link to="/signup" className="text-decoration-none fs-14">
+                create a new account
               </Link>
             </p>
-          </form>
+          </div>
+          <div className="col-md-8 border col-xl-4 mx-auto p-4 p-lg-5 rounded-3 fs-14 bg-white shadow-sm mt-3">
+            <form onSubmit={handleFormSubmit}>
+              {/* <div className="d-flex justify-content-center mb-4 gap-3">
+                <button
+                  type="button"
+                  className={`btn flex-grow-1 fs-14 py-2 ${role === "jobseeker" ? "bg-blue text-light" : "btn-light "}`}
+                  onClick={() => setRole("jobseeker")}
+                >
+                  Job Seeker
+                </button>
+                <button
+                  type="button"
+                  className={`btn flex-grow-1 fs-14 py-2 ${role === "employer" ? "bg-blue text-light" : "btn-light "}`}
+                  onClick={() => setRole("employer")}
+                >
+                  Employer
+                </button>
+              </div> */}
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label mb-1 fs-14">
+                  Email address
+                </label>
+                <div className="position-relative">
+                  <Mail
+                    size={20}
+                    className="position-absolute top-50 start-0 ms-3 translate-middle-y icon "
+                    style={{ pointerEvents: "none" }}
+                  />
+                  <input
+                    type="email"
+                    className="form-control ps-5 py-2"
+                    id="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label mb-1 fs-14">
+                  Password
+                </label>
+                <div className="position-relative">
+                  <Lock
+                    size={20}
+                    className="position-absolute top-50 start-0 ms-3 translate-middle-y icon "
+                    style={{ pointerEvents: "none" }}
+                  />
+                  <input
+                    type="password"
+                    className="form-control ps-5 py-2"
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              {loading ? (
+                <button
+                  className="btn bg-blue w-100 mx-auto mt-3 fs-14"
+                  disabled
+                >
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Please wait...
+                </button>
+              ) : (
+                <button className="btn bg-blue w-100 mx-auto mt-3 fs-14">
+                  Log in <ArrowRight size={16} />
+                </button>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </div>

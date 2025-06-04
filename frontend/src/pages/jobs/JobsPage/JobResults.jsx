@@ -1,5 +1,6 @@
 import React from "react";
 import JobCard from "./JobCard";
+import LatestJobCard from "../../home/LatestJobCard";
 
 const JobResults = () => {
   return (
@@ -8,12 +9,9 @@ const JobResults = () => {
         Found <b>10</b> jobs
         <hr />
       </p>
-      <div
-        className="col rounded-4"
-        // style={{ maxHeight: "60rem" }}
-      >
+      <div className="col rounded-4 d-flex flex-column gap-4">
         {[1, 2, 3, 4, 5, 6, 7].map((job, index) => (
-          <JobCard />
+          <LatestJobCard />
         ))}
       </div>
     </div>

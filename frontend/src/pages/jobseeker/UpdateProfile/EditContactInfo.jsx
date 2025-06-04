@@ -52,15 +52,15 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
   };
   return (
     <>
-      <p className="fs-4 fw-bold dark-blue">Edit Contact Info</p>
-      <form onSubmit={handleSubmit} className="bg-white fs-8">
+      <h5 className="fw-bold dark-blue mt-2 mb-4">Edit Contact Info</h5>
+      <form onSubmit={handleSubmit} className="bg-white fs-14">
         <div className="mb-3">
           <label htmlFor="phone" className="form-label">
             Phone *
           </label>
           <input
             type="text"
-            className="form-control fs-8"
+            className="form-control "
             id="phone"
             name="phoneNumber"
             value={input.phoneNumber}
@@ -76,7 +76,7 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
           </label>
           <input
             type="email"
-            className="form-control fs-8"
+            className="form-control "
             id="email"
             name="email"
             value={input.email}
@@ -90,7 +90,7 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
           </label>
           <input
             type="text"
-            className="form-control fs-8"
+            className="form-control "
             id="portfolio"
             name="portfolio"
             value={input.portfolio}
@@ -103,7 +103,7 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
           </label>
           <input
             type="text"
-            className="form-control fs-8"
+            className="form-control "
             id="github"
             name="github"
             value={input.github}
@@ -116,7 +116,7 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
           </label>
           <input
             type="text"
-            className="form-control fs-8"
+            className="form-control "
             id="linkedin"
             name="linkedin"
             value={input.linkedin}
@@ -125,12 +125,12 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
         </div>
 
         <div className="d-flex gap-3 justify-content-end my-3">
-          <button className="btn btn-light border d-flex" onClick={handleClose}>
+          <button className="btn btn-light border d-flex fs-14 fw-medium" onClick={handleClose}>
             <i class="bi bi-x-lg me-2"></i>
             Cancel
           </button>
-          <button type="submit" className="btn btn-primary">
-            <i class="bi bi-floppy fs-8 me-2"></i>
+          <button type="submit" className="btn bg-blue fs-14 fw-medium">
+            <i class="bi bi-floppy  me-2"></i>
             Save
           </button>
         </div>

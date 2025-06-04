@@ -15,24 +15,45 @@ import JobsPage from "./pages/jobs/JobsPage/JobsPage";
 import Companies from "./pages/companies/Companies";
 import JobDetailsPage from "./pages/jobs/JobDetailsPage/JobDetailsPage";
 
+import { Outlet } from "react-router-dom";
+
+function MainLayout() {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
+}
+
+function AuthLayout() {
+  return <Outlet />;
+}
+
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/jobs" element={<JobsPage />} />
-        <Route path="/job/:id" element={<JobDetailsPage />} />
-        <Route path="/companies" element={<Companies />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/*" element={<Error />} />
+        {/* Routes with Navbar and Footer */}
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Homepage />} />
+          <Route path="jobs" element={<JobsPage />} />
+          <Route path="job/:id" element={<JobDetailsPage />} />
+          <Route path="companies" element={<Companies />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="*" element={<Error />} />
+        </Route>
+
+        {/* Routes without Navbar and Footer */}
+        <Route path="" element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+        </Route>
       </Routes>
       <ToastContainer />
-      <Footer />
     </Router>
   );
 }

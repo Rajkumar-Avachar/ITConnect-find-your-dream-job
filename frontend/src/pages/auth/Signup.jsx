@@ -6,15 +6,19 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../redux/authSlice";
+import { UserPlus, Mail, Lock, User, Building, ArrowRight } from "lucide-react";
+import "./style.css";
 
 const Signup = () => {
   const [input, setInput] = useState({
     fullname: "",
     email: "",
-    phoneNumber: "",
     password: "",
-    role: "",
+    confirmPassword: "",
+    role: "jobseeker",
   });
+
+  const [role, setRole] = useState("jobseeker");
 
   const handleInputChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -28,9 +32,13 @@ const Signup = () => {
     e.preventDefault();
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${USER_API}/register`, input, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${USER_API}/register`,
+        { ...input, role },
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.success) {
         navigate("/login");
         toast.success("Registration successful!", {
@@ -55,117 +63,142 @@ const Signup = () => {
   };
 
   return (
-    <div className="userbg py-5">
-    <div className="container">
-      <div className="row mx-2">
-        <form
-          onSubmit={handleFormSubmit}
-          className="col-md-8 col-xl-5 mx-auto p-4 p-lg-5 rounded-4 text-center"
-        >
-          <h1 className="mb-5 fw-bold text-center text-light">Sign up</h1>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control bg-input"
-              id="floatingName"
-              placeholder="Full name"
-              value={input.fullname}
-              name="fullname"
-              onChange={handleInputChange}
-            />
-            <label htmlFor="floatingName">Full name</label>
+    <div className="bg-light py-3 py-sm-5" style={{ minHeight: "100vh" }}>
+      <div className="container">
+        <div className="row mx-2">
+          <UserPlus className="text-primary" size={48} />
+          <div className="text-center">
+            <h3 className="fw-bold mb-0 mt-3">Create your account</h3>
+            <p>
+              Or{" "}
+              <Link to="/login" className="text-decoration-none fs-14">
+                log in to your existing account
+              </Link>
+            </p>
           </div>
-          <div className="form-floating mb-3">
-            <input
-              type="email"
-              className="form-control bg-input"
-              id="floatingEmail"
-              placeholder="Email address"
-              value={input.email}
-              name="email"
-              onChange={handleInputChange}
-            />
-            <label htmlFor="floatingEmail">Email address</label>
+          <div className="col-md-8 border col-xl-4 mx-auto p-4 p-lg-5 rounded-3 fs-14 bg-white shadow-sm mt-3">
+            <form onSubmit={handleFormSubmit}>
+              <div className="d-flex justify-content-center mb-4 gap-3">
+                <button
+                  type="button"
+                  className={`btn flex-grow-1 fs-14 py-2 ${role === "jobseeker" ? "bg-blue text-light" : "btn-light "}`}
+                  onClick={() => setRole("jobseeker")}
+                >
+                  Job Seeker
+                </button>
+                <button
+                  type="button"
+                  className={`btn flex-grow-1 fs-14 py-2 ${role === "employer" ? "bg-blue text-light" : "btn-light "}`}
+                  onClick={() => setRole("employer")}
+                >
+                  Employer
+                </button>
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="fullname" className="form-label mb-1 fs-9">
+                  Full Name
+                </label>
+                <div className="position-relative">
+                  <User
+                    size={20}
+                    className="position-absolute top-50 start-0 ms-3 translate-middle-y icon "
+                    style={{ pointerEvents: "none" }}
+                  />
+                  <input
+                    type="text"
+                    className="form-control ps-5 py-2"
+                    id="fullname"
+                    name="fullname"
+                    placeholder="Raj Kumar"
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label mb-1 fs-9">
+                  Email address
+                </label>
+                <div className="position-relative">
+                  <Mail
+                    size={20}
+                    className="position-absolute top-50 start-0 ms-3 translate-middle-y icon "
+                    style={{ pointerEvents: "none" }}
+                  />
+                  <input
+                    type="email"
+                    className="form-control ps-5 py-2"
+                    id="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label mb-1 fs-9">
+                  Password
+                </label>
+                <div className="position-relative">
+                  <Lock
+                    size={20}
+                    className="position-absolute top-50 start-0 ms-3 translate-middle-y icon "
+                    style={{ pointerEvents: "none" }}
+                  />
+                  <input
+                    type="password"
+                    className="form-control ps-5 py-2"
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="mb-3">
+                <label
+                  htmlFor="confirmPassword"
+                  className="form-label mb-1 fs-9"
+                >
+                  Confirm Password
+                </label>
+                <div className="position-relative">
+                  <Lock
+                    size={20}
+                    className="position-absolute top-50 start-0 ms-3 translate-middle-y icon "
+                    style={{ pointerEvents: "none" }}
+                  />
+                  <input
+                    type="password"
+                    className="form-control ps-5 py-2"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="••••••••"
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              {input.password !== input.confirmPassword && (
+                <p className="text-danger">Password didn't match</p>
+              )}
+              {loading ? (
+                <button className="btn bg-blue w-100 mt-3 fs-14 py-2" disabled>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Please wait...
+                </button>
+              ) : (
+                <button className="btn bg-blue w-100 mt-3 fs-14 py-2">
+                  Create Account <ArrowRight size={16} />
+                </button>
+              )}
+            </form>
           </div>
-          <div className="form-floating mb-3">
-            <input
-              type="tel"
-              className="form-control bg-input"
-              id="floatingPhonenumber"
-              maxLength={10}
-              inputMode="numeric"
-              pattern="[0-9]*"
-              placeholder="Phone number"
-              value={input.phoneNumber}
-              name="phoneNumber"
-              onChange={handleInputChange}
-            />
-            <label htmlFor="floatingPhonenumber">Phone number</label>
-          </div>
-          <div className="form-floating">
-            <input
-              type="password"
-              className="form-control bg-input"
-              id="floatingPassword"
-              placeholder="Password"
-              value={input.password}
-              name="password"
-              onChange={handleInputChange}
-            />
-            <label htmlFor="floatingPassword">Password</label>
-          </div>
-          <div className="d-flex mt-4 flex-wrap">
-            <div className="form-check">
-              <input
-                className="form-check-input border border-black"
-                type="radio"
-                name="role"
-                value="jobseeker"
-                id="radioDefault1"
-                checked={input.role === "jobseeker"}
-                onChange={handleInputChange}
-              />
-              <label className="form-check-label text-light" htmlFor="radioDefault1">
-                Job Seeker
-              </label>
-            </div>
-            <div className="form-check ms-3">
-              <input
-                className="form-check-input border border-black"
-                type="radio"
-                name="role"
-                value="employer"
-                id="radioDefault2"
-                checked={input.role === "employer"}
-                onChange={handleInputChange}
-              />
-              <label className="form-check-label text-light" htmlFor="radioDefault2">
-                Employer
-              </label>
-            </div>
-          </div>
-          {loading ? (
-            <button className="btn btn-danger w-50 mt-4" disabled>
-              <span
-                className="spinner-border spinner-border-sm me-2"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              Please wait...
-            </button>
-          ) : (
-            <button className="btn btn-danger w-50 mt-4">Sign up</button>
-          )}
-          
-          <p className="text-center text-light mt-5">
-            Already have any account?
-            <Link to="/login" className="text-decoration-none ms-1 text-danger">
-              Login
-            </Link>
-          </p>
-        </form>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

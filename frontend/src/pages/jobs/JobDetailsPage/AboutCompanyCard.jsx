@@ -2,21 +2,21 @@ import React from "react";
 
 const AboutCompanyCard = () => {
   return (
-    <div className="border rounded-4 p-4">
-      <p className="fs-7 fw-bold">About the Company</p>
+    <div className="border rounded-3 p-3 p-sm-4 bg-white">
+      <h5 className="fw-semibold fs-18">About the Company</h5>
 
-      <div className="d-flex gap-3 align-items-center">
-        <img src="/logo/companyLogo.jpg" alt="Logo" width={40} />
-        <p className="navy fs-7 m-0 fw-bold">Google</p>
+      <div className="d-flex gap-3 align-items-center mt-3">
+        <img src="/logo/google.webp" alt="Logo" width={40} className="rounded-3"/>
+        <h5 className="m-0 fs-18">Google</h5>
       </div>
-      <p className="fs-8 text-muted mt-3">
+      <p className="text-muted mt-3 fs-14" style={{textAlign:"justify"}}>
         Google LLC is an American multinational corporation and technology
         company focusing on online advertising, search engine technology, cloud
         computing, computer software, quantum computing, e-commerce, consumer
         electronics, and artificial intelligence.
       </p>
       <div className="text-center">
-        <button className="btn border w-25">View Company Profile</button>
+        <button className="btn btn-outline-primary border w-auto fs-14 fw-medium">View Company Profile</button>
       </div>
     </div>
   );

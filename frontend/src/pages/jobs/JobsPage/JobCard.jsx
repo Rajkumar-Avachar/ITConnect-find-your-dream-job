@@ -12,42 +12,40 @@ const JobCard = () => {
       <div className="d-flex justify-content-between">
         <div>
           <Link to={`/job/${jobId}`} className="text-decoration-none ">
-            <p className="fs-7 mb-1 fw-bold dark-blue hover-effect">Full stack developer</p>
+            <p className="fs-18 mb-1 fw-semibold text-black jobtitle-hover">
+              Full stack developer
+            </p>
           </Link>
-          <p className="text-muted fs-8 fw-bold ">Google</p>
+          <p className="text-muted fs-6 fw-semibold">Google</p>
         </div>
-        <img src="logo/companyLogo.jpg" alt="Logo" width={60} />
+        <img src="logo/companyLogo.jpg" alt="Logo" width={50} className="rounded-3"/>
       </div>
 
-      <div className="d-flex gap-3 flex-wrap fs-8">
-        <div className="text-muted d-flex">
-          <LocationOnOutlinedIcon className="mb-1" /> &nbsp;&nbsp;
-          <p className="mb-0">Banglore</p>
+      <div className="d-flex gap-3 flex-wrap fs-15">
+        <div className="text-muted d-flex align-items-center">
+          <LocationOnOutlinedIcon className="fs-18" />
+          &nbsp;
+          <p className="mb-0">Bangalore</p>
         </div>
-        <div className="text-muted d-flex">
-          <WorkOutlineOutlinedIcon className="mb-1" /> &nbsp;&nbsp;
+        <div className="text-muted d-flex align-items-center">
+          <WorkOutlineOutlinedIcon className="fs-18" />
+          &nbsp;
           <p className="mb-0">Full-time</p>
         </div>
-        <div className="text-muted d-flex">
-          <PaymentOutlinedIcon className="mb-1" /> &nbsp;&nbsp;
+        <div className="text-muted d-flex align-items-center">
+          <PaymentOutlinedIcon className="fs-18" />
+          &nbsp;
           <p className="mb-0">₹ 30k - 50k</p>
         </div>
       </div>
+
       <div className="mt-2 d-flex justify-content-between align-items-center">
-        <div className="navy fs-8">
-          <UpdateOutlinedIcon /> 2 days ago
+        <div className="text-blue fs-14">
+          <UpdateOutlinedIcon className="fs-18" /> 2 days ago
         </div>
-        {/* <button
-          className="btn bg-dark-blue text-light"
-          style={{ fontSize: "14px" }}
-          onClick={() => navigate(`/job/${jobId}`)}
-        >
-          View Details
-        </button> */}
         <Link to={`/job/${jobId}`}>
           <button
-            className="btn bg-dark-blue text-light"
-            style={{ fontSize: "14px" }}
+            className="btn bg-blue"
           >
             View Details
           </button>

@@ -48,21 +48,18 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg bg-white px-sm-5 border-bottom py-1 sticky-top">
         <div className="container-fluid px-xl-5">
           <Link
-            className="navbar-brand fw-bold fs-2 me-5"
+            className="navbar-brand fw-bold fs-3 me-5"
             to="/"
             onClick={closeMobileDrawer}
           >
-            <span className="text-danger">IT</span>
-            <span className="navy">
-              C
-              <LanguageIcon style={{ fontSize: "2rem", marginBottom: "5px" }} />
-              NNECT
-            </span>
+            {/* <span className="text-danger">IT</span>
+            <span className="navy">CONNECT</span> */}
+            <img src="logo/logo2.png" alt="Logo" className="nav-logo" />
           </Link>
 
           {/* Hamburger toggle */}
           <button
-            className="navbar-toggler d-lg-none"
+            className="navbar-toggler d-lg-none fs-6 px-2"
             type="button"
             onClick={() => setMobileDrawerOpen(true)}
           >
@@ -74,7 +71,7 @@ const Navbar = () => {
             className="collapse navbar-collapse d-none d-lg-flex"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 fs-7 gap-lg-3 text-center ms-lg-5">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-medium gap-lg-3 text-center ms-lg-5">
               <li className="nav-item">
                 <Link className="nav-link" to="/" onClick={closeMobileDrawer}>
                   Home
@@ -104,12 +101,14 @@ const Navbar = () => {
               {user ? (
                 <Popover />
               ) : (
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-3">
                   <Link to="/login">
-                    <button className="btn text-light nav-btn">Login</button>
+                    <button className="btn btn-outline-primary fw-medium">
+                      Login
+                    </button>
                   </Link>
                   <Link to="/signup">
-                    <button className="btn text-light nav-btn">Signup</button>
+                    <button className="btn bg-blue fw-medium">Signup</button>
                   </Link>
                 </div>
               )}
@@ -136,9 +135,11 @@ const Navbar = () => {
                 data-bs-toggle="dropdown"
                 style={{ cursor: "pointer" }}
               />
-              <p className="fw-bold fs-5 navy mt-3 mb-1">Rajkumar Avachar</p>
-              <p className="fs-8 mb-2 text-muted">Full Stack Web Developer</p>
-              <p className="text-muted fs-8 mb-0">
+              <p className="fw-bold fs-4 text-black mt-3 mb-1">
+                Rajkumar Avachar
+              </p>
+              <p className="fs-14 mb-2 text-black">Full Stack Web Developer</p>
+              <p className="text-muted fs-14 mb-0">
                 Jalgaon, Maharashtra, India
               </p>
             </div>
@@ -146,12 +147,13 @@ const Navbar = () => {
         ) : (
           <div className="border p-4 text-center">
             <Link
-              className="navbar-brand fw-bold fs-2"
+              className="navbar-brand fw-bold fs-3"
               to="/"
               onClick={closeMobileDrawer}
             >
-              <span className="text-danger">Dev</span>
-              <span className="navy">Junction</span>
+              {/* <span className="text-danger">IT</span>
+              <span className="navy">CONNECT</span> */}
+              <img src="logo/logo2.png" alt="Logo" className="nav-logo" />
             </Link>
           </div>
         )}
@@ -160,7 +162,8 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link " to="/" onClick={closeMobileDrawer}>
-                <AiFillHome className="fs-5 mb-1 me-2" /> Home
+                <AiFillHome className="fs-5 mb-1 me-2" />
+                Home
               </Link>
             </li>
             <li className="nav-item">
@@ -169,7 +172,7 @@ const Navbar = () => {
                 to="/dashboard"
                 onClick={closeMobileDrawer}
               >
-                <i class="bi bi-grid-fill me-2 fs-7"></i> Dashboard
+                <i class="bi bi-grid-fill me-2"></i> Dashboard
               </Link>
             </li>
             <li className="nav-item">
@@ -201,10 +204,14 @@ const Navbar = () => {
           ) : (
             <div className="d-flex flex-column gap-2 mt-3">
               <Link to="/login" onClick={closeMobileDrawer}>
-                <button className="btn text-light nav-btn w-100">Login</button>
+                <button className="btn text-light bg-blue w-100 fw-medium">
+                  Login
+                </button>
               </Link>
               <Link to="/signup" onClick={closeMobileDrawer}>
-                <button className="btn text-light nav-btn w-100">Signup</button>
+                <button className="btn text-light bg-blue w-100 fw-medium">
+                  Signup
+                </button>
               </Link>
             </div>
           )}

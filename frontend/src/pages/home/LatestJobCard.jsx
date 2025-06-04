@@ -8,40 +8,48 @@ import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 const LatestJobCard = () => {
   const jobId = "12345";
   return (
-    <div className="shadow-lg rounded-4 p-3 p-sm-4 latestJobCard">
-      <div className="d-flex justify-content-between">
-        <div className="">
+    <div className="rounded-3 shadow-sm border p-3 p-sm-4 latestJobCard  bg-white">
+      <div className="d-flex align-items-center mb-4">
+        <img
+          src="logo/google.webp"
+          alt="Logo"
+          width={50}
+          className="me-3 rounded-3"
+        />
+        <div>
           <Link to={`/job/${jobId}`} className="text-decoration-none">
-            <p className="fs-7 mb-1 fw-bold dark-blue hover-effect">Full stack developer</p>
+            <h5 className="mb-2 jobtitle-hover text-black fw-semibold fs-18">
+              Software Engineer
+            </h5>
           </Link>{" "}
-          <p className="text-muted fs-8">Google</p>
+          <h6 className="text-muted mb-0">Google</h6>
         </div>
-        <img src="logo/companyLogo.jpg" alt="Logo" width={60} className="" />
       </div>
 
-      <div className="d-flex gap-3 flex-wrap fs-8">
-        <div className="text-muted d-flex">
-          <LocationOnOutlinedIcon className="mb-1" /> &nbsp;&nbsp;
-          <p className="mb-0">Banglore</p>
+      <div className="d-flex gap-3 flex-wrap fs-14">
+        <div className="text-muted d-flex align-items-center">
+          <LocationOnOutlinedIcon className="fs-18" />
+          &nbsp;
+          <p className="mb-0">Bangalore</p>
         </div>
-        <div className="text-muted d-flex">
-          <WorkOutlineOutlinedIcon className="mb-1" /> &nbsp;&nbsp;
+        <div className="text-muted d-flex align-items-center">
+          <WorkOutlineOutlinedIcon className="fs-18" />
+          &nbsp;
           <p className="mb-0">Full-time</p>
         </div>
-        <div className="text-muted d-flex">
-          <PaymentOutlinedIcon className="mb-1" /> &nbsp;&nbsp;
-          <p className="mb-0">₹ 30k - 50k</p>
+        <div className="text-muted d-flex align-items-center">
+          <PaymentOutlinedIcon className="fs-18" />
+          &nbsp;
+          <p className="mb-0">₹ 20L - 30L</p>
         </div>
       </div>
-      <div className="mt-2 d-flex justify-content-between align-items-center">
-        <div className="navy fs-8">
-          <UpdateOutlinedIcon /> 2 days ago
+
+      <div className="mt-4 d-flex justify-content-between align-items-center">
+        <div className="text-blue fs-14">
+          <UpdateOutlinedIcon className="fs-18" /> 2 days ago
         </div>
         <Link to={`/job/${jobId}`} className="text-decoration-none">
-          <button
-            className="btn bg-dark-blue text-light"
-            style={{ fontSize: "14px" }}
-          >
+          <button className="btn bg-blue text-light fs-14 fw-medium">
             View Details
           </button>
         </Link>

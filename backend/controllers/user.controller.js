@@ -5,8 +5,8 @@ import jwt from "jsonwebtoken";
 //Register User
 export const register = async (req, res) => {
   try {
-    const { fullname, email, phoneNumber, password, role } = req.body;
-    if (!fullname || !email || !phoneNumber || !password || !role) {
+    const { fullname, email, password, role } = req.body;
+    if (!fullname || !email || !password || !role) {
       return res.status(400).json({
         message: "Please fill all details",
         success: false,
@@ -19,27 +19,26 @@ export const register = async (req, res) => {
         success: false,
       });
     }
-    const registeredPhoneNumber = await User.findOne({ phoneNumber });
-    if (registeredPhoneNumber) {
-      return res.status(400).json({
-        message: "Phone number already registered!",
-        success: false,
-      });
-    }
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(phoneNumber)) {
-      return res.status(400).json({
-        message: "Phone number must be exactly 10 digits",
-        success: false,
-      });
-    }
+    // const registeredPhoneNumber = await User.findOne({ phoneNumber });
+    // if (registeredPhoneNumber) {
+    //   return res.status(400).json({
+    //     message: "Phone number already registered!",
+    //     success: false,
+    //   });
+    // }
+    // const phoneRegex = /^\d{10}$/;
+    // if (!phoneRegex.test(phoneNumber)) {
+    //   return res.status(400).json({
+    //     message: "Phone number must be exactly 10 digits",
+    //     success: false,
+    //   });
+    // }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
       fullname,
       email,
-      phoneNumber,
       password: hashedPassword,
       role,
     });
@@ -60,8 +59,9 @@ export const register = async (req, res) => {
 //Login User
 export const login = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
-    if (!email || !password || !role) {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
       return res.status(400).json({
         message: "Please fill all the details",
         success: false,
@@ -70,23 +70,23 @@ export const login = async (req, res) => {
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
-        message: "Incorrect email or password",
+        message: "Incorrect email",
         success: false,
       });
     }
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       return res.status(400).json({
-        message: "Incorrect email or password",
+        message: "Incorrect password",
         success: false,
       });
     }
-    if (role != user.role) {
-      return res.status(400).json({
-        message: "Account doesn't exist with the current role",
-        success: false,
-      });
-    }
+    // if (role != user.role) {
+    //   return res.status(400).json({
+    //     message: "Account doesn't exist with the current role",
+    //     success: false,
+    //   });
+    // }
 
     const tokenData = {
       userId: user._id,
@@ -245,6 +245,12 @@ export const updateProfile = async (req, res) => {
       success: true,
     });
   } catch (error) {
+    if (error.code === 11000 && error.keyPattern?.phoneNumber) {
+      return res.status(400).json({
+        message: "Phone number already exists",
+        success: false,
+      });
+    }
     console.log(error);
     return res.status(500).json({
       message: "Internal Server Error",

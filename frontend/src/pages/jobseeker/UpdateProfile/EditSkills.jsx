@@ -46,11 +46,11 @@ const EditSkills = ({ editSkills, setEditSkills }) => {
   };
   return (
     <>
-      <p className="fs-4 fw-bold dark-blue">Edit Skills</p>
+      <h5 className="mt-2 fw-bold dark-blue">Edit Skills</h5>
 
       <div className="mb-3">
         <textarea
-          className="form-control"
+          className="form-control fs-14"
           id="exampleFormControlTextarea1"
           rows="3"
           value={input.skills}
@@ -59,13 +59,13 @@ const EditSkills = ({ editSkills, setEditSkills }) => {
         ></textarea>
       </div>
 
-      <div className="d-flex gap-3 justify-content-end my-3">
-        <button className="btn btn-light border d-flex" onClick={handleClose}>
+      <div className="d-flex gap-3 justify-content-end mt-3">
+        <button className="btn btn-light border d-flex fs-14 fw-medium" onClick={handleClose}>
           <i class="bi bi-x-lg me-2"></i>
           Cancel
         </button>
-        <button className="btn btn-primary" onClick={handleSubmit}>
-          <i class="bi bi-floppy fs-8 me-2"></i>
+        <button className="btn bg-blue fs-14 fw-medium" onClick={handleSubmit}>
+          <i class="bi bi-floppy me-2"></i>
           Save
         </button>
       </div>

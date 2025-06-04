@@ -1,15 +1,30 @@
-.fs-7 {
-  font-size: 1.1rem !important;
-}
-.fs-8 {
-  font-size: 0.95rem !important;
+.jobtitle-hover:hover {
+  color: #1d4ed8 !important;
 }
 
-body {
-  margin: 0;
-  padding: 0;
+.text-blue {
+  color: #2563eb !important;
 }
 
-.hover-effect:hover {
-  color: navy !important;
+.bg-blue {
+  background-color: #2563eb !important;
+  color: white !important;
+}
+
+.bg-blue:hover {
+  background-color: #1d4ed8 !important;
+}
+
+.hero-gradient {
+  background: linear-gradient(#003d99, #001433) !important;
+}
+
+.profile-photo {
+  width: 10rem;
+}
+
+@media (max-width: 576px) {
+  .profile-photo {
+    width: 8rem;
+  }
 }
