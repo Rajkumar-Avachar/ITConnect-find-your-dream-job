@@ -14,9 +14,9 @@ const Intro = () => {
       <div className="shadow-small border-sm d-flex gap-2 mb-sm-5 flex-column flex-sm-row px-2 pt-4 p-sm-4 rounded-4 profile align-items-sm-center">
         <div className="me-4">
           <img
-            src={user?.profile?.profilePhoto || "images/codingBoy.webp"}
+            src={user?.profile?.profilePhoto || "logo/user.png"}
             alt="Profile-Photo"
-            className="rounded-circle profile-photo border border-5"
+            className="rounded-circle profile-photo border border-3"
             onClick={() => setShowProfilePhotoModal(true)}
           />
         </div>

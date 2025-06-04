@@ -11,6 +11,7 @@ import { USER_API } from "../utils/apis";
 import { setUser } from "../redux/authSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -126,15 +127,22 @@ const Navbar = () => {
             onClick={closeMobileDrawer}
           >
             <div className="account p-4 border-bottom">
-              <img
-                src="images/codingBoy.webp"
-                alt="Avatar"
-                className="rounded-circle"
-                width="70"
-                height="70"
-                data-bs-toggle="dropdown"
-                style={{ cursor: "pointer" }}
-              />
+              {user?.profile.profilePhoto ? (
+                <img
+                  src={user?.profile?.profilePhoto}
+                  alt="Avatar"
+                  className="rounded-circle"
+                  width={100}
+                  height={100}
+                  style={{ cursor: "pointer" }}
+                />
+              ) : (
+                <AccountCircleIcon
+                  style={{ fontSize: "100px", color: "lightgray" }}
+                  className="rounded-circle"
+                />
+              )}
+
               <p className="fw-bold fs-4 text-black mt-3 mb-1">
                 Rajkumar Avachar
               </p>

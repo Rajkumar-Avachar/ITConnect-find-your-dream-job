@@ -120,7 +120,8 @@ const EditProfilePhoto = ({
           autoClose: 2000,
         }
       );
-    } 
+    }
+    setShowProfilePhotoModal(false);
   };
 
   return (
@@ -184,7 +185,7 @@ const EditProfilePhoto = ({
                     role="status"
                     aria-hidden="true"
                   ></span>
-                  Please wait...
+                  Please wait..
                 </button>
               ) : (
                 <button

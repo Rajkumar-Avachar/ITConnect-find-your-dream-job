@@ -2,9 +2,10 @@ import axios from "axios";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { USER_API } from "../utils/apis";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/authSlice";
 import { toast } from "react-toastify";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Popover = () => {
   const closeNavbar = () => {
@@ -13,6 +14,7 @@ const Popover = () => {
       new window.bootstrap.Collapse(navbar).toggle();
     }
   };
+  const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,15 +42,22 @@ const Popover = () => {
 
   return (
     <div className="dropdown">
-      <img
-        src="images/codingBoy.webp"
-        alt="Avatar"
-        className="rounded-circle"
-        width="40"
-        height="40"
-        data-bs-toggle="dropdown"
-        style={{ cursor: "pointer" }}
-      />
+      {user?.profile?.profilePhoto ? (
+        <img
+          src={user?.profile?.profilePhoto}
+          alt="Avatar"
+          className="rounded-circle"
+          width={40}
+          data-bs-toggle="dropdown"
+          style={{ cursor: "pointer" }}
+        />
+      ) : (
+        <AccountCircleIcon
+          className="fs-1"
+          data-bs-toggle="dropdown"
+          style={{ cursor: "pointer", color: "gray" }}
+        />
+      )}
       <ul className="dropdown-menu dropdown-menu-end mt-2">
         <li>
           <Link
@@ -74,7 +83,10 @@ const Popover = () => {
           <hr className="dropdown-divider" />
         </li>
         <li>
-          <button className="btn dropdown-item d-flex align-items-center gap-2" onClick={logoutHandler}>
+          <button
+            className="btn dropdown-item d-flex align-items-center gap-2"
+            onClick={logoutHandler}
+          >
             <i className="bi bi-box-arrow-right"></i>Logout
           </button>
         </li>
