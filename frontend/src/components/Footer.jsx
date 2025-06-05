@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LogoDevIcon from "@mui/icons-material/LogoDev";
 import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="p-4 hero-gradient text-light">
+    <footer
+      className="p-4 text-light"
+      style={{ backgroundColor: "#111827" }}
+      // style={{ backgroundColor: "#001433" }}
+    >
       <div className="row ms-lg-5 ps-lg-5 gx-5 mt-3">
         <div className="col-12 col-md-3">
           <Link
@@ -14,7 +17,7 @@ const Footer = () => {
           >
             {/* <span className="text-danger">IT</span>
             <span>CONNECT</span> */}
-            <img src="logo/footerlogo.png" alt="Logo" className="footer-logo"/>
+            <img src="logo/footerlogo.png" alt="Logo" className="footer-logo" />
           </Link>
           <p className="mt-2 fs-14">
             Your destination for discovering career opportunities and connecting
@@ -48,9 +51,9 @@ const Footer = () => {
           <p>Privacy Policy</p>
           <p>Terms of Service</p>
         </div>
-        <hr className="mt-4" />
       </div>
 
+      <hr className="my-4 mx-sm-5" />
       <p className="text-center mt-4 fs-14">
         &copy; 2025 ITConnect. All rights reserved.
       </p>

@@ -8,7 +8,7 @@ const LatestJobs = () => {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center">
-        <h4 className="text-black fw-bold my-5">Latest Job Openings</h4>
+        <h3 className="text-black fw-bold my-5">Latest Job Openings</h3>
         {/* <button className="btn btn-outline-primary">View All Jobs</button> */}
         <Link
           to="/jobs"
