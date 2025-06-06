@@ -1,0 +1,38 @@
+.logo-carousel-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #fff;
+  padding: 1rem 0;
+}
+
+.logo-carousel {
+  display: flex;
+  gap: 4rem;
+  animation: scroll 20s linear infinite;
+  min-width: max-content;
+}
+
+.logo-item {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-item img {
+  width: 120px;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* Auto scroll keyframes */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

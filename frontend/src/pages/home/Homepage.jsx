@@ -6,6 +6,7 @@ import Stats from "./Stats";
 import HowItWorks from "./HowItWorks";
 import EmployerPromo from "./EmployerPromo";
 import JobSeekerCTA from "./JobSeekerCTA";
+import CompanyLogoCarousel from "./CompanyLogoCarousel";
 
 const Homepage = () => {
   return (
@@ -15,6 +16,7 @@ const Homepage = () => {
       <LatestJobs />
       <HowItWorks/>
       <EmployerPromo/>
+      <CompanyLogoCarousel/>
       <JobSeekerCTA/>
     </div>
   );
