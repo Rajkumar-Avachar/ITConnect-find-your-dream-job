@@ -6,13 +6,10 @@ import JobDescription from "./JobDescription";
 
 const JobDetailsPage = () => {
   return (
-    <div className="bg-light py-4">
-      <div className="col-11 col-lg-8 mx-auto">
+    <div className="bg-light">
+      <div className="py-4 container pb-5">
         <div>
-          <Link
-            to="/jobs"
-            className="text-decoration-none fw-medium"
-          >
+          <Link to="/jobs" className="text-decoration-none fw-medium">
             <i class="bi bi-arrow-left"></i> Back to Jobs
           </Link>
         </div>

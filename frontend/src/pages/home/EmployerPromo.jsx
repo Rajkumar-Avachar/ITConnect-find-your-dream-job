@@ -9,9 +9,9 @@ const benefits = [
 
 const EmployerPromo = () => {
   return (
-    <div className="container my-5 pb-5">
-      <div className="row">
-        <div className="col-12 col-md-6 py-4 px-3">
+    <div className="container my-5 pb-5 ">
+      <div className="row  justify-content-evenly">
+        <div className="col-12 col-md-5 py-4 px-3 ">
           <h3 className="fw-bold text-black mb-3">
             Looking to Hire Top Talent?
           </h3>
@@ -20,7 +20,7 @@ const EmployerPromo = () => {
             powerful recruitment platform.
           </p>
 
-          <div className="text-muted mt-4">
+          <div className="text-muted mt-4 ">
             {benefits.map((benefit, index) => (
               <div className="d-flex gap-2 align-items-center mt-2" key={index}>
                 <div
@@ -41,7 +41,7 @@ const EmployerPromo = () => {
             Post a Job
           </button>
         </div>
-        <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
+        <div className="col-12 col-md-5 d-flex justify-content-center justify-content-md-end align-items-center ">
           <div
             className="rounded-3 mt-5 mt-md-0"
             style={{

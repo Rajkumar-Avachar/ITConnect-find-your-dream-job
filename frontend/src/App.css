@@ -16,7 +16,7 @@
 }
 
 .hero-gradient {
-  background: linear-gradient(#003d99, #001433) !important;
+  background: linear-gradient(to bottom right, #003d99, #001433) !important;
 }
 
 .profile-photo {

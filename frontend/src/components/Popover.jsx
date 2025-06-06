@@ -48,6 +48,7 @@ const Popover = () => {
           alt="Avatar"
           className="rounded-circle"
           width={40}
+          height={40}
           data-bs-toggle="dropdown"
           style={{ cursor: "pointer" }}
         />

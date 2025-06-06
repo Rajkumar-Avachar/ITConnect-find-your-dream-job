@@ -1,9 +1,44 @@
-.heroP {
-  @media (min-width: 768px) {
-    font-size: 1rem;
-  }
+.heroDiv h1 {
+  font-size: 2.3rem;
+}
 
-  @media (min-width: 992px) {
+.heroP {
+  font-size: 1.1rem;
+}
+
+@media (min-width: 992px) {
+  .heroP {
     font-size: 1.2rem;
+  }
+  .heroDiv h1 {
+    font-size: 3rem;
+  }
+}
+
+/* .stats-div {
+  background-color: white;
+  color: black;
+} */
+
+/* .stats-div {
+  background-color: #1d4ed880;
+  background-color: #2E5090;
+} */
+
+.stats-div div {
+  width: 48px;
+  height: 48px;
+}
+
+.hero-img-div {
+  background-color: #2e5090;
+  width: 80%;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .hero-img-div {
+    width: 100%;
+    padding: 1rem;
   }
 }

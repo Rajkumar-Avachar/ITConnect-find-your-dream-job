@@ -46,8 +46,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-white px-sm-5 border-bottom py-1 sticky-top">
-        <div className="container-fluid px-xl-5">
+      <nav className="navbar navbar-expand-lg bg-white border-bottom py-1 sticky-top">
+        <div className="container">
           <Link
             className="navbar-brand fw-bold fs-3 me-5"
             to="/"

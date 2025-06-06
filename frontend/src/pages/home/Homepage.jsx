@@ -12,7 +12,6 @@ const Homepage = () => {
   return (
     <div className="bg-light">
       <Hero />
-      <Stats/>
       <LatestJobs />
       <HowItWorks/>
       <EmployerPromo/>
