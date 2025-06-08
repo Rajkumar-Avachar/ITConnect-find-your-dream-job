@@ -46,16 +46,19 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-white border-bottom py-1 sticky-top">
+      <nav className="navbar navbar-expand-lg bg-light border-bottom py-2 sticky-top">
         <div className="container">
           <Link
-            className="navbar-brand fw-bold fs-3 me-5"
+            className="navbar-brand fw-bold me-5 d-flex"
             to="/"
             onClick={closeMobileDrawer}
           >
             {/* <span className="text-danger">IT</span>
             <span className="navy">CONNECT</span> */}
-            <img src="logo/logo2.png" alt="Logo" className="nav-logo" />
+            <div class="logo-pill">
+              <div class="left-pill text-light fs-5 text-center">IT</div>
+              <div class="right-pill text-light fs-5 text-center">CONNECT</div>
+            </div>
           </Link>
 
           {/* Hamburger toggle */}
@@ -84,7 +87,7 @@ const Navbar = () => {
                   to="/jobs"
                   onClick={closeMobileDrawer}
                 >
-                  Jobs
+                  Find Jobs
                 </Link>
               </li>
               <li className="nav-item">
@@ -161,7 +164,13 @@ const Navbar = () => {
             >
               {/* <span className="text-danger">IT</span>
               <span className="navy">CONNECT</span> */}
-              <img src="logo/logo2.png" alt="Logo" className="nav-logo" />
+              {/* <img src="logo/logo2.png" alt="Logo" className="nav-logo" />*/}
+              <div class="logo-pill">
+                <div class="left-pill text-light fs-5 text-center">IT</div>
+                <div class="right-pill text-light fs-5 text-center">
+                  CONNECT
+                </div>
+              </div>
             </Link>
           </div>
         )}
@@ -189,7 +198,7 @@ const Navbar = () => {
                 to="/jobs"
                 onClick={closeMobileDrawer}
               >
-                <i className="bi bi-briefcase-fill me-2"></i> Jobs
+                <i className="bi bi-briefcase-fill me-2"></i> Find Jobs
               </Link>
             </li>
             <li className="nav-item">

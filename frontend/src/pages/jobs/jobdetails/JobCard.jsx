@@ -10,7 +10,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 
 const JobCard = () => {
   return (
-    <div className="border rounded-3 p-3 p-sm-4 latestJobCard mt-4 bg-white">
+    <div className="border rounded-3 p-3 p-sm-4 mt-4 bg-white">
       <div className="d-flex align-items-center mb-4">
         <img
           src="/logo/google.webp"
@@ -45,7 +45,7 @@ const JobCard = () => {
 
       <div className="mt-3 fs-15 border-top py-3">
         <span class="badge rounded-pill text-bg-light text-muted fw-normal border align-items-center fs-14">
-          <UpdateOutlinedIcon className="fs-14 me-2" />
+          <UpdateOutlinedIcon className="fs-6 me-2" />
           Posted 3 days ago
         </span>
         <div className="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-4">
@@ -56,9 +56,9 @@ const JobCard = () => {
             <span>Openings: 5</span>
           </div>
           <div className="d-flex gap-4 align-items-center flex-grow-1 justify-content-sm-end justify-content-evenly mt-2">
-            <i class="bi bi-bookmark border px-2 py-1 rounded-3"></i>
-            <i class="bi bi-share border px-2 py-1 rounded-3"></i>
-            <button className="btn bg-blue fw-medium px-4">Apply Now</button>
+            <i class="bi bi-bookmark border px-3 fs-6 py-1 rounded-3 bg-light"></i>
+            <i class="bi bi-share border px-3 fs-6 py-1 rounded-3 bg-light"></i>
+            <button className="btn bg-blue fw-semibold px-4">Apply Now</button>
           </div>
         </div>
       </div>

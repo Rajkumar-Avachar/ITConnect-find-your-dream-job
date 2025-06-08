@@ -161,8 +161,8 @@ const JobFilters = () => {
         </div>
       </div>
       <div className="text-center mt-5 d-flex flex-column gap-3 align-items-center">
-        <button className="btn text-light bg-blue w-75">Apply Filters</button>
-        <button className="btn btn-light border border-2 w-75">
+        <button className="btn text-light bg-blue w-75 fs-14">Apply Filters</button>
+        <button className="btn btn-light border border-2 w-75 fs-14">
           Reset Filters
         </button>
       </div>

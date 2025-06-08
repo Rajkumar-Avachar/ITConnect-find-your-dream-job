@@ -44,3 +44,45 @@
     width: 10rem;
   }
 }
+
+/* .IT {
+  background-color: #2563eb;
+  height: 40px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 50px;
+}
+
+.Connect {
+  background-color: #111827;
+  height: 40px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 10px;
+} */
+
+.logo-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins";
+}
+
+/* Left Shape: Blue with diagonal right edge */
+.left-pill {
+  padding: 2px 12px;
+  background: #2563eb;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+}
+
+/* Right Shape: Dark with diagonal left edge */
+.right-pill {
+  padding: 2px 12px;
+  background: #0b132b;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  clip-path: polygon(7% 0, 100% 0, 100% 100%, 0% 100%);
+  margin-left: -6px; /* overlap slightly to remove gap */
+}

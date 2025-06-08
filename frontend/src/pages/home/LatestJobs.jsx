@@ -17,7 +17,7 @@ const LatestJobs = () => {
           View All Jobs <ArrowRight size={16} />
         </Link>
       </div>
-      <div className="row row-cols-lg-2">
+      <div className="row row-cols-lg-3">
         {array.slice(0, 6).map((item, index) => (
           <div className="p-3">
             <LatestJobCard />

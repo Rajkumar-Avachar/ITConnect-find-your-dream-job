@@ -3,7 +3,7 @@ body {
   padding: 0;
 }
 
-* {
+/* * {
   font-family:
     ui-sans-serif,
     system-ui,
@@ -14,7 +14,7 @@ body {
     "Helvetica Neue",
     Arial,
     sans-serif !important;
-}
+} */
 
 /* | Bootstrap Class | Font Size (rem) | Approx. Pixel Size (px) |
 | --------------- | --------------- | ----------------------- |

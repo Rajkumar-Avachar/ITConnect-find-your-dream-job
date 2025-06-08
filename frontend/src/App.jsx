@@ -11,9 +11,10 @@ import Error from "./pages/error/Error";
 import ScrollToTop from "./utils/ScrollToTop";
 import Dashboard from "./pages/jobseeker/Dashboard";
 import ProfilePage from "./pages/jobseeker/ProfilePage";
-import JobsPage from "./pages/jobs/JobsPage/JobsPage";
-import Companies from "./pages/companies/Companies";
-import JobDetailsPage from "./pages/jobs/JobDetailsPage/JobDetailsPage";
+import JobsPage from "./pages/jobs/jobs/JobsPage";
+import JobDetailsPage from "./pages/jobs/jobdetails/JobDetailsPage";
+import CompaniesPage from "./pages/companies/companies/CompaniesPage";
+import CompanyDetailsPage from "./pages/companies/companydetails/CompanyDetailsPage";
 
 import { Outlet } from "react-router-dom";
 
@@ -41,7 +42,8 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="jobs" element={<JobsPage />} />
           <Route path="job/:id" element={<JobDetailsPage />} />
-          <Route path="companies" element={<Companies />} />
+          <Route path="companies" element={<CompaniesPage />} />
+          <Route path="company/:id" element={<CompanyDetailsPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />

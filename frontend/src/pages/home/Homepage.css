@@ -6,6 +6,10 @@
   font-size: 1.1rem;
 }
 
+.latestJobCard:hover {
+  border: 1px solid blue;
+}
+
 @media (min-width: 992px) {
   .heroP {
     font-size: 1.2rem;
@@ -32,7 +36,7 @@
 
 .hero-img-div {
   background-color: #2e5090;
-  width: 80%;
+  width: 75%;
   padding: 2rem;
 }
 

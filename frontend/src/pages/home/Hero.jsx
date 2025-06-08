@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <div className="hero-gradient heroDiv py-5">
-      <div className="container ">
+      <div className="container py-4">
         <div className="row align-items-center">
           <div className="col-12 col-md-5 ">
-            <h1 className="fw-bold text-light">Find Your Dream Job Today</h1>
+            <h1 className="fw-bold text-light">Find Your Dream Tech Job</h1>
             <p className="text-light heroP my-4">
               Discover thousands of job opportunities with all the information
               you need.
@@ -22,7 +22,7 @@ const Hero = () => {
             </Link>
           </div>
           <div className="col-12 col-md-7 text-center text-md-end mt-5 mt-md-0">
-            <div className="d-inline-block rounded-5 hero-img-div">
+            <div className="d-inline-block rounded-4 hero-img-div">
               <div className="border d-inline-block rounded-4">
                 <img
                   src="images/homehero.jpg"
