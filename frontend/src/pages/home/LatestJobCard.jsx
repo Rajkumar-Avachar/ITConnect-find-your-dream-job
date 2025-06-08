@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Briefcase, MapPin, Wallet, Bookmark } from "lucide-react";
+import { Briefcase, MapPin, Wallet } from "lucide-react";
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 
 const LatestJobCard = () => {
@@ -35,7 +35,7 @@ const LatestJobCard = () => {
           <div className="text-muted d-flex align-items-center">
             <MapPin size={16} />
             &nbsp;
-            <p className="mb-0">Bangalore</p>
+            <p className="mb-0">Banglore</p>
           </div>
           <div className="text-muted d-flex align-items-center">
             <Briefcase size={16} />
