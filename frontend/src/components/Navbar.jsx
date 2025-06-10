@@ -53,7 +53,7 @@ const Navbar = () => {
             to="/"
             onClick={closeMobileDrawer}
           >
-            <img src="/logo/logo.png" alt="Logo" />
+            <img src="/logo/websiteLogo.png" alt="Logo" />
           </Link>
 
           {/* Hamburger toggle */}
@@ -159,7 +159,7 @@ const Navbar = () => {
               to="/"
               onClick={closeMobileDrawer}
             >
-              <img src="/logo/logo.png" alt="Logo" />
+              <img src="/logo/websiteLogo.png" alt="Logo" />
             </Link>
           </div>
         )}

@@ -15,7 +15,7 @@ const Footer = () => {
             className="navbar-brand fw-bold text-light fs-3 me-5 mb-0"
             to="/"
           >
-            <img src="/logo/logo.png" alt="Logo" width={128} />
+            <img src="/logo/footerLogo.png" alt="Logo" width={128} />
           </Link>
           <p className="mt-3">
             Your destination for discovering career opportunities and connecting

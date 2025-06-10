@@ -36,7 +36,7 @@ const CompanyCard = () => {
           </div>
 
           <div className="mt-3">
-            <span className="fs-14  rounded-pill bg-light px-2 py-1 border text-muted">
+            <span className="fs-12 badge rounded-pill text-blue bg-light-blue fw-normal">
               <Briefcase size={14} /> &nbsp;10 Jobs available
             </span>
           </div>
