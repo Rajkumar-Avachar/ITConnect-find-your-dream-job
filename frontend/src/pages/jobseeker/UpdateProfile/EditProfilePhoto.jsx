@@ -98,7 +98,7 @@ const EditProfilePhoto = ({
 
     try {
       const formData = new FormData();
-      formData.append("deletePhoto", "true");
+      formData.append("profilePhoto", null);
 
       const res = await axios.put(`${USER_API}/updateProfile`, formData, {
         headers: { "Content-Type": "multipart/form-data" },

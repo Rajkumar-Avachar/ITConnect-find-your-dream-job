@@ -53,12 +53,7 @@ const Navbar = () => {
             to="/"
             onClick={closeMobileDrawer}
           >
-            {/* <span className="text-danger">IT</span>
-            <span className="navy">CONNECT</span> */}
-            <div class="logo-pill">
-              <div class="left-pill text-light fs-5 text-center">IT</div>
-              <div class="right-pill text-light fs-5 text-center">CONNECT</div>
-            </div>
+            <img src="/logo/logo.png" alt="Logo" />
           </Link>
 
           {/* Hamburger toggle */}
@@ -122,7 +117,9 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Drawer */}
-      <div className={`mobile-drawer ${mobileDrawerOpen ? "show" : ""}`}>
+      <div
+        className={`mobile-drawer ${mobileDrawerOpen ? "show bg-light" : ""}`}
+      >
         {user ? (
           <Link
             className="text-decoration-none"
@@ -162,15 +159,7 @@ const Navbar = () => {
               to="/"
               onClick={closeMobileDrawer}
             >
-              {/* <span className="text-danger">IT</span>
-              <span className="navy">CONNECT</span> */}
-              {/* <img src="logo/logo2.png" alt="Logo" className="nav-logo" />*/}
-              <div class="logo-pill">
-                <div class="left-pill text-light fs-5 text-center">IT</div>
-                <div class="right-pill text-light fs-5 text-center">
-                  CONNECT
-                </div>
-              </div>
+              <img src="/logo/logo.png" alt="Logo" />
             </Link>
           </div>
         )}

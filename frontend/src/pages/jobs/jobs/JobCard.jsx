@@ -18,24 +18,29 @@ const JobCard = () => {
           </Link>
           <p className="text-muted fs-6 fw-semibold">Google</p>
         </div>
-        <img src="logo/companyLogo.jpg" alt="Logo" width={50} className="rounded-3"/>
+        <img
+          src="logo/companyLogo.jpg"
+          alt="Logo"
+          width={50}
+          className="rounded-3"
+        />
       </div>
 
       <div className="d-flex gap-3 flex-wrap fs-15">
         <div className="text-muted d-flex align-items-center">
           <LocationOnOutlinedIcon className="fs-18" />
           &nbsp;
-          <p className="mb-0">Bangalore</p>
-        </div>
-        <div className="text-muted d-flex align-items-center">
-          <WorkOutlineOutlinedIcon className="fs-18" />
-          &nbsp;
-          <p className="mb-0">Full-time</p>
+          <p className="mb-0">Banglore</p>
         </div>
         <div className="text-muted d-flex align-items-center">
           <PaymentOutlinedIcon className="fs-18" />
           &nbsp;
           <p className="mb-0">₹ 30k - 50k</p>
+        </div>
+        <div className="text-muted d-flex align-items-center">
+          <WorkOutlineOutlinedIcon className="fs-18" />
+          &nbsp;
+          <p className="mb-0">Full-time</p>
         </div>
       </div>
 
@@ -44,11 +49,7 @@ const JobCard = () => {
           <UpdateOutlinedIcon className="fs-18" /> 2 days ago
         </div>
         <Link to={`/job/${jobId}`}>
-          <button
-            className="btn bg-blue"
-          >
-            View Details
-          </button>
+          <button className="btn bg-blue">View Details</button>
         </Link>
       </div>
     </div>

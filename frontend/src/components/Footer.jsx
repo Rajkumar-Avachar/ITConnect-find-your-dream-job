@@ -15,15 +15,9 @@ const Footer = () => {
             className="navbar-brand fw-bold text-light fs-3 me-5 mb-0"
             to="/"
           >
-            {/* <span className="text-danger">IT</span>
-            <span>CONNECT</span> */}
-            {/* <img src="logo/footerlogo.png" alt="Logo" className="footer-logo" /> */}
-            <div class="logo-pill">
-              <div class="left-pill text-light fs-5 text-center">IT</div>
-              <div class="right-pill text-light fs-5 text-center">CONNECT</div>
-            </div>
+            <img src="/logo/logo.png" alt="Logo" width={128} />
           </Link>
-          <p className="footer-p">
+          <p className="mt-3">
             Your destination for discovering career opportunities and connecting
             with top companies.
           </p>

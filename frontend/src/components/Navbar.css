@@ -35,14 +35,8 @@
   background-color: #050a30 !important;
 }
 
-.nav-logo {
+.navbar-brand img {
   width: 8rem;
-}
-
-@media (min-width: 768px) {
-  .nav-logo {
-    width: 10rem;
-  }
 }
 
 /* .IT {

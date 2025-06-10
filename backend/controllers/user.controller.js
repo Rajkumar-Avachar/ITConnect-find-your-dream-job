@@ -141,7 +141,8 @@ export const updateProfile = async (req, res) => {
       resume,
     } = req.body;
 
-    const profilePhotoUrl = req.file?.path || null;
+    const profilePhotoUrl =
+      req.file?.path || (req.body.profilePhoto === "null" ? null : undefined);
 
     if (!Object.keys(req.body).length && !profilePhotoUrl) {
       return res.status(400).json({
@@ -183,9 +184,10 @@ export const updateProfile = async (req, res) => {
 
     const updatedFields = {};
 
-    updatedFields["profile.profilePhoto"] = profilePhotoUrl;
+    if (profilePhotoUrl !== undefined)
+      updatedFields["profile.profilePhoto"] = profilePhotoUrl;
 
-    updatedFields.fullname = fullname;
+    if (fullname !== undefined) updatedFields.fullname = fullname;
 
     if (headline !== undefined) updatedFields["profile.headline"] = headline;
 

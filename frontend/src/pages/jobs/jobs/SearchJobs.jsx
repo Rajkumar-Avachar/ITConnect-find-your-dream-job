@@ -15,7 +15,7 @@ const SearchJobs = () => {
             <input
               type="text"
               className="form-control ps-5 py-2 bg-input"
-              placeholder="Job title or keyword"
+              placeholder="Job title, skill or company"
             />
           </div>
 
