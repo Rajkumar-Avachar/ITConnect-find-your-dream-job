@@ -4,7 +4,7 @@ const SearchCompany = () => {
   return (
     <div>
       <h3 className="fw-bold text-center">Browse Companies</h3>
-      <div className="d-flex gap-3 p-3 p-md-4 border mt-4 bg-white flex-wrap rounded-3">
+      <div className="d-flex gap-3 p-3 p-md-4 border hover-shadow-sm mt-4 bg-white flex-wrap rounded-3">
         <div className="position-relative flex-grow-1">
           <i
             className="bi bi-search position-absolute top-50 start-0 ms-3 translate-middle-y text-muted"

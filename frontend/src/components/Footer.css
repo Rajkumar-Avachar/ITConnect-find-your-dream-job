@@ -4,6 +4,10 @@ footer .row .col p + p {
   margin-bottom: 12px !important;
 }
 
+.footer-p {
+  margin-top: -1rem;
+}
+
 .footer-links p {
   margin-bottom: 10px;
   font-size: 14px;

@@ -12,14 +12,18 @@ const Footer = () => {
       <div className="row ms-lg-5 ps-lg-5 gx-5 mt-3">
         <div className="col-12 col-md-3">
           <Link
-            className="navbar-brand fw-bold text-light fs-3 me-5 mb-5"
+            className="navbar-brand fw-bold text-light fs-3 me-5 mb-0"
             to="/"
           >
             {/* <span className="text-danger">IT</span>
             <span>CONNECT</span> */}
-            <img src="logo/footerlogo.png" alt="Logo" className="footer-logo" />
+            {/* <img src="logo/footerlogo.png" alt="Logo" className="footer-logo" /> */}
+            <div class="logo-pill">
+              <div class="left-pill text-light fs-5 text-center">IT</div>
+              <div class="right-pill text-light fs-5 text-center">CONNECT</div>
+            </div>
           </Link>
-          <p className="mt-2 fs-14">
+          <p className="footer-p">
             Your destination for discovering career opportunities and connecting
             with top companies.
           </p>

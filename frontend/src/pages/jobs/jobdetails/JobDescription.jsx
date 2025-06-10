@@ -16,7 +16,7 @@ const JobDescription = () => {
   ];
   return (
     <div
-      className="my-4 p-3 p-sm-4 border rounded-3 bg-white"
+      className="my-4 p-3 p-sm-4 shadow-sm rounded-3 bg-white"
       style={{ textAlign: "justify" }}
     >
       <h5 className="fw-semibold fs-18">Job Description</h5>

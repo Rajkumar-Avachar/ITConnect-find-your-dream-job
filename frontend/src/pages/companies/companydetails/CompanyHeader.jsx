@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const CompanyHeader = () => {
   return (
-    <div className="rounded-3 my-4 border ">
+    <div className="rounded-3 my-4 border shadow-sm">
       <div
         className="bg-blue rounded-top-3 upper"
         style={{ width: "100%", height: "10rem" }}
@@ -27,7 +27,7 @@ const CompanyHeader = () => {
             />
           </div>
           <div>
-            <h3 className="fw-bold mb-1">Microsoft</h3>
+            <h4 className="fw-bold mb-1">Microsoft</h4>
             <p className="text-muted">Software Development</p>
           </div>
         </div>

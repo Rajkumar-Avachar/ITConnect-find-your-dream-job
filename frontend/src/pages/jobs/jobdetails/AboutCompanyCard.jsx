@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutCompanyCard = () => {
   return (
-    <div className="border rounded-3 p-3 p-sm-4 bg-white">
+    <div className="shadow-sm rounded-3 p-3 p-sm-4 bg-white">
       <h5 className="fw-semibold fs-18">About the Company</h5>
 
       <div className="d-flex gap-3 align-items-center mt-3">

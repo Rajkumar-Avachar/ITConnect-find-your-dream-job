@@ -4,20 +4,18 @@ const CompanyOverview = () => {
   return (
     <div className="my-4">
       <h5 className="fs-18 fw-semibold">About Microsoft</h5>
-      <p className="text-muted fs-14 mt-3">
-        Every company has a mission. What's ours? To empower every person and
-        every organization to achieve more. We believe technology can and should
-        be a force for good and that meaningful innovation contributes to a
-        brighter world in the future and today. Our culture doesn’t just
-        encourage curiosity; it embraces it. Each day we make progress together
-        by showing up as our authentic selves. We show up with a learn-it-all
-        mentality. We show up cheering on others, knowing their success doesn't
-        diminish our own. We show up every day open to learning our own biases,
-        changing our behavior, and inviting in differences. Because impact
-        matters.{" "}
+      <p className="text-muted fs-14 mt-3 text-justify ">
+        Microsoft Corporation is an American multinational corporation and
+        technology conglomerate headquartered in Redmond, Washington. Founded
+        in 1975, the company became influential in the rise of personal
+        computers through software like Windows, and the company has since
+        expanded to Internet services, cloud computing, video gaming and other
+        fields. Microsoft is the largest software maker, one of the most
+        valuable public U.S. companies, and one of the most valuable brands
+        globally.
       </p>
       <h5 className="fs-18 fw-semibold mt-4">Specialties</h5>
-      <p className="text-muted fs-14 mt-3">
+      <p className="text-muted fs-14 mt-3 text-justify">
         Business Software, Developer Tools, Home & Educational Software,
         Tablets, Search, Advertising, Servers, Windows Operating System, Windows
         Applications & Platforms, Smartphones, Cloud Computing, Quantum

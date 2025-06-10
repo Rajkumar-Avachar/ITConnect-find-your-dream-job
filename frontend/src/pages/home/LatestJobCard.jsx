@@ -14,7 +14,7 @@ const LatestJobCard = () => {
   const jobId = "12345";
   return (
     <Link to={`/job/${jobId}`} className="text-decoration-none">
-      <div className="rounded-3 p-3 shadow-sm p-sm-4 latestJobCard  bg-white border">
+      <div className="rounded-3 p-3 border hover-shadow-sm p-sm-4 latestJobCard  bg-white">
         <div className="d-flex align-items-center mb-4">
           <img
             src="logo/google.webp"

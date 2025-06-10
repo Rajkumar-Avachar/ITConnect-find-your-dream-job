@@ -4,7 +4,7 @@ const SearchJobs = () => {
   return (
     <div>
       <h3 className="fw-bold">Find Your Perfect Job</h3>
-      <div className="col-12 mx-auto mt-4  p-4 mb-5 rounded-3 text-center border bg-white">
+      <div className="col-12 mx-auto mt-4  p-4 mb-5 rounded-3 text-center border hover-shadow-sm bg-white">
         <div className="d-flex gap-3 flex-wrap flex-lg-nowrap col-md-12 mx-auto">
           <div className="position-relative flex-grow-1">
             <i

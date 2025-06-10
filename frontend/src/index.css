@@ -25,7 +25,6 @@ body {
 | `fs-5`          | 1.25rem         | 20px                    |
 | `fs-6`          | 1rem            | 16px                    | */
 
-
 .fs-18 {
   font-size: 1.125rem !important;
 }
@@ -46,4 +45,12 @@ body {
 }
 .fs-10 {
   font-size: 0.625rem !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+.hover-shadow-sm:hover {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }

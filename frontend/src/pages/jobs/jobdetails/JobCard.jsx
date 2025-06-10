@@ -10,7 +10,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 
 const JobCard = () => {
   return (
-    <div className="border rounded-3 p-3 p-sm-4 mt-4 bg-white">
+    <div className="shadow-sm rounded-3 p-3 p-sm-4 mt-4 bg-white">
       <div className="d-flex align-items-center mb-4">
         <img
           src="/logo/google.webp"
