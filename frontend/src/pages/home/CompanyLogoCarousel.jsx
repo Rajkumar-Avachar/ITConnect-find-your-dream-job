@@ -1,5 +1,4 @@
 import React from "react";
-import "./CompanyLogoCarousel.css";
 
 const logo = [
   "/logo/google.png",

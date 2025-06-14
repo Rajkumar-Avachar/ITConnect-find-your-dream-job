@@ -2,7 +2,6 @@ import React from "react";
 import Hero from "./Hero";
 import LatestJobs from "./LatestJobs";
 import "./Homepage.css";
-import Stats from "./Stats";
 import HowItWorks from "./HowItWorks";
 import EmployerPromo from "./EmployerPromo";
 import JobSeekerCTA from "./JobSeekerCTA";
@@ -13,10 +12,10 @@ const Homepage = () => {
     <div className="bg-light">
       <Hero />
       <LatestJobs />
-      <HowItWorks/>
-      <EmployerPromo/>
-      <CompanyLogoCarousel/>
-      <JobSeekerCTA/>
+      <HowItWorks />
+      <EmployerPromo />
+      <CompanyLogoCarousel />
+      <JobSeekerCTA />
     </div>
   );
 };

@@ -7,7 +7,6 @@ const Footer = () => {
     <footer
       className="p-4 text-light"
       style={{ backgroundColor: "#111827" }}
-      // style={{ backgroundColor: "#001433" }}
     >
       <div className="row ms-lg-5 ps-lg-5 gx-5 mt-3">
         <div className="col-12 col-md-3">
@@ -15,7 +14,8 @@ const Footer = () => {
             className="navbar-brand fw-bold text-light fs-3 me-5 mb-0"
             to="/"
           >
-            <img src="/logo/footerLogo.png" alt="Logo" width={128} />
+            <span className="bg-white text-dark px-1">IT</span>
+            <span> Connect</span>
           </Link>
           <p className="mt-3">
             Your destination for discovering career opportunities and connecting

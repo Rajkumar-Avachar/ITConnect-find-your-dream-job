@@ -1,48 +1,117 @@
-.heroDiv h1 {
-  font-size: 2.3rem;
+header {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  /* height: 70vh; */
 }
 
-.heroP {
-  font-size: 1.1rem;
+header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #333;
 }
 
-/* .latestJobCard:hover {
-  border: 1px solid blue;
+header h6 {
+  font-size: 18px !important;
+  color: #555;
+  margin-top: 1.2rem;
+}
+
+/* .hero-img-div{
+  border-radius: 100% 100% 100% 100% / 100% 100% 100% 100%      ;
+  background-color: lightblue;
+  border-radius: 0rem 0rem 3rem 3rem;
 } */
 
-@media (min-width: 992px) {
-  .heroP {
-    font-size: 1.2rem;
+.hero-img-div img {
+  width: 40rem;
+}
+
+@media (max-width: 1200px) {
+  .hero-img-div img {
+    width: 32rem;
   }
-  .heroDiv h1 {
-    font-size: 3rem;
+}
+@media (max-width: 992px) {
+  .hero-img-div img {
+    width: 25rem;
+  }
+}
+@media (max-width: 768px) {
+  .hero-img-div {
+    width: 100%;
+  }
+  .hero-img-div img {
+    width: 20rem;
+  }
+  header h1 {
+    font-size: 2rem;
+  }
+  header h6 {
+    font-size: 1rem !important;
   }
 }
 
-/* .stats-div {
-  background-color: white;
-  color: black;
-} */
-
-/* .stats-div {
-  background-color: #1d4ed880;
-  background-color: #2E5090;
-} */
-
+.stats {
+  margin-bottom: -4rem;
+}
 .stats-div div {
   width: 48px;
   height: 48px;
 }
 
-.hero-img-div {
-  background-color: #2e5090;
-  width: 75%;
-  padding: 2rem;
+/* Company Logo Carousel */
+
+.logo-carousel-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #fff;
+  padding: 1rem 0;
 }
 
-@media (max-width: 768px) {
-  .hero-img-div {
-    width: 100%;
-    padding: 1rem;
+.logo-carousel {
+  display: flex;
+  gap: 4rem;
+  animation: scroll 20s linear infinite;
+  min-width: max-content;
+}
+
+.logo-item {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-item img {
+  width: 120px;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* Auto scroll keyframes */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.blinking-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }

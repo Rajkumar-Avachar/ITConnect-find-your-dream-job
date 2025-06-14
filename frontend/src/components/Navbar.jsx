@@ -46,14 +46,14 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-light border-bottom py-2 sticky-top">
+      <nav className="navbar navbar-expand-lg bg-light border-bottom sticky-top">
         <div className="container">
           <Link
             className="navbar-brand fw-bold me-5 d-flex"
             to="/"
             onClick={closeMobileDrawer}
           >
-            <img src="/logo/websiteLogo.png" alt="Logo" />
+            <img src="/logo/itconnectlogo.png" alt="Logo" />
           </Link>
 
           {/* Hamburger toggle */}
@@ -159,7 +159,7 @@ const Navbar = () => {
               to="/"
               onClick={closeMobileDrawer}
             >
-              <img src="/logo/websiteLogo.png" alt="Logo" />
+              <img src="/logo/itconnectlogo.png" alt="Logo" />
             </Link>
           </div>
         )}

@@ -13,10 +13,11 @@ const SearchCompany = () => {
 
           <input
             type="text"
-            className="form-control ps-5 py-2 bg-input"
+            className="form-control ps-5 py-2 bg-input w-100"
             placeholder="Search companies..."
           />
         </div>
+
         <div className="position-relative flex-grow-1">
           <i
             className="bi bi-geo-alt position-absolute top-50 start-0 ms-3 translate-middle-y text-muted"
@@ -25,13 +26,16 @@ const SearchCompany = () => {
 
           <input
             type="text"
-            className="form-control ps-5 py-2 bg-input"
+            className="form-control ps-5 py-2 bg-input w-100"
             placeholder="Location"
           />
         </div>
-        <button className="btn bg-blue text-light px-4 py-2 fw-medium fs-14 mx-auto">
-          Search Companies
-        </button>
+
+        <div className="mx-auto" style={{ flexBasis: "100%", maxWidth: "200px" }}>
+          <button className="btn bg-blue text-light w-100 py-2 fw-medium fs-14">
+            Search Companies
+          </button>
+        </div>
       </div>
     </div>
   );
