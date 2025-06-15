@@ -1,6 +1,8 @@
 import { User } from "../model/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 //Register User
 export const register = async (req, res) => {
@@ -89,9 +91,10 @@ export const login = async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpsOnly: true,
-        sameSite: "strict",
       })
       .json({
         message: `Welcome back ${user.fullname}`,
@@ -242,5 +245,21 @@ export const updateProfile = async (req, res) => {
       message: "Internal Server Error",
       success: false,
     });
+  }
+};
+export const me = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("-password");
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    return res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error("Error in /me:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 };

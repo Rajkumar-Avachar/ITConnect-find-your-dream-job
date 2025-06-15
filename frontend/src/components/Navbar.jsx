@@ -8,7 +8,7 @@ import { BsBuildingsFill } from "react-icons/bs";
 import { IoLogOut } from "react-icons/io5";
 import LanguageIcon from "@mui/icons-material/Language";
 import { USER_API } from "../utils/apis";
-import { setUser } from "../redux/authSlice";
+import { logout, setUser } from "../redux/authSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -28,7 +28,8 @@ const Navbar = () => {
         withCredentials: true,
       });
       if (res.data.success) {
-        dispatch(setUser(null));
+        dispatch(logout()); // this will reset auth state
+        localStorage.removeItem("user"); // optional: clear local storage
         navigate("/");
         toast.success("Logout successful!", {
           position: "bottom-right",
@@ -223,14 +224,6 @@ const Navbar = () => {
           )}
 
           {user && (
-            // <Link
-            //   className="dropdown-item d-flex align-items-center gap-2 mt-5 pt-5"
-            //   to="/logout"
-            //   onClick={closeMobileDrawer}
-            // >
-            //   <IoLogOut className="fs-2" />
-            //   Logout
-            // </Link>
             <button
               className="btn dropdown-item d-flex align-items-center gap-2"
               onClick={logoutHandler}

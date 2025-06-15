@@ -4,6 +4,7 @@ import {
   login,
   logout,
   updateProfile,
+  me,
 } from "../controllers/user.controller.js";
 import { isAuthenticated } from "../middlewares/authMiddleware.js";
 
@@ -24,5 +25,7 @@ router
     profilePhotoUpload.single("profilePhoto"),
     updateProfile
   );
+
+router.route("/me").get(isAuthenticated, me);
 
 export default router;

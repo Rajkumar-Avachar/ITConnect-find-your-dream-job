@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { USER_API } from "../utils/apis";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../redux/authSlice";
+import { logout, setUser } from "../redux/authSlice";
 import { toast } from "react-toastify";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -24,7 +24,8 @@ const Popover = () => {
         withCredentials: true,
       });
       if (res.data.success) {
-        dispatch(setUser(null));
+        dispatch(logout());
+        localStorage.removeItem("user");
         navigate("/");
         toast.success("Logout successful!", {
           position: "bottom-right",
