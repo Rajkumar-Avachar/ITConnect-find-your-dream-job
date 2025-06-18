@@ -3,32 +3,66 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
+// import { isUrlLive } from '@the-node-forge/url-validator';
 
 //Register User
 export const register = async (req, res) => {
   try {
     const { fullname, email, password, role } = req.body;
-    if (!fullname || !email || !password || !role) {
+
+    const cleaned = {
+      fullname: fullname?.trim().replace(/\s+/g, " "),
+      email: email?.trim(),
+      password: password?.trim(),
+      role: role?.trim().replace(/\s+/g, "").toLowerCase(),
+    };
+
+    for (let key in cleaned) {
+      if (!cleaned[key]) {
+        return res.status(400).json({
+          message: "Please fill all the details",
+          success: false,
+        });
+      }
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleaned.email)) {
       return res.status(400).json({
-        message: "Please fill all details",
+        message: "Invalid email format",
         success: false,
       });
     }
-    const user = await User.findOne({ email });
-    if (user) {
+
+    const existingUser = await User.findOne({ email: cleaned.email });
+    if (existingUser) {
       return res.status(400).json({
         message: "Email already registered",
         success: false,
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    if (!["jobseeker", "employer"].includes(cleaned.role)) {
+      return res.status(400).json({
+        message: "Role must be either 'jobseeker' or 'employer'",
+        success: false,
+      });
+    }
+
+    if (cleaned.password.length < 6) {
+      return res.status(400).json({
+        message: "Password must be at least 6 characters",
+        success: false,
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(cleaned.password, 10);
 
     await User.create({
-      fullname,
-      email,
+      fullname: cleaned.fullname,
+      email: cleaned.email,
       password: hashedPassword,
-      role,
+      role: cleaned.role,
     });
 
     return res.status(201).json({
@@ -49,20 +83,36 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
+    const cleaned = {
+      email: email?.trim().toLowerCase(),
+      password: password?.trim(),
+    };
+    for (let key in cleaned) {
+      if (!cleaned[key]) {
+        return res.status(400).json({
+          message: "Please fill all the details",
+          success: false,
+        });
+      }
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleaned.email)) {
       return res.status(400).json({
-        message: "Please fill all the details",
+        message: "Invalid email format",
         success: false,
       });
     }
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email: cleaned.email });
     if (!user) {
       return res.status(400).json({
         message: "Incorrect email",
         success: false,
       });
     }
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    const isPasswordMatch = await bcrypt.compare(
+      cleaned.password,
+      user.password
+    );
     if (!isPasswordMatch) {
       return res.status(400).json({
         message: "Incorrect password",
@@ -83,9 +133,9 @@ export const login = async (req, res) => {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
-      phoneNumber: user.phoneNumber,
+      phoneNumber: user.phoneNumber || "",
       role: user.role,
-      profile: user.profile,
+      profile: user.profile || "",
     };
 
     return res
@@ -113,10 +163,18 @@ export const login = async (req, res) => {
 //Logout User
 export const logout = async (req, res) => {
   try {
-    return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-      message: "Logged out successfully",
-      success: true,
-    });
+    return res
+      .status(200)
+      .cookie("token", "", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 0,
+      })
+      .json({
+        message: "Logged out successfully",
+        success: true,
+      });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -129,23 +187,40 @@ export const logout = async (req, res) => {
 //Update Profile
 export const updateProfile = async (req, res) => {
   try {
+    const userId = req.user.userId;
+
     const {
       fullname,
       headline,
+      resume,
       location,
       gender,
-      email,
       phoneNumber,
-      about,
-      skills,
+      email,
       portfolio,
       github,
       linkedin,
-      resume,
+      about,
+      skills,
     } = req.body;
 
     const profilePhotoUrl =
       req.file?.path || (req.body.profilePhoto === "null" ? null : undefined);
+
+    const cleaned = {
+      fullname: fullname?.trim().replace(/\s+/g, " "),
+      headline: headline?.trim().replace(/\s+/g, " "),
+      resume: resume?.trim().replace(/\s+/g, ""),
+      location: location?.trim().replace(/\s+/g, " "),
+      gender: gender?.trim(),
+      phoneNumber: phoneNumber,
+      email: email?.trim(),
+      portfolio: portfolio?.trim().replace(/\s+/g, ""),
+      github: github?.trim().replace(/\s+/g, ""),
+      linkedin: linkedin?.trim().replace(/\s+/g, ""),
+      about: about?.trim().replace(/\s+/g, " "),
+      skills: skills?.trim(),
+    };
 
     if (!Object.keys(req.body).length && !profilePhotoUrl) {
       return res.status(400).json({
@@ -154,67 +229,109 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    if (fullname !== undefined && !fullname.trim()) {
-      return res.status(400).json({
-        message: "Full Name is required",
-        success: false,
-      });
+    //validate full name
+    if (fullname !== undefined && !cleaned.fullname) {
+      return res
+        .status(400)
+        .json({ message: "Full Name is required", success: false });
     }
 
-    if (email !== undefined && !email.trim()) {
-      return res.status(400).json({
-        message: "Email is required",
-        success: false,
+    //validate email
+    if (email !== undefined) {
+      if (!cleaned.email) {
+        return res
+          .status(400)
+          .json({ message: "Email is required", success: false });
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(cleaned.email)) {
+        return res
+          .status(400)
+          .json({ message: "Invalid email format", success: false });
+      }
+
+      const isEmailExist = await User.findOne({
+        email: cleaned.email,
+        _id: { $ne: userId },
       });
+
+      if (isEmailExist) {
+        return res
+          .status(400)
+          .json({ message: "Email already exists", success: false });
+      }
     }
 
-    if (phoneNumber !== undefined && !phoneNumber.toString().trim()) {
-      return res.status(400).json({
-        message: "Phone number is required",
-        success: false,
+    //validate phone number
+    if (cleaned.phoneNumber) {
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!phoneRegex.test(cleaned.phoneNumber)) {
+        return res
+          .status(400)
+          .json({ message: "Invalid phone number", success: false });
+      }
+
+      const existingPhone = await User.findOne({
+        phoneNumber: cleaned.phoneNumber,
+        _id: { $ne: userId },
       });
+
+      if (existingPhone) {
+        return res
+          .status(400)
+          .json({ message: "Phone number already exists", success: false });
+      }
     }
 
-    const userId = req.user.userId;
-    let user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(400).json({
-        message: "Please login to update profile",
-        success: false,
-      });
-    }
-
-    const updatedFields = {};
+    const updatedFields = {
+      fullname: cleaned.fullname,
+      email: cleaned.email,
+    };
 
     if (profilePhotoUrl !== undefined)
       updatedFields["profile.profilePhoto"] = profilePhotoUrl;
 
-    if (fullname !== undefined) updatedFields.fullname = fullname;
+    if (cleaned.headline !== undefined)
+      updatedFields["profile.headline"] = cleaned.headline;
 
-    if (headline !== undefined) updatedFields["profile.headline"] = headline;
+    if (cleaned.resume !== undefined)
+      updatedFields["profile.resume"] = cleaned.resume;
 
-    if (location !== undefined) updatedFields["profile.location"] = location;
+    if (cleaned.location !== undefined)
+      updatedFields["profile.location"] = cleaned.location;
 
-    if (gender !== undefined && gender !== "")
-      updatedFields["profile.gender"] = gender;
+    if (cleaned.gender !== undefined) {
+      const validGenders = ["Male", "Female", "Other", ""];
+      if (!validGenders.includes(cleaned.gender)) {
+        return res.status(400).json({
+          message: "Invalid gender value",
+          success: false,
+        });
+      }
 
-    updatedFields.email = email;
+      updatedFields["profile.gender"] = cleaned.gender;
+    }
 
-    updatedFields.phoneNumber = phoneNumber;
+    if (cleaned.phoneNumber !== undefined)
+      updatedFields.phoneNumber = cleaned.phoneNumber;
 
-    if (about !== undefined) updatedFields["profile.about"] = about;
+    if (cleaned.portfolio !== undefined)
+      updatedFields["profile.portfolio"] = cleaned.portfolio;
 
-    if (portfolio !== undefined) updatedFields["profile.portfolio"] = portfolio;
-    if (github !== undefined) updatedFields["profile.github"] = github;
-    if (linkedin !== undefined) updatedFields["profile.linkedin"] = linkedin;
-    if (resume !== undefined) updatedFields["profile.resume"] = resume;
+    if (cleaned.github !== undefined)
+      updatedFields["profile.github"] = cleaned.github;
 
-    if (skills !== undefined) {
-      updatedFields["profile.skills"] =
-        skills.trim() === ""
-          ? []
-          : skills.split(",").map((skill) => skill.trim());
+    if (cleaned.linkedin !== undefined)
+      updatedFields["profile.linkedin"] = cleaned.linkedin;
+
+    if (cleaned.about !== undefined)
+      updatedFields["profile.about"] = cleaned.about;
+
+    if (cleaned.skills !== undefined) {
+      updatedFields["profile.skills"] = cleaned.skills
+        ? cleaned.skills.split(",").map((s) => s.trim())
+        : [];
     }
 
     const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
@@ -247,6 +364,8 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
+
+//me
 export const me = async (req, res) => {
   try {
     const user = await User.findById(req.user.userId).select("-password");

@@ -54,11 +54,11 @@ const jobSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
-    // createdBy: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     status: {
       type: String,
       enum: ["Open", "Closed"],

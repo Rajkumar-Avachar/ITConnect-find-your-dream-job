@@ -120,6 +120,8 @@ const EditProfilePhoto = ({
           autoClose: 2000,
         }
       );
+      setShowProfilePhotoModal(true);
+      return;
     }
     setShowProfilePhotoModal(false);
   };

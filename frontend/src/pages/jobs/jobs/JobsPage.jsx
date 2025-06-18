@@ -2,8 +2,10 @@ import React from "react";
 import SearchJobs from "./SearchJobs";
 import JobFilters from "./JobFilters";
 import JobResults from "./JobResults";
+import useJobs from "../../../hooks/useJobs";
 
 const JobsPage = () => {
+  useJobs();
   return (
     <div className="bg-light py-5">
       <div className="container">

@@ -4,13 +4,21 @@ import { USER_API } from "../../../utils/apis";
 import axios from "axios";
 import { setUser } from "../../../redux/authSlice";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const EditSkills = ({ editSkills, setEditSkills }) => {
   const handleClose = () => setEditSkills(false);
   const { user } = useSelector((store) => store.auth);
-  const [input, setInput] = useState({
-    skills: (user?.profile?.skills || []).join(", "),
-  });
+  // const [input, setInput] = useState({
+  //   skills: (user?.profile?.skills || []).join(", "),
+  // });
+  const [input, setInput] = useState({ skills: "" });
+
+  useEffect(() => {
+    if (user?.profile?.skills) {
+      setInput({ skills: user.profile.skills.join(", ") });
+    }
+  }, [user]);
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
@@ -41,6 +49,8 @@ const EditSkills = ({ editSkills, setEditSkills }) => {
         position: "bottom-right",
         autoClose: 2000,
       });
+      setEditSkills(true);
+      return;
     }
     setEditSkills(false);
   };
@@ -60,7 +70,10 @@ const EditSkills = ({ editSkills, setEditSkills }) => {
       </div>
 
       <div className="d-flex gap-3 justify-content-end mt-3">
-        <button className="btn btn-light border d-flex fs-14 fw-medium" onClick={handleClose}>
+        <button
+          className="btn btn-light border d-flex fs-14 fw-medium"
+          onClick={handleClose}
+        >
           <i class="bi bi-x-lg me-2"></i>
           Cancel
         </button>

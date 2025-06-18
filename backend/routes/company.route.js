@@ -14,7 +14,7 @@ router.route("/").post(isAuthenticated, isEmployer, createCompany);
 
 router.route("/all-companies").get(isAuthenticated, getAllCompanies);
 
-router.route("/").get(isAuthenticated, isEmployer, getCompanies);
+router.route("/your-company").get(isAuthenticated, isEmployer, getCompanies);
 
 router.route("/:id").get(isAuthenticated, getCompanyById);
 

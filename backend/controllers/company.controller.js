@@ -1,17 +1,18 @@
+import mongoose from "mongoose";
 import { Company } from "../model/company.model.js";
 
 //Create Company
 export const createCompany = async (req, res) => {
   try {
-    const { companyName, about, website, location } = req.body;
-    if (!companyName) {
+    const { name, about, website, location } = req.body;
+    if (!name?.trim()) {
       return res.status(400).json({
         message: "Company name is required",
         success: false,
       });
     }
 
-    const existingCompany = await Company.findOne({ name: companyName });
+    const existingCompany = await Company.findOne({ name: name });
     if (existingCompany) {
       return res.status(400).json({
         message: "A company with this name already exists",
@@ -20,11 +21,11 @@ export const createCompany = async (req, res) => {
     }
 
     const companyData = {};
-    if (companyName) companyData.name = companyName;
+    companyData.name = name;
     if (about) companyData.about = about;
     if (website) companyData.website = website;
     if (location) companyData.location = location;
-    companyData.createdBy = req.user.userId;
+    companyData["employers"] = [req.user.userId];
     const company = await Company.create(companyData);
 
     return res.status(201).json({
@@ -44,7 +45,7 @@ export const createCompany = async (req, res) => {
 //Get all companies
 export const getAllCompanies = async (req, res) => {
   try {
-    const companies = await Company.find({});
+    const companies = await Company.find({}).sort({ createdAt: -1 });
     if (companies.length === 0) {
       return res.status(404).json({
         message: "Companies Not Found",
@@ -68,7 +69,7 @@ export const getAllCompanies = async (req, res) => {
 export const getCompanies = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const companies = await Company.find({ createdBy: userId }).sort({
+    const companies = await Company.find({ employers: userId }).sort({
       createdAt: -1,
     });
     if (companies.length === 0) {
@@ -94,6 +95,12 @@ export const getCompanies = async (req, res) => {
 export const getCompanyById = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid Company ID",
+        success: false,
+      });
+    }
     const company = await Company.findById(id);
     if (!company) {
       return res.status(404).json({
@@ -118,8 +125,27 @@ export const getCompanyById = async (req, res) => {
 export const updateCompany = async (req, res) => {
   try {
     const { id } = req.params;
-    const { companyName, about, website, location } = req.body;
-    const file = req.file;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid Company ID",
+        success: false,
+      });
+    }
+    const { name, about, website, location } = req.body;
+
+    const company = await Company.findById(id);
+    if (!company) {
+      return res.status(404).json({
+        message: "Company Not Found",
+        success: false,
+      });
+    }
+    if (!company.employers.includes(req.user.userId)) {
+      return res.status(403).json({
+        message: "You are not authorized to update this company",
+        success: false,
+      });
+    }
 
     if (!Object.keys(req.body).length) {
       return res.status(400).json({
@@ -128,23 +154,32 @@ export const updateCompany = async (req, res) => {
       });
     }
 
+    if (name !== undefined) {
+      if (!name.trim()) {
+        return res.status(400).json({
+          message: "Company Name is required",
+          success: false,
+        });
+      }
+      const isDuplicateName = await Company.findOne({ name, _id: { $ne: id } });
+      if (isDuplicateName) {
+        return res.status(400).json({
+          message: "Company name already exists",
+          success: false,
+        });
+      }
+    }
+
     const updatedFields = {};
-    if (companyName) updatedFields.name = companyName;
-    if (about) updatedFields.about = about;
-    if (website) updatedFields.website = website;
-    if (location) updatedFields.location = location;
+    if (name) updatedFields.name = name;
+    if (about !== undefined) updatedFields.about = about;
+    if (website !== undefined) updatedFields.website = website;
+    if (location !== undefined) updatedFields.location = location;
 
     const updatedCompany = await Company.findByIdAndUpdate(id, updatedFields, {
       new: true,
       runValidators: true,
     });
-
-    if (!updatedCompany) {
-      return res.status(404).json({
-        message: "Company Not Found",
-        success: false,
-      });
-    }
 
     return res.status(200).json({
       message: "Company updated successfully",
@@ -164,6 +199,26 @@ export const updateCompany = async (req, res) => {
 export const deleteCompany = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        message: "Invalid Company ID",
+        success: false,
+      });
+    }
+    const company = await Company.findById(id);
+    if (!company) {
+      return res.status(404).json({
+        message: "Company not found",
+        success: false,
+      });
+    }
+    if (!company.employers.includes(req.user.userId)) {
+      return res.status(403).json({
+        message: "You are not authorized to delete this company",
+        success: false,
+      });
+    }
+
     const deletedCompany = await Company.findByIdAndDelete(id);
 
     if (!deletedCompany) {

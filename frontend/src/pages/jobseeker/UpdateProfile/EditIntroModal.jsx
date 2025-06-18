@@ -7,6 +7,7 @@ import { USER_API } from "../../../utils/apis";
 import axios from "axios";
 import { setUser } from "../../../redux/authSlice";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
   const handleClose = () => setShowIntroModal(false);
@@ -14,11 +15,24 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
   const { user } = useSelector((store) => store.auth);
 
   const [input, setInput] = useState({
-    fullname: user?.fullname || "",
-    headline: user?.profile?.headline || "",
-    location: user?.profile?.location || "",
-    gender: user?.profile?.gender,
+    fullname: "",
+    headline: "",
+    resume: "",
+    location: "",
+    gender: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setInput({
+        fullname: user?.fullname || "",
+        headline: user?.profile?.headline || "",
+        resume: user?.profile?.resume || "",
+        location: user?.profile?.location || "",
+        gender: user?.profile?.gender || "",
+      });
+    }
+  }, [user]);
 
   const dispatch = useDispatch();
 
@@ -50,6 +64,8 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
         position: "bottom-right",
         autoClose: 2000,
       });
+      setShowIntroModal(true);
+      return;
     }
     setShowIntroModal(false);
   };
@@ -122,7 +138,11 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
               </Form.Select>
             </Form.Group>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose} className="fs-14 fw-medium">
+              <Button
+                variant="secondary"
+                onClick={handleClose}
+                className="fs-14 fw-medium"
+              >
                 Close
               </Button>
 

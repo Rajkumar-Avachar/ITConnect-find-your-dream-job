@@ -21,7 +21,8 @@ const Signup = () => {
   const [role, setRole] = useState("jobseeker");
 
   const handleInputChange = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
   };
 
   const navigate = useNavigate();

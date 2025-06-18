@@ -13,7 +13,7 @@ const JobCard = () => {
   };
   return (
     <div>
-      <div className="py-3 stickyTop bg-light  d-flex align-items-center justify-content-between">
+      <div className="py-3 stickyTop bg-light  d-flex align-items-center justify-content-between w-100">
         <Link to="/jobs" className="text-decoration-none fw-medium">
           <i class="bi bi-arrow-left"></i> Back to Jobs
         </Link>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <header className="border-bottom">
-      <div className="container pt-md-3 d-flex justify-content-between align-items-center gap-2 gap-md-3 flex-wrap flex-md-nowrap px-0">
+      <div className="container pt-md-3 d-flex justify-content-between align-items-center gap-md-3 flex-wrap flex-md-nowrap px-0">
         <div className=" py-4 px-3 px-sm-0 text-center text-md-start w-100">
           <span className="badge bg-light-blue text-muted border py-2 fs-14 rounded-pill fw-semibold d-inline-flex align-items-center gap-2">
             <span className="blinking-dot bg-primary"></span>

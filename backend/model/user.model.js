@@ -5,17 +5,12 @@ const userSchema = new mongoose.Schema(
     fullname: {
       type: String,
       required: true,
-      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
-      trim: true,
-    },
-    phoneNumber: {
-      type: Number,
     },
     password: {
       type: String,
@@ -26,30 +21,37 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["jobseeker", "employer"],
       required: true,
+      lowercase: true,
+    },
+    phoneNumber: {
+      type: Number,
     },
     profile: {
+      profilePhoto: { type: String, default: "" },
       headline: { type: String, default: "" },
-      about: { type: String, maxlength: 2000, default: "" },
+      resume: { type: String, lowercase: true, default: "" },
+      location: { type: String, default: "" },
       gender: {
         type: String,
-        enum: ["Male", "Female", "Other"],
-      },
-      skills: { type: [String], default: [] },
-      resume: { type: String, default: "" },
-      profilePhoto: { type: String, default: "" },
-      location: { type: String, default: "" },
-      github: {
-        type: String,
+        enum: ["Male", "Female", "Other", ""],
         default: "",
       },
       portfolio: {
         type: String,
         default: "",
       },
-      linkedin: {
+      github: {
         type: String,
+        lowercase: true,
         default: "",
       },
+      linkedin: {
+        type: String,
+        lowercase: true,
+        default: "",
+      },
+      about: { type: String, maxlength: 2000, default: "" },
+      skills: { type: [String], default: [] },
     },
 
     //For Employers

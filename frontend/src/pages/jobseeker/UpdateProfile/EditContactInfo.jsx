@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { USER_API } from "../../../utils/apis";
 import axios from "axios";
+import { useEffect } from "react";
 import { setUser } from "../../../redux/authSlice";
 import { toast } from "react-toastify";
 
@@ -9,12 +10,24 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
   const handleClose = () => setEditContactInfo(false);
   const { user } = useSelector((store) => store.auth);
   const [input, setInput] = useState({
-    phoneNumber: user?.phoneNumber || "",
-    email: user?.email || "",
-    portfolio: user?.profile?.portfolio || "",
-    github: user?.profile?.github || "",
-    linkedin: user?.profile?.linkedin || "",
+    phoneNumber: "",
+    email: "",
+    portfolio: "",
+    github: "",
+    linkedin: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setInput({
+        phoneNumber: user?.phoneNumber || "",
+        email: user?.email || "",
+        portfolio: user?.profile?.portfolio || "",
+        github: user?.profile?.github || "",
+        linkedin: user?.profile?.linkedin || "",
+      });
+    }
+  }, [user]);
   const dispatch = useDispatch();
   const handleInputChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -47,6 +60,8 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
           autoClose: 2000,
         }
       );
+      setEditContactInfo(true);
+      return;
     }
     setEditContactInfo(false);
   };
@@ -56,7 +71,7 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
       <form onSubmit={handleSubmit} className="bg-white fs-14">
         <div className="mb-3">
           <label htmlFor="phone" className="form-label">
-            Phone *
+            Phone
           </label>
           <input
             type="text"
@@ -66,7 +81,6 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
             value={input.phoneNumber}
             onChange={handleInputChange}
             maxLength={10}
-            required
             pattern="[0-9]{10}"
           />
         </div>
@@ -125,7 +139,10 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
         </div>
 
         <div className="d-flex gap-3 justify-content-end my-3">
-          <button className="btn btn-light border d-flex fs-14 fw-medium" onClick={handleClose}>
+          <button
+            className="btn btn-light border d-flex fs-14 fw-medium"
+            onClick={handleClose}
+          >
             <i class="bi bi-x-lg me-2"></i>
             Cancel
           </button>

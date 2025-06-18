@@ -4,14 +4,19 @@ import { USER_API } from "../../../utils/apis";
 import axios from "axios";
 import { setUser } from "../../../redux/authSlice";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const EditAbout = ({ editAbout, setEditAbout }) => {
   const handleClose = () => setEditAbout(false);
 
   const { user } = useSelector((store) => store.auth);
-  const [input, setInput] = useState({
-    about: user?.profile?.about || "",
-  });
+  const [input, setInput] = useState({ about: "" });
+
+  useEffect(() => {
+    if (user?.profile?.about) {
+      setInput({ about: user.profile.about });
+    }
+  }, [user]);
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
@@ -42,6 +47,8 @@ const EditAbout = ({ editAbout, setEditAbout }) => {
         position: "bottom-right",
         autoClose: 2000,
       });
+      setEditAbout(true);
+      return;
     }
     setEditAbout(false);
   };
@@ -63,11 +70,17 @@ const EditAbout = ({ editAbout, setEditAbout }) => {
           onChange={handleInputChange}
         ></textarea>
         <div className="d-flex gap-3 justify-content-end my-3">
-          <button className="btn btn-light border d-flex fs-14 fw-medium" onClick={handleClose}>
+          <button
+            className="btn btn-light border d-flex fs-14 fw-medium"
+            onClick={handleClose}
+          >
             <i class="bi bi-x-lg me-2"></i>
             Cancel
           </button>
-          <button className="btn bg-blue fw-medium fs-14" onClick={handleSubmit}>
+          <button
+            className="btn bg-blue fw-medium fs-14"
+            onClick={handleSubmit}
+          >
             <i class="bi bi-floppy me-2"></i>
             Save
           </button>
