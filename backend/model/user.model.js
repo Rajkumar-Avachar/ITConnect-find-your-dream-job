@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
       location: { type: String, default: "" },
       gender: {
         type: String,
-        enum: ["Male", "Female", "Other", ""],
+        enum: ["male", "female", "other", ""],
         default: "",
       },
       portfolio: {
@@ -54,17 +54,11 @@ const userSchema = new mongoose.Schema(
       skills: { type: [String], default: [] },
     },
 
-    //For Employers
     company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
       default: null,
     },
-    // companyWebsite: {
-    //   type: String,
-    //   default: "",
-    //   validate: { validator: validateURL, message: "Invalid website URL" },
-    // },
   },
   { timestamps: true }
 );

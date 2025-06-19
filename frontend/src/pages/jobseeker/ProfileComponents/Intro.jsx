@@ -23,7 +23,7 @@ const Intro = () => {
         <div className="d-flex justify-content-between flex-grow-1 gap-2">
           <div className="py-3 flex-grow-1">
             <h4 className="mb-2 fw-semibold">
-              {user?.fullname || "Your Name"}
+              {user?.fullname}
             </h4>
             <p className="mb-2">{user?.profile?.headline}</p>
             {user?.profile?.resume && (
@@ -40,13 +40,13 @@ const Intro = () => {
             {user?.profile?.location && (
               <p className="text-muted mb-2 fs-14">
                 <i className="bi bi-geo-alt me-2"></i>{" "}
-                {user?.profile?.location || "Jalgaon, Maharashtra"}
+                {user?.profile?.location}
               </p>
             )}
             {user?.profile?.gender && (
               <p className="text-muted mb-2 fs-14">
                 <i className="bi bi-gender-ambiguous me-2"></i>{" "}
-                {user?.profile?.gender || "Male"}
+                {user?.profile?.gender}
               </p>
             )}
           </div>

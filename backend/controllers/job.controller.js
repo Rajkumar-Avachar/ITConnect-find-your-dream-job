@@ -20,7 +20,7 @@ export const createJob = async (req, res) => {
 
     const employerId = req.user.userId;
 
-    const isCompany = await Company.findOne({ createdBy: employerId });
+    const isCompany = await Company.findOne({ employer: employerId });
 
     if (!isCompany) {
       return res.status(403).json({
@@ -31,7 +31,7 @@ export const createJob = async (req, res) => {
 
     if (company !== isCompany.name) {
       return res.status(403).json({
-        message: "You can only post jobs for your associated company",
+        message: "You can only post jobs for your company",
         success: false,
       });
     }

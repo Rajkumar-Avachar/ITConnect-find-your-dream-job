@@ -58,15 +58,14 @@ export const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(cleaned.password, 10);
 
-    await User.create({
-      fullname: cleaned.fullname,
-      email: cleaned.email,
+    const user = await User.create({
+      ...cleaned,
       password: hashedPassword,
-      role: cleaned.role,
     });
 
     return res.status(201).json({
       message: "Account created successfully",
+      user,
       success: true,
     });
   } catch (error) {
@@ -212,7 +211,7 @@ export const updateProfile = async (req, res) => {
       headline: headline?.trim().replace(/\s+/g, " "),
       resume: resume?.trim().replace(/\s+/g, ""),
       location: location?.trim().replace(/\s+/g, " "),
-      gender: gender?.trim(),
+      gender: gender?.trim().toLowerCase(),
       phoneNumber: phoneNumber,
       email: email?.trim(),
       portfolio: portfolio?.trim().replace(/\s+/g, ""),
@@ -230,14 +229,14 @@ export const updateProfile = async (req, res) => {
     }
 
     //validate full name
-    if (fullname !== undefined && !cleaned.fullname) {
+    if (cleaned.fullname !== undefined && !cleaned.fullname) {
       return res
         .status(400)
         .json({ message: "Full Name is required", success: false });
     }
 
     //validate email
-    if (email !== undefined) {
+    if (cleaned.email !== undefined) {
       if (!cleaned.email) {
         return res
           .status(400)
@@ -302,7 +301,7 @@ export const updateProfile = async (req, res) => {
       updatedFields["profile.location"] = cleaned.location;
 
     if (cleaned.gender !== undefined) {
-      const validGenders = ["Male", "Female", "Other", ""];
+      const validGenders = ["male", "female", "other", ""];
       if (!validGenders.includes(cleaned.gender)) {
         return res.status(400).json({
           message: "Invalid gender value",
@@ -334,10 +333,14 @@ export const updateProfile = async (req, res) => {
         : [];
     }
 
-    const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updatedFields },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     if (!updatedUser) {
       return res.status(404).json({
         message: "User not found",

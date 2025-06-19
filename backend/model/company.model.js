@@ -6,30 +6,62 @@ const companySchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      trim: true,
-    },
-    about: {
-      type: String,
-      default: "",
-    },
-    website: {
-      type: String,
-    },
-    location: {
-      type: String,
     },
     logo: {
       type: String,
       default: "",
     },
-    employers: [
+    industry: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+    },
+    foundedYear: {
+      type: Number,
+      min: 1800,
+      max: new Date().getFullYear(),
+      default: null,
+    },
+    website: {
+      type: String,
+    },
+    about: {
+      type: String,
+      maxlength: 2000,
+      default: "",
+    },
+    specialities: {
+      type: String,
+      default: "",
+      maxlength: 1000,
+    },
+    employer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    // recruiters: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
+    jobs: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Job",
       },
     ],
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 export const Company = mongoose.model("Company", companySchema);
