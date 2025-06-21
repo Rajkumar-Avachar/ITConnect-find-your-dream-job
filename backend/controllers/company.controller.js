@@ -84,9 +84,9 @@ export const getAllCompanies = async (req, res) => {
       .sort({ createdAt: -1 });
 
     if (companies.length === 0) {
-      return res.status(404).json({
+      return res.status(200).json({
         message: "Companies Not Found",
-        success: false,
+        success: true,
       });
     }
     return res.status(200).json({
@@ -142,9 +142,9 @@ export const getCompanyByEmployer = async (req, res) => {
       "jobs"
     );
     if (company.length === 0) {
-      return res.status(404).json({
+      return res.status(200).json({
         message: "You have not created any Company yet",
-        success: false,
+        success: true,
       });
     }
 

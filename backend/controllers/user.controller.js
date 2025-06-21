@@ -218,7 +218,7 @@ export const updateProfile = async (req, res) => {
       github: github?.trim().replace(/\s+/g, ""),
       linkedin: linkedin?.trim().replace(/\s+/g, ""),
       about: about?.trim().replace(/\s+/g, " "),
-      skills: skills?.trim(),
+      skills: skills?.trim().replace(/\s+/g, ""),
     };
 
     if (!Object.keys(req.body).length && !profilePhotoUrl) {
@@ -329,8 +329,9 @@ export const updateProfile = async (req, res) => {
 
     if (cleaned.skills !== undefined) {
       updatedFields["profile.skills"] = cleaned.skills
-        ? cleaned.skills.split(",").map((s) => s.trim())
-        : [];
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -374,9 +375,10 @@ export const me = async (req, res) => {
     const user = await User.findById(req.user.userId).select("-password");
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
     }
 
     return res.status(200).json({ success: true, user });

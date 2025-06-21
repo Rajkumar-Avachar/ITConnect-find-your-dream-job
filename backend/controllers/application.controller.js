@@ -1,13 +1,18 @@
 import { Application } from "../model/application.model.js";
 import { Job } from "../model/job.model.js";
 
-//Apply for a Job (Applicant only )
+//Apply for a Job
 export const applyJob = async (req, res) => {
   try {
-    const userId = req.user.userId;
-    const { jobId } = req.body;
+    const applicantId = req.user.userId;
+    const { jobId, resume } = req.body;
 
-    //check if the job is exists
+    if (!jobId || !resume) {
+      return res.status(400).json({
+        message: "Job id and resume are required",
+        success: false,
+      });
+    }
     const job = await Job.findById(jobId);
     if (!job) {
       return res.status(404).json({
@@ -15,24 +20,26 @@ export const applyJob = async (req, res) => {
         success: false,
       });
     }
-    //check if the user has already applied for this job
+
     const existingApplication = await Application.findOne({
       job: jobId,
-      applicant: userId,
+      applicant: applicantId,
     });
+
     if (existingApplication) {
       return res.status(400).json({
         message: "You have already applied for this job",
         success: false,
       });
     }
-    //create a new application
+
     const application = await Application.create({
+      applicant: applicantId,
       job: jobId,
-      applicant: userId,
+      resume: resume,
     });
 
-    // Add application reference to job
+    
     job.applications.push(application._id);
     await job.save();
 

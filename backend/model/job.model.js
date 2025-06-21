@@ -5,7 +5,6 @@ const jobSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      trim: true,
     },
     company: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,17 +15,21 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    salary: {
+      type: String,
+      default: "Not Disclosed",
+    },
+    experience: {
+      type: String,
+      default: "0 years",
+    },
     jobType: {
       type: String,
-      required: true,
+      enum: ["Full-Time", "Part-Time", "Internship"],
     },
-    minSalary: {
-      type: Number,
-      required: true,
-    },
-    maxSalary: {
-      type: Number,
-      required: true,
+    workMode: {
+      type: String,
+      enum: ["Onsite", "Remote", "Hybrid"],
     },
     applications: [
       {
@@ -36,37 +39,28 @@ const jobSchema = new mongoose.Schema(
     ],
     openings: {
       type: Number,
-      required: true,
+      default: 1,
     },
     description: {
       type: String,
-      required: true,
+      default: "",
     },
     responsibilities: {
       type: String,
-      required: true,
+      default: "",
     },
     eligibility: {
       type: String,
-      required: true,
+      default: "",
     },
-    skillsRequired: {
+    skills: {
       type: [String],
       default: [],
     },
-    // postedBy: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
-    status: {
-      type: String,
-      enum: ["Open", "Closed"],
-      default: "Open",
-    },
-    postedAt: {
-      type: Date,
-      default: Date.now,
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
   },
   { timestamps: true }

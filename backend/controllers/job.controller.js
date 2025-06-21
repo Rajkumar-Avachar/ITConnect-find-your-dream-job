@@ -4,80 +4,105 @@ import { Company } from "../model/company.model.js";
 //Create Job
 export const createJob = async (req, res) => {
   try {
-    const {
-      title,
-      company,
-      location,
-      jobType,
-      minSalary,
-      maxSalary,
-      openings,
-      description,
-      responsibilities,
-      eligibility,
-      skillsRequired,
-    } = req.body;
-
     const employerId = req.user.userId;
 
-    const isCompany = await Company.findOne({ employer: employerId });
+    const company = await Company.findOne({ employer: employerId });
 
-    if (!isCompany) {
+    if (!company) {
       return res.status(403).json({
         message: "You are not associated with any company",
         success: false,
       });
     }
 
-    if (company !== isCompany.name) {
-      return res.status(403).json({
-        message: "You can only post jobs for your company",
-        success: false,
-      });
-    }
-
-    const requiredFields = [
-      "title",
-      "company",
-      "location",
-      "jobType",
-      "minSalary",
-      "maxSalary",
-      "openings",
-      "description",
-      "responsibilities",
-      "eligibility",
-      "skillsRequired",
-    ];
-    for (const field of requiredFields) {
-      if (!req.body[field]) {
-        return res.status(400).json({
-          message: `${field} is required`,
-          success: false,
-        });
-      }
-    }
-
-    const job = await Job.create({
+    const {
       title,
-      company: isCompany._id,
       location,
+      salary,
+      experience,
       jobType,
-      minSalary,
-      maxSalary,
+      workMode,
       openings,
       description,
       responsibilities,
       eligibility,
-      skillsRequired:
-        typeof skillsRequired === "string"
-          ? skillsRequired.split(",").map((s) => s.trim())
-          : [],
+      skills,
+    } = req.body;
+
+    const cleaned = {
+      title: title?.trim().replace(/\s+/g, " "),
+      location: location?.trim().replace(/\s+/g, " "),
+      salary: salary?.trim().replace(/\s+/g, " "),
+      experience: experience?.trim().replace(/\s+/g, " "),
+      jobType: jobType?.trim().replace(/\s+/g, ""),
+      workMode: workMode?.trim().replace(/\s+/g, ""),
+      openings: openings,
+      description: description?.trim().replace(/\s+/g, " "),
+      responsibilities: responsibilities?.trim().replace(/\s+/g, " "),
+      eligibility: eligibility?.trim().replace(/\s+/g, " "),
+      // skills: skills?.trim().replace(/\s+/g, " "),
+      skills: skills
+        ? skills
+            .split(",")
+            .map((skill) => skill.trim().replace(/\s+/g, " "))
+            .filter((skill) => skill.length > 0)
+        : [],
+    };
+
+    if (!cleaned.title || !cleaned.location) {
+      return res.status(400).json({
+        message: "Title and location are required",
+        success: false,
+      });
+    }
+    const validJobTypes = ["Full-Time", "Part-Time", "Internship"];
+    const validWorkModes = ["Onsite", "Remote", "Hybrid"];
+
+    if (
+      cleaned.jobType !== undefined &&
+      !validJobTypes.includes(cleaned.jobType)
+    ) {
+      return res.status(400).json({
+        message: `Invalid Job Type. Valid types are: ${validJobTypes.join(
+          ", "
+        )}`,
+        success: false,
+      });
+    }
+
+    if (
+      cleaned.workMode !== undefined &&
+      !validWorkModes.includes(cleaned.workMode)
+    ) {
+      return res.status(400).json({
+        message: `Invalid Work Mode. Valid modes are: ${validWorkModes.join(
+          ", "
+        )}`,
+        success: false,
+      });
+    }
+
+    const newJob = new Job({
+      title: cleaned.title,
+      company: company._id,
+      location: cleaned.location,
+      salary: cleaned.salary,
+      experience: cleaned.experience,
+      jobType: cleaned.jobType,
+      workMode: cleaned.workMode,
+      openings: cleaned.openings,
+      description: cleaned.description,
+      responsibilities: cleaned.responsibilities,
+      eligibility: cleaned.eligibility,
+      skills: cleaned.skills,
+      postedBy: employerId,
     });
+
+    await newJob.save();
 
     return res.status(201).json({
       message: "Job created successfully",
-      job,
+      job: newJob,
       success: true,
     });
   } catch (error) {
@@ -92,15 +117,12 @@ export const createJob = async (req, res) => {
 //Get all Jobs
 export const getJobs = async (req, res) => {
   try {
-    const jobs = await Job.find()
-      .sort({ createdAt: -1 })
-      .populate("company", "name")
-      .populate("createdBy", "fullname");
+    const jobs = await Job.find().sort({ createdAt: -1 });
 
     if (jobs.length === 0) {
-      return res.status(404).json({
+      return res.status(200).json({
         message: "Jobs not Found",
-        success: false,
+        success: true,
       });
     }
     return res.status(200).json({ jobs, success: true });
@@ -108,47 +130,47 @@ export const getJobs = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       message: "Internal Server Error",
-      success: true,
+      success: false,
     });
   }
 };
 
-//Get a single job bt id
+//Get a single job by id
 export const getJobById = async (req, res) => {
   try {
-    const { id } = req.params;
-    const job = await Job.findById(id);
+    const jobId = req.params.id;
+    const job = await Job.findById(jobId).populate("company", "name");
     if (!job) {
       return res.status(404).json({
         message: "Job not Found",
-        success: true,
+        success: false,
       });
     }
     return res.status(200).json({
       job,
-      succcess: true,
+      success: true,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       message: "Internal Server Error",
-      success: true,
+      success: false,
     });
   }
 };
 
-// Get all jobs created by employer (for employers only)
+// Get all jobs posted by employer
 export const getJobsByEmployer = async (req, res) => {
   try {
     const employerId = req.user.userId;
     const jobs = await Job.find({ postedBy: employerId }).sort({
       createdAt: -1,
     });
-    console.log(jobs);
+
     if (jobs.length === 0) {
-      return res.status(404).json({
+      return res.status(200).json({
         message: "You have not posted any Job",
-        success: false,
+        success: true,
       });
     }
     return res.status(200).json({ jobs, success: true });
@@ -161,50 +183,13 @@ export const getJobsByEmployer = async (req, res) => {
   }
 };
 
-// // Update job details
-// export const updateJob = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const updatedFields = req.body;
-
-//     const job = await Job.findById(id);
-//     if (!job) {
-//       return res.status(404).json({
-//         message: "Job not found",
-//         success: false,
-//       });
-//     }
-//     if (!job.createdBy || job.createdBy.toString() !== req.user.userId) {
-//       return res.status(403).json({
-//         message: "You are not authorized to update this job",
-//         success: false,
-//       });
-//     }
-
-//     const updatedJob = await Job.findByIdAndUpdate(id, updatedFields, {
-//       new: true,
-//       runValidators: true,
-//     });
-
-//     return res.status(200).json({
-//       message: "Job updated successfully",
-//       job: updatedJob,
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({
-//       message: "Internal Server Error",
-//       success: false,
-//     });
-//   }
-// };
-
+//Update Job
 export const updateJob = async (req, res) => {
   try {
-    const { id } = req.params;
+    const jobId = req.params.id;
+    const employerId = req.user.userId;
 
-    const job = await Job.findById(id);
+    const job = await Job.findById(jobId);
     if (!job) {
       return res.status(404).json({
         message: "Job not found",
@@ -212,38 +197,88 @@ export const updateJob = async (req, res) => {
       });
     }
 
-    if (!job.createdBy || job.createdBy.toString() !== req.user.userId) {
+    if (!job.postedBy || job.postedBy.toString() !== employerId.toString()) {
       return res.status(403).json({
         message: "You are not authorized to update this job",
         success: false,
       });
     }
 
-    const jobData = [
-      "title",
-      "company",
-      "location",
-      "jobType",
-      "minSalary",
-      "maxSalary",
-      "openings",
-      "description",
-      "responsibilities",
-      "eligibility",
-      "skillsRequired",
-    ];
+    const {
+      title,
+      location,
+      salary,
+      experience,
+      jobType,
+      workMode,
+      openings,
+      description,
+      responsibilities,
+      eligibility,
+      skills,
+    } = req.body;
 
-    const updatedFields = {};
+    const cleaned = {
+      title: title?.trim().replace(/\s+/g, " "),
+      location: location?.trim().replace(/\s+/g, " "),
+      salary: salary?.trim().replace(/\s+/g, " "),
+      experience: experience?.trim().replace(/\s+/g, " "),
+      jobType: jobType?.trim().replace(/\s+/g, ""),
+      workMode: workMode?.trim().replace(/\s+/g, ""),
+      openings: openings,
+      description: description?.trim().replace(/\s+/g, " "),
+      responsibilities: responsibilities?.trim().replace(/\s+/g, " "),
+      eligibility: eligibility?.trim().replace(/\s+/g, " "),
+      skills: skills
+        ?.split(",")
+        .map((skill) => skill.trim().replace(/\s+/g, " "))
+        .filter((skill) => skill.length > 0),
+    };
 
-    jobData.forEach((key) => {
-      if (req.body[key] !== undefined) {
-        updatedFields[key] = req.body[key];
-      }
-    });
+    if (!Object.keys(req.body).length) {
+      return res.status(400).json({
+        message: "At least one field is required to update company details",
+        success: false,
+      });
+    }
+
+    if (!cleaned.title || !cleaned.location) {
+      return res.status(400).json({
+        message: "Job title and location are required",
+        success: false,
+      });
+    }
+
+    const validJobTypes = ["Full-Time", "Part-Time", "Internship"];
+    const validWorkModes = ["Onsite", "Remote", "Hybrid"];
+
+    if (
+      cleaned.jobType !== undefined &&
+      !validJobTypes.includes(cleaned.jobType)
+    ) {
+      return res.status(400).json({
+        message: `Invalid Job Type. Valid job types are: ${validJobTypes.join(
+          ", "
+        )}`,
+        success: false,
+      });
+    }
+
+    if (
+      cleaned.workMode !== undefined &&
+      !validWorkModes.includes(cleaned.workMode)
+    ) {
+      return res.status(400).json({
+        message: `Invalid Work Mode. Valid work modes are: ${validWorkModes.join(
+          ", "
+        )}`,
+        success: false,
+      });
+    }
 
     const updatedJob = await Job.findByIdAndUpdate(
-      id,
-      { $set: updatedFields },
+      jobId,
+      { $set: cleaned },
       {
         new: true,
         runValidators: true,
@@ -267,9 +302,9 @@ export const updateJob = async (req, res) => {
 // Delete a job
 export const deleteJob = async (req, res) => {
   try {
-    const { id } = req.params;
+    const jobId = req.params.id;
 
-    const job = await Job.findById(id);
+    const job = await Job.findById(jobId);
     if (!job) {
       return res.status(404).json({
         message: "Job not found",
@@ -277,14 +312,14 @@ export const deleteJob = async (req, res) => {
       });
     }
 
-    if (!job.createdBy || job.createdBy.toString() !== req.user.userId) {
+    if (!job.postedBy || job.postedBy.toString() !== req.user.userId) {
       return res.status(403).json({
         message: "You are not authorized to delete this job",
         success: false,
       });
     }
 
-    await Job.findByIdAndDelete(id);
+    await Job.findByIdAndDelete(jobId);
 
     return res.status(200).json({
       message: "Job deleted successfully",
