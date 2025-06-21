@@ -1,5 +1,6 @@
 import { Application } from "../model/application.model.js";
 import { Job } from "../model/job.model.js";
+import mongoose from "mongoose";
 
 //Apply for a Job
 export const applyJob = async (req, res) => {
@@ -7,12 +8,20 @@ export const applyJob = async (req, res) => {
     const applicantId = req.user.userId;
     const { jobId, resume } = req.body;
 
-    if (!jobId || !resume) {
+    if (!mongoose.Types.ObjectId.isValid(jobId)) {
+      return res.status(400).json({
+        message: "Invalid Job id",
+        success: false,
+      });
+    }
+
+    if (!jobId.trim() || !resume.trim()) {
       return res.status(400).json({
         message: "Job id and resume are required",
         success: false,
       });
     }
+
     const job = await Job.findById(jobId);
     if (!job) {
       return res.status(404).json({
@@ -39,7 +48,6 @@ export const applyJob = async (req, res) => {
       resume: resume,
     });
 
-    
     job.applications.push(application._id);
     await job.save();
 
@@ -57,24 +65,23 @@ export const applyJob = async (req, res) => {
   }
 };
 
-// Get all applications by an applicant (Applicant only)
+// Get all applications by an applicant
 export const getApplicationsByApplicant = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const applicantId = req.user.userId;
 
-    const applications = await Application.find({ applicant: userId })
+    const applications = await Application.find({ applicant: applicantId })
       .populate({
         path: "job",
-        select: "title",
-        populate: { path: "company", select: "name location" },
+        select: "title company",
+        populate: { path: "company", select: "name" },
       })
-      .populate("applicant", "fullname email")
       .sort({ appliedAt: -1 });
 
-    if (!applications) {
-      return res.status(400).json({
+    if (applications.length === 0) {
+      return res.status(200).json({
         message: "You have not applied for any job",
-        success: false,
+        success: true,
       });
     }
 
@@ -88,35 +95,47 @@ export const getApplicationsByApplicant = async (req, res) => {
   }
 };
 
-//Get all applications for a employer (employer only)
+//Get all applications for Employer
 export const getApplicationsForEmployer = async (req, res) => {
   try {
     const employerId = req.user.userId;
     const jobId = req.params.id;
 
-    // Check if the job exists and belongs to the employer
-    const job = await Job.findOne({
-      _id: jobId,
-      createdBy: employerId,
-    }).populate({
-      path: "applications",
-      options: { sort: { createdAt: 1 } },
-      populate: {
-        path: "applicant",
-        select: "fullname email",
-      },
-    });
-
-    if (!job) {
-      return res.status(404).json({
-        message:
-          "Job not found or you are not authorized to view applications for this job",
+    if (!mongoose.Types.ObjectId.isValid(jobId)) {
+      return res.status(400).json({
+        message: "Invalid job id",
         success: false,
       });
     }
 
+    const job = await Job.findById(jobId);
+
+    if (!job) {
+      return res.status(404).json({
+        message: "Job not found",
+        success: false,
+      });
+    }
+    if (!job.postedBy || job.postedBy.toString() !== employerId) {
+      return res.status(403).json({
+        message: "You are not authorized to view applications for this job",
+        success: false,
+      });
+    }
+
+    const applications = await Application.find({ job: jobId })
+      .populate("applicant", "fullname email")
+      .sort({ createdAt: -1 });
+
+    if (applications.length === 0) {
+      return res.status(200).json({
+        message: "No applications found for this job",
+        success: true,
+      });
+    }
+
     return res.status(200).json({
-      applications: job.applications,
+      applications,
       success: true,
     });
   } catch (error) {
@@ -128,16 +147,31 @@ export const getApplicationsForEmployer = async (req, res) => {
   }
 };
 
-//Update application status (employer only)
+//Update application status
 export const updateApplicationStatus = async (req, res) => {
   try {
     const applicationId = req.params.id;
-    const { status } = req.body;
+    let { status } = req.body;
 
-    // Validate status
+    if (!mongoose.Types.ObjectId.isValid(applicationId)) {
+      return res.status(400).json({
+        message: "Invalid application id",
+        success: false,
+      });
+    }
+
+    status = status?.trim().toLowerCase();
+
+    if (!status) {
+      return res.status(400).json({
+        message: "Please provide status value",
+        success: false,
+      });
+    }
+
     if (!["accepted", "rejected"].includes(status)) {
       return res.status(400).json({
-        message: "Invalid status value",
+        message: "Invalid status value. Status must be accepted or rejected",
         success: false,
       });
     }
@@ -152,8 +186,7 @@ export const updateApplicationStatus = async (req, res) => {
       });
     }
 
-    // Ensure only the employer who posted the job can update the application status
-    if (application.job.createdBy.toString() !== req.user.userId) {
+    if (application.job.postedBy.toString() !== req.user.userId) {
       return res.status(403).json({
         message:
           "You are not authorized to update the status of this application",
@@ -178,16 +211,24 @@ export const updateApplicationStatus = async (req, res) => {
   }
 };
 
-// Cancel application (Applicant only)
+// Cancel application
 export const cancelApplication = async (req, res) => {
   try {
-    const { id } = req.params;
+    const applicationId = req.params.id;
     const applicantId = req.user.userId;
 
+    if (!mongoose.Types.ObjectId.isValid(applicationId)) {
+      return res.status(400).json({
+        message: "Invalid application id",
+        success: false,
+      });
+    }
+
     const application = await Application.findOne({
-      _id: id,
+      _id: applicationId,
       applicant: applicantId,
     });
+
     if (!application) {
       return res.status(404).json({
         message: "Application Not Found",
@@ -195,11 +236,19 @@ export const cancelApplication = async (req, res) => {
       });
     }
 
-    // Remove the application from the job's application list
+    if (["accepted", "rejected"].includes(application.status)) {
+      return res.status(400).json({
+        message:
+          "You cannot cancel an application that has been accepted or rejected",
+        success: false,
+      });
+    }
+
     await Job.findByIdAndUpdate(application.job, {
-      $pull: { applications: id },
+      $pull: { applications: application._id },
     });
-    await Application.findByIdAndDelete(id);
+
+    await Application.findByIdAndDelete(applicationId);
 
     return res.status(200).json({
       message: "Application cancelled successfully",
