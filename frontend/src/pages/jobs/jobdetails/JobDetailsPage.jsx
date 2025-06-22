@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import JobCard from "./JobCard";
 import AboutCompanyCard from "./AboutCompanyCard";
 import JobDescription from "./JobDescription";
+import useJobDetails from "../../../hooks/useJobDetails";
+import { useSelector } from "react-redux";
 
 const JobDetailsPage = () => {
+  const { id } = useParams();
+  useJobDetails(id);
+
+  const { jobDetails } = useSelector((store) => store.job);
+
   return (
     <div className="bg-light">
       <div className="container pb-5">
-        <JobCard />
-        <JobDescription />
-        <AboutCompanyCard />
+        <JobCard job={jobDetails} />
+        <JobDescription job={jobDetails} />
+        <AboutCompanyCard company={jobDetails?.company} />
       </div>
     </div>
   );

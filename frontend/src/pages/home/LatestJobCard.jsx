@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Briefcase, MapPin, Wallet } from "lucide-react";
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
+import moment from "moment";
 
-const LatestJobCard = () => {
+const LatestJobCard = ({ job }) => {
   const [save, setSave] = useState(false);
 
   const handleSave = (e) => {
@@ -11,9 +12,8 @@ const LatestJobCard = () => {
     e.stopPropagation();
     setSave(!save);
   };
-  const jobId = "12345";
   return (
-    <Link to={`/job/${jobId}`} className="text-decoration-none">
+    <Link to={`/job/${job._id}`} className="text-decoration-none">
       <div className="rounded-3 p-3 border hover-shadow-sm latestJobCard  bg-white">
         {/* <div className=" text-end">
           <span className="fs-14 bg-light-blue rounded-pill px-1">
@@ -28,33 +28,40 @@ const LatestJobCard = () => {
             className="me-3 rounded-3"
           />
           <div>
-            <h5 className="mb-1 text-black fw-semibold fs-18">
-              Software Engineer
-            </h5>
+            <h6 className="mb-1 text-black fw-semibold">{job.title}</h6>
 
-            <h6 className="text-muted mb-0">Google</h6>
+            <h6 className="text-muted mb-0 fs-14">{job.company?.name}</h6>
           </div>
         </div>
         <div className="d-flex gap-3 flex-wrap fs-14">
           <div className="text-muted d-flex align-items-center">
-            <MapPin size={16} />
+            <MapPin size={14} />
             &nbsp;
-            <p className="mb-0">Banglore (On-site)</p>
+            <p className="mb-0">
+              {job.location} ({job.workMode})
+            </p>
+          </div>
+          <div className="text-muted d-flex align-items-center ">
+            <Wallet size={14} />
+            &nbsp;
+            <p className="mb-0">
+              <p className="mb-0">
+                {job.salary === "Not Disclosed"
+                  ? job.salary
+                  : `₹ ${job.salary}`}
+              </p>
+            </p>
           </div>
           <div className="text-muted d-flex align-items-center">
-            <Wallet size={16} />
+            <Briefcase size={14} />
             &nbsp;
-            <p className="mb-0">₹ 20L - 30L</p>
-          </div>
-          <div className="text-muted d-flex align-items-center">
-            <Briefcase size={16} />
-            &nbsp;
-            <p className="mb-0">0-2 years</p>
+            <p className="mb-0">{job.experience}</p>
           </div>
         </div>
         <div className="mt-3 d-flex align-items-center gap-3 fs-12">
           <div className="text-primary e rounded-pill px-1">
-            <UpdateOutlinedIcon className="fs-6" /> 2 days ago
+            <UpdateOutlinedIcon className="fs-6" />{" "}
+            {moment(job.createdAt).fromNow()}
           </div>
           {/* <p className="mb-0 text-primary bg-light-blue px-1 rounded-pill">Internship</p> */}
 

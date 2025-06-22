@@ -71,7 +71,7 @@ const Navbar = () => {
             className="collapse navbar-collapse d-none d-lg-flex"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-medium gap-lg-3 text-center ms-lg-5">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-medium gap-lg-3 text-center ms-lg-5 fs-14">
               <li className="nav-item">
                 <Link className="nav-link" to="/" onClick={closeMobileDrawer}>
                   Home

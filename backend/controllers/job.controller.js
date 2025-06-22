@@ -32,8 +32,14 @@ export const createJob = async (req, res) => {
     const cleaned = {
       title: title?.trim().replace(/\s+/g, " "),
       location: location?.trim().replace(/\s+/g, " "),
-      salary: salary?.trim().replace(/\s+/g, " "),
-      experience: experience?.trim().replace(/\s+/g, " "),
+      salary:
+        salary && salary.trim().replace(/\s+/g, " ") !== ""
+          ? salary.trim().replace(/\s+/g, " ")
+          : "Not Disclosed",
+      experience:
+        experience && experience.trim().replace(/\s+/g, " ") !== ""
+          ? experience.trim().replace(/\s+/g, " ")
+          : "0 years",
       jobType: jobType?.trim().replace(/\s+/g, ""),
       workMode: workMode?.trim().replace(/\s+/g, ""),
       openings: openings,
@@ -117,7 +123,9 @@ export const createJob = async (req, res) => {
 //Get all Jobs
 export const getJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ createdAt: -1 });
+    const jobs = await Job.find()
+      .populate("company", "name")
+      .sort({ createdAt: -1 });
 
     if (jobs.length === 0) {
       return res.status(200).json({
@@ -139,7 +147,7 @@ export const getJobs = async (req, res) => {
 export const getJobById = async (req, res) => {
   try {
     const jobId = req.params.id;
-    const job = await Job.findById(jobId).populate("company", "name");
+    const job = await Job.findById(jobId).populate("company", "name about");
     if (!job) {
       return res.status(404).json({
         message: "Job not Found",
@@ -221,8 +229,14 @@ export const updateJob = async (req, res) => {
     const cleaned = {
       title: title?.trim().replace(/\s+/g, " "),
       location: location?.trim().replace(/\s+/g, " "),
-      salary: salary?.trim().replace(/\s+/g, " "),
-      experience: experience?.trim().replace(/\s+/g, " "),
+      salary:
+        salary?.trim().replace(/\s+/g, " ") !== ""
+          ? salary?.trim().replace(/\s+/g, " ")
+          : "Not Disclosed",
+      experience:
+        experience?.trim().replace(/\s+/g, " ") !== ""
+          ? experience?.trim().replace(/\s+/g, " ")
+          : "0 years",
       jobType: jobType?.trim().replace(/\s+/g, ""),
       workMode: workMode?.trim().replace(/\s+/g, ""),
       openings: openings,
@@ -242,9 +256,15 @@ export const updateJob = async (req, res) => {
       });
     }
 
-    if (!cleaned.title || !cleaned.location) {
+    if (cleaned.title !== undefined && !cleaned.title) {
       return res.status(400).json({
-        message: "Job title and location are required",
+        message: "Job title is required",
+        success: false,
+      });
+    }
+    if (cleaned.location !== undefined && !cleaned.location) {
+      return res.status(400).json({
+        message: "Job location is required",
         success: false,
       });
     }
