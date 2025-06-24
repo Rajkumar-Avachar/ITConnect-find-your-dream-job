@@ -1,22 +1,66 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import { Briefcase, MapPin, Wallet, Users } from "lucide-react";
 import moment from "moment";
 import numeral from "numeral";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { APPLICATION_API, JOBS_API } from "../../../utils/apis";
+import { toast } from "react-toastify";
+import { setJobDetails } from "../../../redux/jobSlice";
 
 const JobCard = ({ job }) => {
   if (!job) return null;
   const [save, setSave] = useState(false);
 
-  const hasApplied = false;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((store) => store.auth);
+
+  const [isApplied, setIsApplied] = useState(
+    job?.applications?.some(
+      (application) => application.applicant == user?._id
+    ) || false
+  );
 
   const handleSave = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setSave(!save);
   };
+
+  const data = {
+    jobId: job._id,
+    resume: user?.profile?.resume,
+  };
+
+  const applyJobHandler = async () => {
+    if (!user) {
+      navigate("/login");
+    }
+    try {
+      const res = await axios.post(`${APPLICATION_API}/`, data, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        setIsApplied(true);
+        const updatedJobRes = await axios.get(`${JOBS_API}/${job._id}`);
+        dispatch(setJobDetails(updatedJobRes.data.job));
+        toast.success("Job aplication sent successfully", {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Something went wrong.", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
+    }
+  };
+
   return (
     <div>
       <div className="py-3 stickyTop bg-light  d-flex align-items-center justify-content-between w-100">
@@ -100,12 +144,15 @@ const JobCard = ({ job }) => {
                 ></i>
               )}
               <i class="bi bi-share fs-5 rounded-3 d-none d-sm-block"></i>
-              {hasApplied ? (
+              {isApplied ? (
                 <button className="btn bg-blue fw-semibold px-4 disabled">
                   Already applied
                 </button>
               ) : (
-                <button className="btn bg-blue fw-semibold px-4">
+                <button
+                  className="btn bg-blue fw-semibold px-4"
+                  onClick={applyJobHandler}
+                >
                   Apply Now
                 </button>
               )}
