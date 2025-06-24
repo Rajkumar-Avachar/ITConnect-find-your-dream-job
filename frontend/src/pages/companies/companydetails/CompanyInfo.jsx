@@ -4,7 +4,8 @@ import CompanyJobs from "./CompanyJobs";
 import UpcomingEvents from "./UpcomingEvents";
 import SocialMediaLinks from "./SocialMediaLinks";
 
-const CompanyInfo = () => {
+const CompanyInfo = ({ company }) => {
+  if (!company) return null;
   const [content, setContent] = useState("overview");
 
   return (
@@ -21,10 +22,14 @@ const CompanyInfo = () => {
             className={`fs-14 border-0 bg-white py-2 px-0 fw-medium ${content === "jobs" ? "text-blue border-bottom  border-primary" : "text-black"}`}
             onClick={() => setContent("jobs")}
           >
-            Jobs (5)
+            Jobs ({company.jobs?.length})
           </button>
         </div>
-        {content === "overview" ? <CompanyOverview /> : <CompanyJobs />}
+        {content === "overview" ? (
+          <CompanyOverview company={company} />
+        ) : (
+          <CompanyJobs company={company} />
+        )}
       </div>
       <div className="col px-0">
         <UpcomingEvents />

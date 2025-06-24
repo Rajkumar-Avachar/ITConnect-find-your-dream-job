@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 import JobCard from "./JobCard";
 import AboutCompanyCard from "./AboutCompanyCard";

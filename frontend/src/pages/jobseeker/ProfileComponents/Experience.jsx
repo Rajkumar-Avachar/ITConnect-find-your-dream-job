@@ -10,22 +10,27 @@ const Experience = () => {
         {experience.map((item, index) => (
           <div className="d-flex">
             <div className=" border-bottom py-3">
-              <img src="logo/google.webp" alt="CompanyLogo" width={50}  className="rounded-3"/>
+              <img
+                src="logo/google.webp"
+                alt="CompanyLogo"
+                width={50}
+                className="rounded-3"
+              />
             </div>
 
             <div className="border-bottom py-3 ps-3">
-              <h6 className="mb-0 fw-semibold">Senior Frontend Developer</h6>
+              <h6 className="mb-0 fw-semibold">SDE</h6>
               <div className="d-flex justify-content-between flex-wrap">
-                <p className="mb-0 me-5 fs-14">Infosys &middot; Full-time</p>
+                <p className="mb-0 me-5 fs-14">Google &middot; Full-time</p>
                 <p className="mb-0 text-muted fs-14">
-                  <i className="bi bi-calendar me-2"></i>Jan 2025 - Jun 2025
+                  <i className="bi bi-calendar me-2"></i>Jan 2024 - Jan 2025
                 </p>
               </div>
               <p className="mb-0 text-muted fs-14">Pune, Maharashtra, India</p>
               <p className="mb-0 mt-3 fs-14">
-                Built interactive websites and web applications using HTML, CSS,
-                and JavaScript. Created responsive layouts and implemented
-                cross-browser compatibility.
+                Built interactive websites and web applications using MERN
+                stack. Created responsive layouts and implemented cross-browser
+                compatibility.
               </p>
             </div>
           </div>
