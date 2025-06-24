@@ -17,8 +17,6 @@ import CompaniesPage from "./pages/companies/companies/CompaniesPage";
 import CompanyDetailsPage from "./pages/companies/companydetails/CompanyDetailsPage";
 
 import { Outlet } from "react-router-dom";
-import useAuth from "./hooks/useAuth";
-import { use } from "react";
 
 function MainLayout() {
   return (
@@ -35,7 +33,6 @@ function AuthLayout() {
 }
 
 function App() {
-  useAuth();
   return (
     <Router>
       <ScrollToTop />
