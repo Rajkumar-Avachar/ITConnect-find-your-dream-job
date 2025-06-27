@@ -64,7 +64,7 @@ const JobCard = ({ job }) => {
   return (
     <div>
       <div className="py-3 stickyTop bg-light  d-flex align-items-center justify-content-between w-100">
-        <Link to="/jobs" className="text-decoration-none fw-medium">
+        <Link to="/jobs" className="text-decoration-none fw-medium fs-14">
           <i class="bi bi-arrow-left"></i> Back to Jobs
         </Link>
         <div className="d-flex gap-4 me-3 d-sm-none">

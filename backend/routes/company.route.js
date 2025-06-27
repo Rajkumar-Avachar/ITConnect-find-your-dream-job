@@ -12,13 +12,13 @@ const router = express.Router();
 
 router.route("/").post(isAuthenticated, isEmployer, createCompany);
 
-router.route("/all-companies").get(isAuthenticated, getAllCompanies);
+router.route("/").get(getAllCompanies);
 
 router
   .route("/your-company")
   .get(isAuthenticated, isEmployer, getCompanyByEmployer);
 
-router.route("/:id").get(isAuthenticated, getCompanyById);
+router.route("/:id").get(getCompanyById);
 
 router.route("/:id").put(isAuthenticated, isEmployer, updateCompany);
 

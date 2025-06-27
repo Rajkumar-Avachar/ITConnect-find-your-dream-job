@@ -7,7 +7,7 @@ const CompanyResults = () => {
   return (
     <div className="mt-5">
       <p className="text-muted">
-        Found <b>{companies.length}</b> companies
+        Found <b>{companies?.length}</b> companies
       </p>
       <div className="row row-cols-lg-3">
         {companies?.map((company) => (

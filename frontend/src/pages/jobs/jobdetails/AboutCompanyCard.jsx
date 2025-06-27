@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const AboutCompanyCard = ({ company }) => {
   if (!company) return null;
@@ -19,9 +20,11 @@ const AboutCompanyCard = ({ company }) => {
         {company.about}
       </p>
       <div className="text-center">
-        <button className="btn btn-outline-primary border w-auto fs-14 fw-medium">
-          View Company Profile
-        </button>
+        <Link to={`/company/${company._id}`}>
+          <button className="btn btn-outline-primary border w-auto fs-14 fw-medium">
+            View Company Profile
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const CompanyDetailsPage = () => {
   return (
     <div className="bg-light py-4">
       <div className="container">
-        <Link to="/companies" className="text-decoration-none fw-medium">
+        <Link to="/companies" className="text-decoration-none fw-medium fs-14">
           <i class="bi bi-arrow-left"></i> Back to Companies
         </Link>
         <CompanyHeader company={companyDetails} />

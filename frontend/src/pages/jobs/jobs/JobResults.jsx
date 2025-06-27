@@ -7,7 +7,7 @@ const JobResults = () => {
   return (
     <div className="col px-0">
       <p className="text-muted">
-        Found <b>10</b> jobs
+        Found <b>{jobs?.length}</b> jobs
         <hr />
       </p>
       <div className="row row-cols-lg-2 gy-4">

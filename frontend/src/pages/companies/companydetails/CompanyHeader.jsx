@@ -42,9 +42,14 @@ const CompanyHeader = ({ company }) => {
           </div>
           <div className="col-12 col-md-6 col-lg-auto mb-2">
             <i class="bi bi-globe me-2"></i>
-            <Link to="#" className="text-decoration-none">
+            <a
+              href={`https://${company.website}`}
+              className="text-decoration-none"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {company.website} <SquareArrowOutUpRight size={12} />
-            </Link>
+            </a>
           </div>
         </div>
       </div>

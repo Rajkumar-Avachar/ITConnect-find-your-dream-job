@@ -105,6 +105,8 @@ export const createJob = async (req, res) => {
     });
 
     await newJob.save();
+    company.jobs.push(newJob._id);
+    await company.save();
 
     return res.status(201).json({
       message: "Job created successfully",
@@ -340,7 +342,10 @@ export const deleteJob = async (req, res) => {
         success: false,
       });
     }
-
+    await Company.findByIdAndUpdate(job.company, {
+      $pull: { jobs: job._id },
+    });
+    
     await Job.findByIdAndDelete(jobId);
 
     return res.status(200).json({

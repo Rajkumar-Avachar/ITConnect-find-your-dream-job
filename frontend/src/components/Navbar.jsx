@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Popover from "./Popover";
 import "./Navbar.css";
@@ -16,11 +16,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-
-  const closeMobileDrawer = () => setMobileDrawerOpen(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const closeMobileDrawer = () => setMobileDrawerOpen(false);
 
   const logoutHandler = async () => {
     try {
@@ -28,8 +27,8 @@ const Navbar = () => {
         withCredentials: true,
       });
       if (res.data.success) {
-        dispatch(logout()); // this will reset auth state
-        localStorage.removeItem("user"); // optional: clear local storage
+        dispatch(logout());
+        localStorage.removeItem("user");
         navigate("/");
         toast.success("Logout successful!", {
           position: "bottom-right",
@@ -57,7 +56,6 @@ const Navbar = () => {
             <img src="/logo/itconnectlogo.png" alt="Logo" />
           </Link>
 
-          {/* Hamburger toggle */}
           <button
             className="navbar-toggler d-lg-none fs-6 px-2"
             type="button"
@@ -66,34 +64,43 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* Desktop Nav */}
           <div
             className="collapse navbar-collapse d-none d-lg-flex"
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-medium gap-lg-3 text-center ms-lg-5 fs-14">
               <li className="nav-item">
-                <Link className="nav-link" to="/" onClick={closeMobileDrawer}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `nav-link navHover ${isActive ? "active-link" : ""}`
+                  }
+                  to="/"
+                  onClick={closeMobileDrawer}
+                >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
+                <NavLink
+                  className={({ isActive }) =>
+                    `nav-link navHover ${isActive ? "active-link" : ""}`
+                  }
                   to="/jobs"
                   onClick={closeMobileDrawer}
                 >
                   Find Jobs
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
+                <NavLink
+                  className={({ isActive }) =>
+                    `nav-link navHover ${isActive ? "active-link" : ""}`
+                  }
                   to="/companies"
                   onClick={closeMobileDrawer}
                 >
                   Companies
-                </Link>
+                </NavLink>
               </li>
             </ul>
 
@@ -128,7 +135,7 @@ const Navbar = () => {
             onClick={closeMobileDrawer}
           >
             <div className="account p-4 border-bottom">
-              {user?.profile.profilePhoto ? (
+              {user?.profile?.profilePhoto ? (
                 <img
                   src={user?.profile?.profilePhoto}
                   alt="Avatar"
@@ -168,37 +175,61 @@ const Navbar = () => {
         <div className="drawer-body p-4">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link " to="/" onClick={closeMobileDrawer}>
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active-link" : ""}`
+                }
+                to="/"
+                onClick={() => {
+                  closeMobileDrawer();
+                  changeActiveHandler();
+                }}
+              >
                 <AiFillHome className="fs-5 mb-1 me-2" />
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link "
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active-link" : ""}`
+                }
                 to="/dashboard"
-                onClick={closeMobileDrawer}
+                onClick={() => {
+                  closeMobileDrawer();
+                  changeActiveHandler();
+                }}
               >
-                <i class="bi bi-grid-fill me-2"></i> Dashboard
-              </Link>
+                <i className="bi bi-grid-fill me-2"></i> Dashboard
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link "
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active-link" : ""}`
+                }
                 to="/jobs"
-                onClick={closeMobileDrawer}
+                onClick={() => {
+                  closeMobileDrawer();
+                  changeActiveHandler();
+                }}
               >
                 <i className="bi bi-briefcase-fill me-2"></i> Find Jobs
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link"
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "active-link" : ""}`
+                }
                 to="/companies"
-                onClick={closeMobileDrawer}
+                onClick={() => {
+                  closeMobileDrawer();
+                  changeActiveHandler();
+                }}
               >
-                <BsBuildingsFill className=" me-2" /> Companies
-              </Link>
+                <BsBuildingsFill className="me-2" /> Companies
+              </NavLink>
             </li>
           </ul>
 
