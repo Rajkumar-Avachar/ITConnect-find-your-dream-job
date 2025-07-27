@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const CompanyResults = () => {
   const { companies } = useSelector((store) => store.company);
   return (
-    <div className="mt-5">
+    <div className="my-5">
       <p className="text-muted">
         Found <b>{companies?.length}</b> companies
       </p>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import { Briefcase, MapPin, Wallet, Users } from "lucide-react";
@@ -18,11 +18,16 @@ const JobCard = ({ job }) => {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.auth);
 
-  const [isApplied, setIsApplied] = useState(
-    job?.applications?.some(
-      (application) => application.applicant == user?._id
-    ) || false
-  );
+  const [isApplied, setIsApplied] = useState(false);
+
+  useEffect(() => {
+    if (job && user) {
+      const applied = job.applications?.some(
+        (application) => application.applicant === user._id
+      );
+      setIsApplied(applied);
+    }
+  }, [job, user]);
 
   const handleSave = (e) => {
     e.preventDefault();

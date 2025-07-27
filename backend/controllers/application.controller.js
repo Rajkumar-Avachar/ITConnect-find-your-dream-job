@@ -15,9 +15,15 @@ export const applyJob = async (req, res) => {
       });
     }
 
-    if (!jobId.trim() || !resume.trim()) {
+    if (!jobId.trim()) {
       return res.status(400).json({
-        message: "Job id and resume are required",
+        message: "Job id is required",
+        success: false,
+      });
+    }
+    if (!resume.trim()) {
+      return res.status(400).json({
+        message: "Resume is required",
         success: false,
       });
     }
