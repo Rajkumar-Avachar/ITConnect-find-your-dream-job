@@ -32,8 +32,13 @@ const Login = () => {
         withCredentials: true,
       });
       if (res.data.success) {
-        dispatch(setUser(res.data.user));
-        navigate("/");
+        const user = res.data.user;
+        dispatch(setUser(user));
+        if (user.role === "jobseeker") {
+          navigate("/");
+        } else {
+          navigate("/employer/dashboard");
+        }
         toast.success("Login successful!", {
           position: "bottom-right",
           autoClose: 2000,

@@ -15,6 +15,7 @@ import JobsPage from "./pages/jobs/jobs/JobsPage";
 import JobDetailsPage from "./pages/jobs/jobdetails/JobDetailsPage";
 import CompaniesPage from "./pages/companies/companies/CompaniesPage";
 import CompanyDetailsPage from "./pages/companies/companydetails/CompanyDetailsPage";
+import EmpDashboard from "./pages/employer/Dashboard";
 
 import { Outlet } from "react-router-dom";
 
@@ -28,7 +29,7 @@ function MainLayout() {
   );
 }
 
-function AuthLayout() {
+function OtherLayout() {
   return <Outlet />;
 }
 
@@ -50,9 +51,10 @@ function App() {
         </Route>
 
         {/* Routes without Navbar and Footer */}
-        <Route path="" element={<AuthLayout />}>
+        <Route path="" element={<OtherLayout />}>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="employer/dashboard/*" element={<EmpDashboard />} />
         </Route>
       </Routes>
       <ToastContainer />
