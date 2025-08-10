@@ -54,7 +54,8 @@ function App() {
         <Route path="" element={<OtherLayout />}>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="employer/dashboard/*" element={<EmpDashboard />} />
+          <Route path="employer/*" element={<EmpDashboard />} />
+          <Route path="*" element={<Error />} />
         </Route>
       </Routes>
       <ToastContainer />
