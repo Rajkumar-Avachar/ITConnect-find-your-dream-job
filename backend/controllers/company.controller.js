@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Company } from "../model/company.model.js";
 import { Job } from "../model/job.model.js";
+import { User } from "../model/user.model.js";
 
 //Create Company
 export const createCompany = async (req, res) => {
@@ -13,7 +14,7 @@ export const createCompany = async (req, res) => {
       foundedYear,
       website,
       about,
-      specialities,
+      specialties,
     } = req.body;
 
     const employerId = req.user?.userId;
@@ -26,17 +27,22 @@ export const createCompany = async (req, res) => {
       foundedYear: foundedYear,
       website: website?.trim() || "",
       about: about?.trim().replace(/\s+/g, " "),
-      specialities: specialities?.trim().replace(/\s+/g, " "),
+      specialties: specialties?.trim().replace(/\s+/g, " "),
     };
 
     if (
       !cleaned.name ||
       !cleaned.industry ||
       !cleaned.location ||
+      !cleaned.size ||
+      !cleaned.foundedYear ||
+      !cleaned.website ||
+      !cleaned.about ||
+      !cleaned.specialties ||
       !employerId
     ) {
       return res.status(400).json({
-        message: "Name, industry, location, and employer are required",
+        message: "All fields are required to create a company profile",
         success: false,
       });
     }
@@ -48,7 +54,7 @@ export const createCompany = async (req, res) => {
         success: false,
       });
     }
-    
+
     const duplicateCompany = await Company.findOne({ name: cleaned.name });
     if (duplicateCompany) {
       return res.status(400).json({
@@ -61,6 +67,8 @@ export const createCompany = async (req, res) => {
       ...cleaned,
       employer: employerId,
     });
+
+    await User.findByIdAndUpdate(employerId, { company: company._id });
 
     return res.status(201).json({
       message: "Company created successfully",
@@ -197,7 +205,7 @@ export const updateCompany = async (req, res) => {
       foundedYear,
       website,
       about,
-      specialities,
+      specialties,
     } = req.body;
 
     const cleaned = {
@@ -208,7 +216,7 @@ export const updateCompany = async (req, res) => {
       foundedYear: foundedYear,
       website: website?.trim().replace(/\s+/g, ""),
       about: about?.trim().replace(/\s+/g, " "),
-      specialities: specialities?.trim().replace(/\s+/g, " "),
+      specialties: specialties?.trim().replace(/\s+/g, " "),
     };
 
     if (!Object.keys(req.body).length) {
@@ -304,6 +312,8 @@ export const deleteCompany = async (req, res) => {
     await Company.findByIdAndDelete(companyId);
 
     await Job.deleteMany({ company: companyId });
+
+    await User.findByIdAndUpdate(employerId, { company: null });
 
     return res.status(200).json({
       message: "Company deleted successfully",

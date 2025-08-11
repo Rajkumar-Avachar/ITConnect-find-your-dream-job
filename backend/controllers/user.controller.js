@@ -101,7 +101,7 @@ export const login = async (req, res) => {
         success: false,
       });
     }
-    let user = await User.findOne({ email: cleaned.email });
+    let user = await User.findOne({ email: cleaned.email }).populate("company");
     if (!user) {
       return res.status(400).json({
         message: "Incorrect email",
@@ -135,6 +135,7 @@ export const login = async (req, res) => {
       phoneNumber: user.phoneNumber || "",
       role: user.role,
       profile: user.profile || "",
+      company: user.company || null,
     };
 
     return res

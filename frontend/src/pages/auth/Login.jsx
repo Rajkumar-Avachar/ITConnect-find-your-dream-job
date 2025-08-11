@@ -35,9 +35,9 @@ const Login = () => {
         const user = res.data.user;
         dispatch(setUser(user));
         if (user.role === "jobseeker") {
-          navigate("/");
+          navigate("/", { replace: true });
         } else {
-          navigate("/employer/dashboard");
+          navigate("/employer/dashboard", { replace: true });
         }
         toast.success("Login successful!", {
           position: "bottom-right",

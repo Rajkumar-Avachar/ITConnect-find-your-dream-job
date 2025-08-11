@@ -21,24 +21,26 @@ const companySchema = new mongoose.Schema(
     },
     size: {
       type: String,
+      required: true,
     },
     foundedYear: {
       type: Number,
       min: 1800,
       max: new Date().getFullYear(),
-      default: null,
+      required: true,
     },
     website: {
       type: String,
+      required: true,
     },
     about: {
       type: String,
       maxlength: 2000,
-      default: "",
+      required: true,
     },
-    specialities: {
+    specialties: {
       type: String,
-      default: "",
+      required: true,
       maxlength: 1000,
     },
     employer: {

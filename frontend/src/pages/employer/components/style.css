@@ -1,0 +1,24 @@
+.active-link {
+  color: black !important;
+}
+
+.hover:hover {
+  color: rgb(25, 25, 25) !important;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid #dee2e6;
+  z-index: 1000;
+}
+
+.main-content {
+  margin-left: 300px; /* Same as sidebar width */
+  min-height: 100vh;
+}
+

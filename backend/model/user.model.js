@@ -53,7 +53,6 @@ const userSchema = new mongoose.Schema(
       about: { type: String, maxlength: 2000, default: "" },
       skills: { type: [String], default: [] },
     },
-
     company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",

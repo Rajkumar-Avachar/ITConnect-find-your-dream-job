@@ -1,14 +1,11 @@
 import React from "react";
 import { LayoutDashboard, Briefcase, Users, Building2 } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import "./Sidebar.css";
+import "./style.css";
 
 const Sidebar = () => {
   return (
-    <div
-      className="border vh-100 d-flex flex-column"
-      style={{ width: "300px" }}
-    >
+    <div className="border d-flex flex-column sidebar">
       <div className="p-3 border-bottom">
         <Link to={"/employer/dashboard"} className="text-decoration-none">
           <img src="/logo/itconnectlogo.png" alt="Logo" width={120} />
@@ -64,7 +61,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `nav-link hover ${isActive ? "active-link" : ""}`
               }
-              to="/employer/company-profile"
+              to="/employer/company/profile"
             >
               <Building2 size={16} className="me-3" />
               Company Profile

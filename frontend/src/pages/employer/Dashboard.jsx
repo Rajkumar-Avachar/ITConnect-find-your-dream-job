@@ -5,18 +5,26 @@ import Summary from "./Summary";
 import JobPostings from "./JobPostings";
 import Applications from "./Applications";
 import CompanyProfile from "./CompanyProfile";
+import CompanySetup from "./components/CompanySetup";
+import CreateCompany from "./components/CreateCompany";
+import JoinCompany from "./components/JoinCompany";
 
 const Dashboard = () => {
   return (
     <div className="d-flex">
       <Sidebar />
-      <div className="content w-100">
+
+      <div className="content main-content flex-grow-1">
         <Routes>
           <Route path="" element={<Summary />} />
           <Route path="dashboard" element={<Summary />} />
           <Route path="job-postings" element={<JobPostings />} />
-          <Route path="applications" element={<Applications/>} />
-          <Route path="company-profile" element={<CompanyProfile/>} />
+          <Route path="applications" element={<Applications />} />
+          <Route path="company/setup" element={<CompanySetup />} />
+          <Route path="company/create" element={<CreateCompany />} />
+          <Route path="company/join" element={<JoinCompany />} />
+          <Route path="company/profile" element={<CompanyProfile />} />
+          <Route path="company/edit" element={<CompanyProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

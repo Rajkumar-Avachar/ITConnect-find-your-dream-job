@@ -1,5 +1,7 @@
 import { Job } from "../model/job.model.js";
 import { Company } from "../model/company.model.js";
+import mongoose from "mongoose";
+
 
 //Create Job
 export const createJob = async (req, res) => {
@@ -149,6 +151,12 @@ export const getJobs = async (req, res) => {
 export const getJobById = async (req, res) => {
   try {
     const jobId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(jobId)) {
+      return res.status(400).json({
+        message: "Invalid Job ID",
+        success: false,
+      });
+    }
     const job = await Job.findById(jobId)
       .populate("applications", "applicant")
       .populate("company", "name about");
@@ -345,7 +353,7 @@ export const deleteJob = async (req, res) => {
     await Company.findByIdAndUpdate(job.company, {
       $pull: { jobs: job._id },
     });
-    
+
     await Job.findByIdAndDelete(jobId);
 
     return res.status(200).json({
