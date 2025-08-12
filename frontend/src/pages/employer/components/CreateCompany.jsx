@@ -233,6 +233,9 @@ const CreateCompany = () => {
               Back
             </button>
             <button type="submit" className="btn bg-blue" disabled={loading}>
+              {loading && (
+                <span className="spinner-border spinner-border-sm me-2"></span>
+              )}
               {loading ? "Creating..." : "Create Company"}
             </button>
           </div>

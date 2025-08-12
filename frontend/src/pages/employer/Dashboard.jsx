@@ -8,6 +8,7 @@ import CompanyProfile from "./CompanyProfile";
 import CompanySetup from "./components/CompanySetup";
 import CreateCompany from "./components/CreateCompany";
 import JoinCompany from "./components/JoinCompany";
+import EditCompany from "./components/EditCompany";
 
 const Dashboard = () => {
   return (
@@ -24,7 +25,7 @@ const Dashboard = () => {
           <Route path="company/create" element={<CreateCompany />} />
           <Route path="company/join" element={<JoinCompany />} />
           <Route path="company/profile" element={<CompanyProfile />} />
-          <Route path="company/edit" element={<CompanyProfile />} />
+          <Route path="company/edit" element={<EditCompany />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

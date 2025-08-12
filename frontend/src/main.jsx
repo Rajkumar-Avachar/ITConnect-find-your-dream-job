@@ -7,7 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import { Provider } from "react-redux";
-import store, { persistor } from "./redux/store.js"; // ✅ import persistor directly now
+import store, { persistor } from "./redux/store.js";
 import { PersistGate } from "redux-persist/integration/react";
 
 createRoot(document.getElementById("root")).render(

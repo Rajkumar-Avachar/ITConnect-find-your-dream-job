@@ -146,10 +146,10 @@ export const getCompanyById = async (req, res) => {
 export const getCompanyByEmployer = async (req, res) => {
   try {
     const employerId = req.user.userId;
-    const company = await Company.find({ employer: employerId }).populate(
+    const company = await Company.findOne({ employer: employerId }).populate(
       "jobs"
     );
-    if (company.length === 0) {
+    if (company?.length === 0) {
       return res.status(200).json({
         message: "You have not created any Company yet",
         success: true,
@@ -226,38 +226,60 @@ export const updateCompany = async (req, res) => {
       });
     }
 
-    if (cleaned.name !== undefined) {
-      if (!cleaned.name) {
-        return res.status(400).json({
-          message: "Company Name is required",
-          success: false,
-        });
-      }
-      const existingCompany = await Company.findOne({
-        name: cleaned.name,
-        _id: { $ne: companyId },
-      });
-      if (existingCompany) {
-        return res.status(400).json({
-          message: "Company name already exists",
-          success: false,
-        });
+    // if (
+    //   !cleaned.name ||
+    //   !cleaned.industry ||
+    //   !cleaned.location ||
+    //   !cleaned.size ||
+    //   !cleaned.foundedYear ||
+    //   !cleaned.website ||
+    //   !cleaned.about ||
+    //   !cleaned.specialties
+    // ) {
+    //   return res.status(400).json({
+    //     message: "All fields are required",
+    //     success: false,
+    //   });
+    // }
+
+    for (const [key, value] of Object.entries(cleaned)) {
+      if (value !== undefined && (value === null || value === "")) {
+        return res.status(400).json({ message: `${key} is required` });
       }
     }
 
-    if (cleaned.industry !== undefined && !cleaned.industry) {
-      return res.status(400).json({
-        message: "Industry is required",
-        success: false,
-      });
-    }
+    // if (cleaned.name !== undefined) {
+    //   if (!cleaned.name) {
+    //     return res.status(400).json({
+    //       message: "Company Name is required",
+    //       success: false,
+    //     });
+    //   }
+    //   const existingCompany = await Company.findOne({
+    //     name: cleaned.name,
+    //     _id: { $ne: companyId },
+    //   });
+    //   if (existingCompany) {
+    //     return res.status(400).json({
+    //       message: "Company name already exists",
+    //       success: false,
+    //     });
+    //   }
+    // }
 
-    if (cleaned.location !== undefined && !cleaned.location) {
-      return res.status(400).json({
-        message: "Location is required",
-        success: false,
-      });
-    }
+    // if (cleaned.industry !== undefined && !cleaned.industry) {
+    //   return res.status(400).json({
+    //     message: "Industry is required",
+    //     success: false,
+    //   });
+    // }
+
+    // if (cleaned.location !== undefined && !cleaned.location) {
+    //   return res.status(400).json({
+    //     message: "Location is required",
+    //     success: false,
+    //   });
+    // }
 
     const updatedCompany = await Company.findByIdAndUpdate(
       companyId,

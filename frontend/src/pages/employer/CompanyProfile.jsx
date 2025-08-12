@@ -1,18 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   MapPin,
   Users,
   Calendar,
   Globe,
   SquareArrowOutUpRight,
+  SquarePen,
+  Pencil,
 } from "lucide-react";
+import { COMPANY_API } from "../../utils/apis";
 
 const CompanyProfile = () => {
   const { user } = useSelector((store) => store.auth);
-
   const navigate = useNavigate();
+  const [company, setCompany] = useState(null);
 
   useEffect(() => {
     if (!user?.company) {
@@ -20,7 +24,23 @@ const CompanyProfile = () => {
     }
   }, [user, navigate]);
 
-  if (!user?.company) return null;
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        const res = await axios.get(`${COMPANY_API}/your-company`, {
+          withCredentials: true,
+        });
+        if (res.data.success && res.data.company) {
+          setCompany(res.data.company);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCompany();
+  }, []);
+
+  if (!company) return null;
 
   const {
     name,
@@ -31,35 +51,54 @@ const CompanyProfile = () => {
     website,
     about,
     specialties,
-  } = user.company;
+  } = company;
 
   return (
     <div className="p-4 bg-light h-100">
-      <h3 className="fw-bold">Company Profile</h3>
-      <div className="rounded-3 my-4 border sha rounded-3dow-sm">
-        <div
-          className="bg-blue rounded-top-3 upper"
-          style={{ width: "100%", height: "10rem" }}
-        ></div>
-        <div className="px-2 px-md-4 pb-4 pt-2 lower bg-white rounded-3">
-          <div className="d-flex gap-3">
-            <div className="border p-2 rounded-3 bg-white rounded-4 companyLogo">
-              <img
-                src="/logo/company.png"
-                alt="CompanyLogo"
-                className="w-100 rounded-4"
-              />
+      <nav className="d-flex justify-content-between align-items-center">
+        <h3 className="fw-bold">Company Profile</h3>
+        <Link to={"/employer/company/edit"} className="text-decoration-none">
+          <button className="btn bg-blue">
+            <SquarePen size={16} className="me-2" />
+            Edit Profile
+          </button>
+        </Link>
+      </nav>
+      <div className="container">
+        <div className="row">
+          <div className="rounded-3 my-4 border shadow-sm p-0">
+            <div
+              className="bg-blue rounded-top-3 upper d-flex justify-content-end"
+              style={{ width: "100%", height: "10rem" }}
+            >
+              <button
+                className="rounded-circle border m-2"
+                style={{ width: "32px", height: "32px" }}
+              >
+                <Pencil size={16} />
+              </button>
             </div>
-            <div>
-              <h4 className="fw-bold mb-1">{name}</h4>
-              <p className="text-muted">{industry}</p>
+            <div className="px-2 px-md-4 pb-4 pt-2 lower bg-white rounded-3">
+              <div className="d-flex gap-3">
+                <div className="border p-2 rounded-3 bg-white rounded-4 companyLogo">
+                  <img
+                    src="/logo/company.png"
+                    alt="CompanyLogo"
+                    className="w-100 rounded-4"
+                  />
+                </div>
+                <div>
+                  <h4 className="fw-bold mb-1">{name}</h4>
+                  <p className="text-muted">{industry}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="container fs-14">
         <div className="row gap-4">
-          <div className="col border p-3 rounded-3 h-100">
+          <div className="col border p-3 rounded-3 h-100 bg-white shadow-sm">
             <h5 className="fw-semibold mb-4">Company Information</h5>
             <div className="row g-3">
               {/* Headquarters */}
@@ -107,7 +146,7 @@ const CompanyProfile = () => {
             </div>
           </div>
 
-          <div className="col border p-3 rounded-3 h-100">
+          <div className="col border p-3 rounded-3 h-100 bg-white shadow-sm">
             <h5 className="fw-semibold mb-4">About Us</h5>
             <p className="text-muted">{about}</p>
             <h5 className="fw-semibold my-4">Specialties</h5>
