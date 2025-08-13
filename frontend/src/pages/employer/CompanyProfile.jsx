@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   MapPin,
@@ -12,9 +12,12 @@ import {
   Pencil,
 } from "lucide-react";
 import { COMPANY_API } from "../../utils/apis";
+import { setLoading } from "../../redux/authSlice";
 
 const CompanyProfile = () => {
   const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const [company, setCompany] = useState(null);
 
@@ -27,6 +30,7 @@ const CompanyProfile = () => {
   useEffect(() => {
     const fetchCompany = async () => {
       try {
+        dispatch(setLoading(true));
         const res = await axios.get(`${COMPANY_API}/your-company`, {
           withCredentials: true,
         });
@@ -35,10 +39,33 @@ const CompanyProfile = () => {
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        dispatch(setLoading(false));
       }
     };
     fetchCompany();
   }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="spinner-border text-primary"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   if (!company) return null;
 
@@ -71,12 +98,12 @@ const CompanyProfile = () => {
               className="bg-blue rounded-top-3 upper d-flex justify-content-end"
               style={{ width: "100%", height: "10rem" }}
             >
-              <button
+              {/* <button
                 className="rounded-circle border m-2"
                 style={{ width: "32px", height: "32px" }}
               >
                 <Pencil size={16} />
-              </button>
+              </button> */}
             </div>
             <div className="px-2 px-md-4 pb-4 pt-2 lower bg-white rounded-3">
               <div className="d-flex gap-3">

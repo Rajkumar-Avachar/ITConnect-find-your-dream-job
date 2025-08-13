@@ -34,6 +34,7 @@ const EditCompany = () => {
   useEffect(() => {
     const fetchCompany = async () => {
       try {
+        dispatch(setLoading(true));
         const res = await axios.get(`${COMPANY_API}/your-company`, {
           withCredentials: true,
         });
@@ -55,10 +56,33 @@ const EditCompany = () => {
           position: "bottom-right",
           autoClose: 2000,
         });
+      } finally {
+        dispatch(setLoading(false));
       }
     };
     fetchCompany();
   }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="spinner-border text-primary"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

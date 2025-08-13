@@ -7,7 +7,6 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Error from "./pages/error/Error";
 import ScrollToTop from "./utils/ScrollToTop";
 import Dashboard from "./pages/jobseeker/Dashboard";
 import ProfilePage from "./pages/jobseeker/ProfilePage";
@@ -18,6 +17,9 @@ import CompanyDetailsPage from "./pages/companies/companydetails/CompanyDetailsP
 import EmpDashboard from "./pages/employer/Dashboard";
 
 import { Outlet } from "react-router-dom";
+import PageNotFound from "./components/PageNotFound";
+import PageNotFound2 from "./pages/employer/components/PageNotFound2";
+
 
 function MainLayout() {
   return (
@@ -47,7 +49,7 @@ function App() {
           <Route path="company/:id" element={<CompanyDetailsPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Error />} />
+          <Route path="*" element={<PageNotFound />} />
         </Route>
 
         {/* Routes without Navbar and Footer */}
@@ -55,7 +57,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="employer/*" element={<EmpDashboard />} />
-          <Route path="*" element={<Error />} />
+          <Route path="*" element={<PageNotFound2 />} />
         </Route>
       </Routes>
       <ToastContainer />
