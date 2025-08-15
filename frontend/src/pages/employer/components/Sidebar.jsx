@@ -13,9 +13,11 @@ const Sidebar = () => {
         </Link>
       </div>
       <div className="p-3 border-bottom">
-        <button className="btn bg-blue fs-14 w-100 text-start">
-          <i className="bi bi-plus-lg me-2"></i> Post New Job
-        </button>
+        <Link to={"/employer/post-job"} className="text-decoration-none">
+          <button className="btn bg-blue fs-14 w-100 text-start">
+            <i className="bi bi-plus-lg me-2"></i> Post New Job
+          </button>
+        </Link>
       </div>
       <div className="p-3">
         <p className="text-muted fs-12 mt-2">Main Menu</p>

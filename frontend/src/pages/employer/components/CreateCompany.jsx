@@ -27,7 +27,10 @@ const CreateCompany = () => {
   useEffect(() => {
     if (user?.role !== "employer") {
       navigate("/", { replace: true });
-    }
+    } 
+    // else if (user?.company) {
+    //   navigate("/employer/company/profile", { replace: true });
+    // }
   }, [user, navigate]);
 
   const handleInputChange = (e) => {
@@ -94,7 +97,7 @@ const CreateCompany = () => {
   return (
     <div className="p-5 bg-light h-100">
       <h3 className="fw-bold text-center">Create Your company Profile</h3>
-      <div className="border bg-white col-8 mx-auto p-4 my-4 rounded-3 shadow-sm">
+      <div className="border bg-white col-10 mx-auto p-4 my-4 rounded-3 shadow-sm">
         <form className="row" onSubmit={handleFormSubmit}>
           <div className="mb-4 col-6">
             <label htmlFor="companyName" className="form-label fs-14">

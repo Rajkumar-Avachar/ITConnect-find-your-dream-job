@@ -44,18 +44,15 @@ const jobSchema = new mongoose.Schema(
     description: {
       type: String,
       default: "",
+      required: true,
     },
-    responsibilities: {
-      type: String,
-      default: "",
-    },
-    eligibility: {
+    requirements: {
       type: String,
       default: "",
     },
     skills: {
       type: [String],
-      default: [],
+      required: true,
     },
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,

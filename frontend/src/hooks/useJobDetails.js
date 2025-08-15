@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { JOBS_API } from "../utils/apis";
-import { setJobDetails } from "../redux/jobSlice";
+import { setJobDetails, setLoading } from "../redux/jobSlice";
 import { toast } from "react-toastify";
 
 const useJobDetails = (jobId) => {
@@ -11,6 +11,7 @@ const useJobDetails = (jobId) => {
   useEffect(() => {
     if (!jobId) return;
     const fetchJobDetails = async () => {
+      dispatch(setLoading(true));
       try {
         const res = await axios.get(`${JOBS_API}/${jobId}`);
         if (res.data.success) {
@@ -22,6 +23,8 @@ const useJobDetails = (jobId) => {
           autoClose: 2000,
         });
         console.error("Failed to fetch job details:", error);
+      } finally {
+        dispatch(setLoading(false));
       }
     };
 

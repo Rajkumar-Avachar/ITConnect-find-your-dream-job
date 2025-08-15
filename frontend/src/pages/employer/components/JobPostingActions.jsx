@@ -9,10 +9,11 @@ import Divider from "@mui/material/Divider";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import EditSquareIcon from '@mui/icons-material/EditSquare';
-import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import EditSquareIcon from "@mui/icons-material/EditSquare";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import { Link } from "react-router-dom";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -60,7 +61,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-const JobPostingActions = () => {
+const JobPostingActions = ({ job }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -93,20 +94,38 @@ const JobPostingActions = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple className="text-black fs-14">
-          <VisibilityOutlinedIcon className="text-black"/>
+        <MenuItem
+          component={Link}
+          to={`/employer/job-postings/${job._id}`} 
+          onClick={handleClose} 
+          disableRipple
+          className="text-black fs-14"
+        >
+          <VisibilityOutlinedIcon className="text-black me-2" />
           View Details
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple className="text-black fs-14">
-          <EditIcon className="text-black"/>
+        <MenuItem
+          onClick={handleClose}
+          disableRipple
+          className="text-black fs-14"
+        >
+          <EditIcon className="text-black" />
           Edit Job
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple className="text-black fs-14">
-          <PeopleOutlinedIcon className="text-black"/>
+        <MenuItem
+          onClick={handleClose}
+          disableRipple
+          className="text-black fs-14"
+        >
+          <PeopleOutlinedIcon className="text-black" />
           View Applications
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple className="text-danger fs-14">
-          <DeleteForeverOutlinedIcon className="text-danger"/>
+        <MenuItem
+          onClick={handleClose}
+          disableRipple
+          className="text-danger fs-14"
+        >
+          <DeleteForeverOutlinedIcon className="text-danger" />
           Delete Job
         </MenuItem>
       </StyledMenu>

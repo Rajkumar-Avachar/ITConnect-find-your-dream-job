@@ -9,6 +9,8 @@ const CompanySetup = () => {
   useEffect(() => {
     if (user?.role !== "employer") {
       navigate("/", { replace: true });
+    } else if (user?.company) {
+      navigate("/employer/company/profile", { replace: true });
     }
   }, [user, navigate]);
   return (

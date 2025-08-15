@@ -15,7 +15,7 @@ router.route("/").post(isAuthenticated, isEmployer, createJob);
 router.route("/").get(getJobs);
 
 router
-  .route("/jobsbyemployer")
+  .route("/employer-jobs")
   .get(isAuthenticated, isEmployer, getJobsByEmployer);
 
 router.route("/:id").get(getJobById);

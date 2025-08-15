@@ -22,10 +22,8 @@ const JobDescription = ({ job }) => {
     >
       <h5 className="fw-semibold fs-18">Job Description</h5>
       <p className="text-muted mt-3 fs-14">{job.description}</p>
-      <h5 className="fw-semibold fs-18 mt-4">Responsibilities</h5>
-      <p className="text-muted mt-3 fs-14">{job.responsibilities}</p>
-      <h5 className="fw-semibold fs-18 mt-4">Eligibility Criteria:</h5>
-      <p className="text-muted fs-14">{job.eligibility}</p>
+      <h5 className="fw-semibold fs-18 mt-4">Requirements</h5>
+      <p className="text-muted mt-3 fs-14">{job.requirements}</p>
 
       <h5 className="fw-semibold fs-18 mt-4">Skills Required</h5>
       <div className="d-flex flex-wrap gap-2 mt-3">

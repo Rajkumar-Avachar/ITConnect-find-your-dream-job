@@ -2,12 +2,10 @@ import { Job } from "../model/job.model.js";
 import { Company } from "../model/company.model.js";
 import mongoose from "mongoose";
 
-
 //Create Job
 export const createJob = async (req, res) => {
   try {
     const employerId = req.user.userId;
-
     const company = await Company.findOne({ employer: employerId });
 
     if (!company) {
@@ -26,8 +24,7 @@ export const createJob = async (req, res) => {
       workMode,
       openings,
       description,
-      responsibilities,
-      eligibility,
+      requirements,
       skills,
     } = req.body;
 
@@ -46,9 +43,7 @@ export const createJob = async (req, res) => {
       workMode: workMode?.trim().replace(/\s+/g, ""),
       openings: openings,
       description: description?.trim().replace(/\s+/g, " "),
-      responsibilities: responsibilities?.trim().replace(/\s+/g, " "),
-      eligibility: eligibility?.trim().replace(/\s+/g, " "),
-      // skills: skills?.trim().replace(/\s+/g, " "),
+      requirements: requirements?.trim().replace(/\s+/g, " "),
       skills: skills
         ? skills
             .split(",")
@@ -57,35 +52,30 @@ export const createJob = async (req, res) => {
         : [],
     };
 
-    if (!cleaned.title || !cleaned.location) {
+    if (
+      !cleaned.title ||
+      !cleaned.location ||
+      !cleaned.description ||
+      !cleaned.skills
+    ) {
       return res.status(400).json({
-        message: "Title and location are required",
+        message: "Please provide all required fields",
         success: false,
       });
     }
+
     const validJobTypes = ["Full-Time", "Part-Time", "Internship"];
     const validWorkModes = ["Onsite", "Remote", "Hybrid"];
 
-    if (
-      cleaned.jobType !== undefined &&
-      !validJobTypes.includes(cleaned.jobType)
-    ) {
+    if (!validJobTypes.includes(cleaned.jobType)) {
       return res.status(400).json({
-        message: `Invalid Job Type. Valid types are: ${validJobTypes.join(
-          ", "
-        )}`,
+        message: "Please select a valid Job Type",
         success: false,
       });
     }
-
-    if (
-      cleaned.workMode !== undefined &&
-      !validWorkModes.includes(cleaned.workMode)
-    ) {
+    if (!validWorkModes.includes(cleaned.workMode)) {
       return res.status(400).json({
-        message: `Invalid Work Mode. Valid modes are: ${validWorkModes.join(
-          ", "
-        )}`,
+        message: "Please select a valid Work Mode",
         success: false,
       });
     }
@@ -100,8 +90,7 @@ export const createJob = async (req, res) => {
       workMode: cleaned.workMode,
       openings: cleaned.openings,
       description: cleaned.description,
-      responsibilities: cleaned.responsibilities,
-      eligibility: cleaned.eligibility,
+      requirements: cleaned.requirements,
       skills: cleaned.skills,
       postedBy: employerId,
     });
@@ -187,7 +176,7 @@ export const getJobsByEmployer = async (req, res) => {
       createdAt: -1,
     });
 
-    if (jobs.length === 0) {
+    if (jobs?.length === 0) {
       return res.status(200).json({
         message: "You have not posted any Job",
         success: true,
@@ -233,8 +222,7 @@ export const updateJob = async (req, res) => {
       workMode,
       openings,
       description,
-      responsibilities,
-      eligibility,
+      requirements,
       skills,
     } = req.body;
 
@@ -253,8 +241,7 @@ export const updateJob = async (req, res) => {
       workMode: workMode?.trim().replace(/\s+/g, ""),
       openings: openings,
       description: description?.trim().replace(/\s+/g, " "),
-      responsibilities: responsibilities?.trim().replace(/\s+/g, " "),
-      eligibility: eligibility?.trim().replace(/\s+/g, " "),
+      requirements: requirements?.trim().replace(/\s+/g, " "),
       skills: skills
         ?.split(",")
         .map((skill) => skill.trim().replace(/\s+/g, " "))

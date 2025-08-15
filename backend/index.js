@@ -10,15 +10,13 @@ import companyRoutes from "./routes/company.route.js";
 import jobRoutes from "./routes/job.route.js";
 import applicationRoutes from "./routes/application.route.js";
 
-// import connectDB from "./config/db.js";
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 //middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173", // Vite/React
+    origin: "http://localhost:5173", 
     credentials: true,
   })
 );

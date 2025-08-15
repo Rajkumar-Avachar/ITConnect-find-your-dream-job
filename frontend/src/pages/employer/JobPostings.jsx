@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,26 +8,15 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { MapPin } from "lucide-react";
 import JobPostingActions from "./components/JobPostingActions";
-
-function createData(title, location, type, salary, applications) {
-  return { title, location, type, salary, applications };
-}
-
-const rows = [
-  createData("Senior Developer", "Pune, India", "Full-Time", "7 LPA", 20),
-  createData(
-    "Junior Java Developer",
-    "Mumbai, India",
-    "Part-Time",
-    "3.5 LPA",
-    35
-  ),
-  createData("Data Scientist", "Banglore, India", "Full-Time", "5-10 LPA", 10),
-  createData("AI Engineer", "Hyderabad, India", "Internship", "15k/month", 25),
-  createData("React.js Developer", "Pune, India", "Full-Time", "3-4 LPA", 30),
-];
+import { JOBS_API } from "../../utils/apis";
+import useEmployerJobs from "../../hooks/useEmployerJobs";
+import { useSelector } from "react-redux";
 
 const JobPostings = () => {
+  useEmployerJobs();
+  const { employerJobs } = useSelector((store) => store.job);
+  console.log("Employer Jobs:", employerJobs);
+
   return (
     <div className="p-4 bg-light h-100">
       <h3 className="fw-bold mb-1">Job Postings</h3>
@@ -45,7 +34,10 @@ const JobPostings = () => {
                 Location
               </TableCell>
               <TableCell align="left" className="text-muted fw-medium">
-                Type
+                Work Mode
+              </TableCell>
+              <TableCell align="left" className="text-muted fw-medium">
+                Job Type
               </TableCell>
               <TableCell align="left" className="text-muted fw-medium">
                 Salary
@@ -59,30 +51,28 @@ const JobPostings = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {employerJobs?.map((job) => (
               <TableRow
-                key={row.title}
+                key={job._id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.title}
+                  {job.title}
                 </TableCell>
                 <TableCell align="left" className="">
                   <MapPin size={14} className="me-1" />
-                  {row.location}
+                  {job.location}
                 </TableCell>
-                <TableCell align="left">{row.type}</TableCell>
-                <TableCell align="left">&#8377;{row.salary}</TableCell>
+                <TableCell align="left">{job.workMode}</TableCell>
+                <TableCell align="left">{job.jobType}</TableCell>
+                <TableCell align="left">&#8377;{job.salary}</TableCell>
                 <TableCell align="left">
                   <span className="badge text-dark fw-semibold bg-light fs-14">
-                    {row.applications}
+                    {job.applications?.length || 0}
                   </span>
                 </TableCell>
                 <TableCell align="left">
-                  {/* <button className="btn btn-light">
-                    <Ellipsis size={16} />
-                  </button> */}
-                  <JobPostingActions />
+                  <JobPostingActions job={job} />
                 </TableCell>
               </TableRow>
             ))}
