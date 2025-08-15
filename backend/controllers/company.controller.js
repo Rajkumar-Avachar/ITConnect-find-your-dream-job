@@ -219,6 +219,17 @@ export const updateCompany = async (req, res) => {
       specialties: specialties?.trim().replace(/\s+/g, " "),
     };
 
+    const existingCompany = await Company.findOne({
+      name: cleaned.name,
+      _id: { $ne: companyId },
+    });
+    if (existingCompany) {
+      return res.status(400).json({
+        message: "Company name already exists",
+        success: false,
+      });
+    }
+
     if (!Object.keys(req.body).length) {
       return res.status(400).json({
         message: "At least one field is required to update company details",

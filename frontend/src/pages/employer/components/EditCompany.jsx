@@ -50,9 +50,8 @@ const EditCompany = () => {
             specialties: res.data.company.specialties || "",
           });
         }
-      } catch (err) {
-        console.error(err);
-        toast.error("Failed to load company details", {
+      } catch (error) {
+        toast.error(error.response?.data?.message, {
           position: "bottom-right",
           autoClose: 2000,
         });

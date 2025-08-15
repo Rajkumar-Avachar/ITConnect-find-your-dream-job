@@ -25,7 +25,6 @@ const Login = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
     try {
       dispatch(setLoading(true));
       const res = await axios.post(`${USER_API}/login`, input, {
@@ -75,22 +74,6 @@ const Login = () => {
           </div>
           <div className="col-md-8 border col-xl-4 mx-auto p-4 p-lg-5 rounded-3 fs-14 bg-white shadow-sm mt-3">
             <form onSubmit={handleFormSubmit}>
-              {/* <div className="d-flex justify-content-center mb-4 gap-3">
-                <button
-                  type="button"
-                  className={`btn flex-grow-1 fs-14 py-2 ${role === "jobseeker" ? "bg-blue text-light" : "btn-light "}`}
-                  onClick={() => setRole("jobseeker")}
-                >
-                  Job Seeker
-                </button>
-                <button
-                  type="button"
-                  className={`btn flex-grow-1 fs-14 py-2 ${role === "employer" ? "bg-blue text-light" : "btn-light "}`}
-                  onClick={() => setRole("employer")}
-                >
-                  Employer
-                </button>
-              </div> */}
               <div className="mb-3">
                 <label htmlFor="email" className="form-label mb-1 fs-14">
                   Email address

@@ -59,7 +59,6 @@ const Homepage = () => {
     }
   }, [user, loading, navigate]);
 
-
   if (loading) {
     return (
       <div

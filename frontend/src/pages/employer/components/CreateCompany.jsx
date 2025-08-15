@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,11 @@ const CreateCompany = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
   const { loading } = useSelector((store) => store.auth);
+  useEffect(() => {
+    if (user?.role !== "employer") {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

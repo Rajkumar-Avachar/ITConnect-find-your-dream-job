@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Building, Plus, UserPlus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CompanySetup = () => {
+  const { user } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user?.role !== "employer") {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
   return (
     <div className="h-100 pt-5 bg-light">
       <div className="container mt-5">
