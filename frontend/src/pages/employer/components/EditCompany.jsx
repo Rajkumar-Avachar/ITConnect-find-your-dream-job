@@ -5,7 +5,8 @@ import { MapPin, Users, Calendar, Globe, Pencil } from "lucide-react";
 import { COMPANY_API } from "../../../utils/apis";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setLoading, setUser } from "../../../redux/authSlice";
+import { setUser } from "../../../redux/authSlice";
+import { setLoading } from "../../../redux/companySlice";
 
 const EditCompany = () => {
   const { user } = useSelector((store) => store.auth);
@@ -23,7 +24,7 @@ const EditCompany = () => {
     specialties: "",
   });
 
-  const { loading } = useSelector((store) => store.auth);
+  const { loading } = useSelector((store) => store.company);
 
   useEffect(() => {
     if (!user?.company) {

@@ -2,13 +2,14 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { COMPANY_API } from "../utils/apis";
-import { setCompanies } from "../redux/companySlice";
+import { setCompanies, setLoading } from "../redux/companySlice";
 
 const useCompanies = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchCompanies = async () => {
+      dispatch(setLoading(true));
       try {
         const res = await axios.get(`${COMPANY_API}`);
         if (res.data.success) {
@@ -16,6 +17,8 @@ const useCompanies = () => {
         }
       } catch (error) {
         console.error("Failed to fetch companies:", error);
+      } finally {
+        dispatch(setLoading(false));
       }
     };
 

@@ -92,49 +92,50 @@ const JobCard = ({ job }) => {
             width={60}
             className="me-3 rounded-3"
           />
-
           <div>
             <h5 className="mb-1 fw-semibold dark-blue">{job.title}</h5>
             <h5 className="text-muted mb-0 fs-18">{job.company.name}</h5>
           </div>
         </div>
-
-        <div className="d-flex gap-2 gap-sm-4 flex-wrap flex-column flex-sm-row fs-14">
-          <div className="text-muted d-flex align-items-center gap-2">
-            <MapPin size={16} />
-            <p className="mb-0">
-              {" "}
-              {job.location} ({job.workMode})
-            </p>
-          </div>
-          <div className="text-muted d-flex align-items-center gap-2">
-            <Wallet size={16} />
-            <p className="mb-0">
-              {job.salary === "Not Disclosed" ? job.salary : `₹ ${job.salary}`}
-            </p>
-          </div>
-          <div className="text-muted d-flex align-items-center gap-2">
-            <Briefcase size={16} />
-            <p className="mb-0"> {job.experience}</p>
-          </div>
-        </div>
-
-        <div className="mt-3 fs-15 border-top py-3">
-          <span class="badge me-2 rounded-pill bg-light-blue text-primary fw-normal align-items-center fs-12">
-            <UpdateOutlinedIcon className="fs-6 me-1" />
-            Posted {moment(job.createdAt).fromNow()}
+        <div className="fs-14 my-3">
+          <span className="text-muted">
+            <MapPin size={16} className="me-1" />
+            {job.location}
           </span>
-          {/* <span class=" py-1 px-2 rounded-pill bg-light-blue text-primary fw-normal align-items-center fs-12">
-            Internship
-          </span> */}
-
+          <span className="text-muted mx-4 fw-lighter">|</span>
+          <span className="text-muted">&#8377; {job.salary}</span>
+          <span className="text-muted mx-4 fw-lighter">|</span>
+          <span className="text-muted">
+            <Briefcase size={16} className="me-1" />
+            {job.experience}
+          </span>
+        </div>
+        {/* <div className="fs-14">
+          <div>
+            <span className="fw-semibold">Job Type: </span>{" "}
+            <span className="text-muted">{job.jobType}</span>
+          </div>
+          <div className="mt-2">
+            <span className="fw-semibold">Work Mode: </span>{" "}
+            <span className="text-muted">{job.workMode}</span>
+          </div>
+        </div> */}
+        <hr />
+        <div className="mt-3 fs-15">
           <div className="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-4">
-            <div className="d-flex gap-3 fs-14 text-muted">
-              <span>
-                <Users size={16} />{" "}
-                {numeral(job.applications?.length || 0).format("0a")} applicants
+            <div className="fs-14">
+              <span className="text-muted">Posted: </span>
+              <span className="fw-semibold">
+                {moment(job.createdAt).fromNow()}
               </span>
-              <span> &#8226; Openings: {job.openings}</span>
+              <span className="fw-lighter mx-2">|</span>
+              <span className="text-muted">Openings: </span>
+              <span className="fw-semibold">{job.openings}</span>
+              <span className="fw-lighter mx-2">|</span>
+              <span className="text-muted">Applications: </span>
+              <span className="fw-semibold">
+                {job.applications?.length || 0}
+              </span>
             </div>
             <div className="d-flex gap-5  align-items-center flex-grow-1 justify-content-sm-end justify-content-evenly ms-auto">
               {save === false ? (

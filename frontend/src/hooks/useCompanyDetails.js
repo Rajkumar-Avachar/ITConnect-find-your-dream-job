@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { COMPANY_API } from "../utils/apis";
 import { toast } from "react-toastify";
-import { setCompanyDetails } from "../redux/companySlice";
+import { setCompanyDetails, setLoading } from "../redux/companySlice";
 
 const useCompanyDetails = (companyId) => {
   const dispatch = useDispatch();
@@ -11,6 +11,7 @@ const useCompanyDetails = (companyId) => {
   useEffect(() => {
     if (!companyId) return;
     const fetchCompanyDetails = async () => {
+      dispatch(setLoading(true));
       try {
         const res = await axios.get(`${COMPANY_API}/${companyId}`);
         if (res.data.success) {
@@ -22,6 +23,8 @@ const useCompanyDetails = (companyId) => {
           autoClose: 2000,
         });
         console.error("Failed to fetch company details:", error);
+      } finally {
+        dispatch(setLoading(false));
       }
     };
 

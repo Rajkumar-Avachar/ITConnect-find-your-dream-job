@@ -12,12 +12,12 @@ import {
   Pencil,
 } from "lucide-react";
 import { COMPANY_API } from "../../utils/apis";
-import { setLoading } from "../../redux/authSlice";
+import { setLoading } from "../../redux/companySlice";
 
 const CompanyProfile = () => {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.auth);
+  const { loading } = useSelector((store) => store.company);
   const navigate = useNavigate();
   const [company, setCompany] = useState(null);
 
