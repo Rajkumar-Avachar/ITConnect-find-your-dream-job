@@ -15,7 +15,29 @@ import { useSelector } from "react-redux";
 const JobPostings = () => {
   useEmployerJobs();
   const { employerJobs } = useSelector((store) => store.job);
+  const { loading } = useSelector((store) => store.job);
   console.log("Employer Jobs:", employerJobs);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          height: "90vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="spinner-border text-primary"
+          role="status"
+          style={{ width: "3rem", height: "3rem" }}
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 bg-light h-100">

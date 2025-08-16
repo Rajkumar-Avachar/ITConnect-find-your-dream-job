@@ -25,7 +25,7 @@ export const isAuthenticated = async (req, res, next) => {
 export const isEmployer = (req, res, next) => {
   if (req.user.role !== "employer") {
     return res.status(403).json({
-      message: "You are not an Employer",
+      message: "Unauthorized Access",
       success: false,
     });
   }
@@ -35,7 +35,7 @@ export const isEmployer = (req, res, next) => {
 export const isJobseeker = (req, res, next) => {
   if (req.user.role !== "jobseeker") {
     return res.status(403).json({
-      message: "You are not a Jobseeker",
+      message: "Unauthorized Access",
       success: false,
     });
   }

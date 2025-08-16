@@ -242,10 +242,17 @@ export const updateJob = async (req, res) => {
       openings: openings,
       description: description?.trim().replace(/\s+/g, " "),
       requirements: requirements?.trim().replace(/\s+/g, " "),
-      skills: skills
-        ?.split(",")
-        .map((skill) => skill.trim().replace(/\s+/g, " "))
-        .filter((skill) => skill.length > 0),
+      //   skills: skills
+      //     ?.split(",")
+      //     .map((skill) => skill.trim().replace(/\s+/g, " "))
+      //     .filter((skill) => skill.length > 0),
+      // };
+      skills: Array.isArray(skills)
+        ? skills.map((skill) => skill.trim().replace(/\s+/g, " "))
+        : (skills || "")
+            .split(",")
+            .map((skill) => skill.trim().replace(/\s+/g, " "))
+            .filter((skill) => skill.length > 0),
     };
 
     if (!Object.keys(req.body).length) {

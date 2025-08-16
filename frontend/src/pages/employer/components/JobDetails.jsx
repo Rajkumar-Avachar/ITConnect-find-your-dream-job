@@ -10,6 +10,7 @@ const JobDetails = () => {
   const { jobDetails } = useSelector((store) => store.job);
   const { loading } = useSelector((store) => store.job);
   const {
+    _id,
     title,
     location,
     jobType,
@@ -49,7 +50,10 @@ const JobDetails = () => {
       <div className="d-flex justify-content-between">
         <h3 className="fw-bold">Job Details</h3>
         <div className="d-flex gap-2">
-          <Link to={"/employer/company/edit"} className="text-decoration-none">
+          <Link
+            to={`/employer/job-postings/${_id}/edit`}
+            className="text-decoration-none"
+          >
             <button className="btn btn-light border">
               <SquarePen size={16} className="me-2" />
               Edit Profile

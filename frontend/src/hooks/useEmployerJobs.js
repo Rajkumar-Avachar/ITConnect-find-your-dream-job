@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { JOBS_API } from "../utils/apis";
-import { setEmployerJobs } from "../redux/jobSlice";
+import { setEmployerJobs, setLoading } from "../redux/jobSlice";
 
 const useEmployerJobs = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchEmployerJobs = async () => {
+      dispatch(setLoading(true));
       try {
         const res = await axios.get(`${JOBS_API}/employer-jobs`, {
           withCredentials: true,
@@ -18,6 +19,8 @@ const useEmployerJobs = () => {
         }
       } catch (error) {
         console.error("Failed to fetch employer jobs:", error);
+      } finally {
+        dispatch(setLoading(false));
       }
     };
     fetchEmployerJobs();

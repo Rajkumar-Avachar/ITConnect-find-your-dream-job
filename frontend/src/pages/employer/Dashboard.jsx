@@ -12,6 +12,7 @@ import EditCompany from "./components/EditCompany";
 import PageNotFound2 from "./components/PageNotFound2";
 import PostJob from "./PostJob";
 import JobDetails from "./components/JobDetails";
+import EditJob from "./components/EditJob";
 
 const Dashboard = () => {
   return (
@@ -25,6 +26,7 @@ const Dashboard = () => {
           <Route path="post-job" element={<PostJob />} />"
           <Route path="job-postings" element={<JobPostings />} />
           <Route path="job-postings/:id" element={<JobDetails />} />
+          <Route path="job-postings/:id/edit" element={<EditJob/>} />
           <Route path="applications" element={<Applications />} />
           <Route path="company/setup" element={<CompanySetup />} />
           <Route path="company/create" element={<CreateCompany />} />

@@ -96,8 +96,8 @@ const JobPostingActions = ({ job }) => {
       >
         <MenuItem
           component={Link}
-          to={`/employer/job-postings/${job._id}`} 
-          onClick={handleClose} 
+          to={`/employer/job-postings/${job._id}`}
+          onClick={handleClose}
           disableRipple
           className="text-black fs-14"
         >
@@ -105,6 +105,8 @@ const JobPostingActions = ({ job }) => {
           View Details
         </MenuItem>
         <MenuItem
+          component={Link}
+          to={`/employer/job-postings/${job._id}/edit`}
           onClick={handleClose}
           disableRipple
           className="text-black fs-14"
