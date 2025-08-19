@@ -11,7 +11,9 @@ const useCompanies = () => {
     const fetchCompanies = async () => {
       dispatch(setLoading(true));
       try {
-        const res = await axios.get(`${COMPANY_API}`);
+        const res = await axios.get(`${COMPANY_API}`, {
+          withCredentials: true,
+        });
         if (res.data.success) {
           dispatch(setCompanies(res.data.companies));
         }

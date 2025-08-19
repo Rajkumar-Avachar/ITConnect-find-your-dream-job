@@ -149,7 +149,7 @@ export const getCompanyByEmployer = async (req, res) => {
     const company = await Company.findOne({ employer: employerId }).populate(
       "jobs"
     );
-    if (company?.length === 0) {
+    if (!company) {
       return res.status(200).json({
         message: "You have not created any Company yet",
         success: true,

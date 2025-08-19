@@ -76,7 +76,7 @@ const PostJob = () => {
             <input
               type="text"
               className="form-control bg-light"
-              placeholder="e.g., ABC Technologies"
+              placeholder="e.g., Java Developer"
               id="title"
               name="title"
               onChange={handleInputChange}
@@ -168,7 +168,7 @@ const PostJob = () => {
               Openings
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control bg-light"
               placeholder="e.g., 5, 10"
               id="openings"

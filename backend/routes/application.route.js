@@ -3,6 +3,7 @@ import {
   applyJob,
   getApplicationsByApplicant,
   getApplicationsForEmployer,
+  getApplicationsForSingleJobByEmployer,
   updateApplicationStatus,
   cancelApplication,
 } from "../controllers/application.controller.js";
@@ -15,11 +16,17 @@ const router = express.Router();
 
 router.route("/").post(isAuthenticated, isJobseeker, applyJob);
 
-router.route("/").get(isAuthenticated, isJobseeker, getApplicationsByApplicant);
+router
+  .route("/applicant-applicatons")
+  .get(isAuthenticated, isJobseeker, getApplicationsByApplicant);
+
+router
+  .route("/employer-applications")
+  .get(isAuthenticated, isEmployer, getApplicationsForEmployer);
 
 router
   .route("/job/:id")
-  .get(isAuthenticated, isEmployer, getApplicationsForEmployer);
+  .get(isAuthenticated, isEmployer, getApplicationsForSingleJobByEmployer);
 
 router.route("/:id").put(isAuthenticated, isEmployer, updateApplicationStatus);
 

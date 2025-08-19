@@ -13,7 +13,9 @@ const useCompanyDetails = (companyId) => {
     const fetchCompanyDetails = async () => {
       dispatch(setLoading(true));
       try {
-        const res = await axios.get(`${COMPANY_API}/${companyId}`);
+        const res = await axios.get(`${COMPANY_API}/${companyId}`, {
+          withCredentials: true,
+        });
         if (res.data.success) {
           dispatch(setCompanyDetails(res.data.company));
         }

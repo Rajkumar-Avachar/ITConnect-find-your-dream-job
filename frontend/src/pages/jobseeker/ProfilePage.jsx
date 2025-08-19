@@ -9,9 +9,9 @@ import Education from "./ProfileComponents/Education";
 
 const ProfilePage = () => {
   return (
-    <div className="container flex-wrapmt-sm-5 px-2 px-sm-0 mt-sm-5 mb-5">
+    <div className="container flex-wrapmt-sm-5 px-2 px-sm-0 mt-sm-5 mb-5 vh-100">
       <Intro />
-      <div className="row gap-2 gap-sm-4 mx-1 mainDiv">
+      {/* <div className="row gap-2 gap-sm-4 mx-1 mainDiv">
         <ContactInfo />
         <div className="col px-0">
           <About />
@@ -19,7 +19,7 @@ const ProfilePage = () => {
           <Experience />
           <Education />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

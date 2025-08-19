@@ -3,6 +3,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import EditIntroModal from "../UpdateProfile/EditIntroModal.jsx";
 import { useSelector } from "react-redux";
 import EditProfilePhoto from "../UpdateProfile/EditProfilePhoto.jsx";
+import { Link } from "react-router-dom";
 
 const Intro = () => {
   const [showIntroModal, setShowIntroModal] = useState(false);
@@ -22,9 +23,7 @@ const Intro = () => {
         </div>
         <div className="d-flex justify-content-between flex-grow-1 gap-2">
           <div className="py-3 flex-grow-1">
-            <h4 className="mb-2 fw-semibold">
-              {user?.fullname}
-            </h4>
+            <h4 className="mb-2 fw-semibold">{user?.fullname}</h4>
             <p className="mb-2">{user?.profile?.headline}</p>
             {user?.profile?.resume && (
               <a
@@ -39,8 +38,7 @@ const Intro = () => {
             <hr className="text-muted " />
             {user?.profile?.location && (
               <p className="text-muted mb-2 fs-14">
-                <i className="bi bi-geo-alt me-2"></i>{" "}
-                {user?.profile?.location}
+                <i className="bi bi-geo-alt me-2"></i> {user?.profile?.location}
               </p>
             )}
             {user?.profile?.gender && (

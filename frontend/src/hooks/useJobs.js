@@ -11,7 +11,9 @@ const useJobs = () => {
     const fetchJobs = async () => {
       dispatch(setLoading(true));
       try {
-        const res = await axios.get(`${JOBS_API}/`);
+        const res = await axios.get(`${JOBS_API}/`, {
+          withCredentials: true,
+        });
         if (res.data.success) {
           dispatch(setJobs(res.data.jobs));
         }

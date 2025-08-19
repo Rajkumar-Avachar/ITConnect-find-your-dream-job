@@ -1,6 +1,7 @@
 import { Application } from "../model/application.model.js";
 import { Job } from "../model/job.model.js";
 import mongoose from "mongoose";
+import { Company } from "../model/company.model.js";
 
 //Apply for a Job
 export const applyJob = async (req, res) => {
@@ -52,6 +53,7 @@ export const applyJob = async (req, res) => {
       applicant: applicantId,
       job: jobId,
       resume: resume,
+      company: job.company._id,
     });
 
     job.applications.push(application._id);
@@ -101,8 +103,45 @@ export const getApplicationsByApplicant = async (req, res) => {
   }
 };
 
-//Get all applications for Employer
+// Get all applications for Employer
 export const getApplicationsForEmployer = async (req, res) => {
+  try {
+    const employerId = req.user.userId;
+    const company = await Company.findOne({ employer: employerId });
+
+    if (!company) {
+      return res.status(400).json({
+        message: "You have not associated with any company",
+        success: false,
+      });
+    }
+
+    const applications = await Application.find({
+      company: company._id,
+    })
+      .populate("applicant")
+      .populate("job");
+    if (applications.length === 0) {
+      return res.status(200).json({
+        message: "No applications found",
+        success: true,
+      });
+    }
+    return res.status(200).json({
+      applications,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+};
+
+//Get applications for single job (Employer only)
+export const getApplicationsForSingleJobByEmployer = async (req, res) => {
   try {
     const employerId = req.user.userId;
     const jobId = req.params.id;

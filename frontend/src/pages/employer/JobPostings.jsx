@@ -8,15 +8,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { MapPin } from "lucide-react";
 import JobPostingActions from "./components/JobPostingActions";
-import { JOBS_API } from "../../utils/apis";
 import useEmployerJobs from "../../hooks/useEmployerJobs";
 import { useSelector } from "react-redux";
 
 const JobPostings = () => {
   useEmployerJobs();
-  const { employerJobs } = useSelector((store) => store.job);
-  const { loading } = useSelector((store) => store.job);
-  console.log("Employer Jobs:", employerJobs);
+  const { employerJobs, loading } = useSelector((store) => store.job);
 
   if (loading) {
     return (
@@ -49,25 +46,25 @@ const JobPostings = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left" className="text-muted fw-medium">
+              <TableCell align="left" className="fw-semibold">
                 Job Title
               </TableCell>
-              <TableCell align="left" className="text-muted fw-medium">
+              <TableCell align="left" className="fw-semibold">
                 Location
               </TableCell>
-              <TableCell align="left" className="text-muted fw-medium">
+              <TableCell align="left" className="fw-semibold">
                 Work Mode
               </TableCell>
-              <TableCell align="left" className="text-muted fw-medium">
+              <TableCell align="left" className="fw-semibold">
                 Job Type
               </TableCell>
-              <TableCell align="left" className="text-muted fw-medium">
+              <TableCell align="left" className="fw-semibold">
                 Salary
               </TableCell>
-              <TableCell align="left" className="text-muted fw-medium">
+              <TableCell align="left" className="fw-semibold">
                 Applications
               </TableCell>
-              <TableCell align="left" className="text-muted fw-medium">
+              <TableCell align="left" className="fw-semibold">
                 Actions
               </TableCell>
             </TableRow>

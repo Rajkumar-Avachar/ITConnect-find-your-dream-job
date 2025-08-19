@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { JOBS_API } from "../utils/apis";
 import { setEmployerJobs, setLoading } from "../redux/jobSlice";

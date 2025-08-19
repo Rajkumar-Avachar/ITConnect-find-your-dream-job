@@ -225,7 +225,7 @@ const EditJob = () => {
               Openings
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control bg-light"
               placeholder="e.g., 5, 10"
               id="openings"
