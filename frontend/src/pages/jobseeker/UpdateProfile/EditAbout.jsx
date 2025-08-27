@@ -55,12 +55,12 @@ const EditAbout = ({ editAbout, setEditAbout }) => {
 
   return (
     <>
-      <h5 className="fw-bold dark-blue mt-2">Edit About</h5>
+      <h6 className="fw-bold dark-blue mt-2 fs-18">Edit About</h6>
 
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label fs-14">
+      <div class="my-3">
+        {/* <label for="exampleFormControlTextarea1" class="form-label fs-14">
           Professional Summary
-        </label>
+        </label> */}
         <textarea
           class="form-control border-2 fs-14"
           id="exampleFormControlTextarea1"

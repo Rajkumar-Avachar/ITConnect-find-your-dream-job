@@ -56,9 +56,9 @@ const EditSkills = ({ editSkills, setEditSkills }) => {
   };
   return (
     <>
-      <h5 className="mt-2 fw-bold dark-blue">Edit Skills</h5>
+      <h6 className="mt-2 fw-bold dark-blue fs-18">Edit Skills</h6>
 
-      <div className="mb-3">
+      <div className="my-3">
         <textarea
           className="form-control fs-14"
           id="exampleFormControlTextarea1"

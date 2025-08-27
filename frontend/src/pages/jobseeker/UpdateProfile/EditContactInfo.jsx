@@ -75,7 +75,7 @@ const EditContactInfo = ({ editContactInfo, setEditContactInfo }) => {
           </label>
           <input
             type="text"
-            className="form-control "
+            className="form-control"
             id="phone"
             name="phoneNumber"
             value={input.phoneNumber}

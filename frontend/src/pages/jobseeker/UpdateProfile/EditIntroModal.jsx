@@ -17,9 +17,9 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
   const [input, setInput] = useState({
     fullname: "",
     headline: "",
-    resume: "",
     location: "",
-    gender: "",
+    email: "",
+    phoneNumber: "",
   });
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
       setInput({
         fullname: user?.fullname || "",
         headline: user?.profile?.headline || "",
-        resume: user?.profile?.resume || "",
         location: user?.profile?.location || "",
-        gender: user?.profile?.gender || "",
+        email: user?.email || "",
+        phoneNumber: user?.phoneNumber || "",
       });
     }
   }, [user]);
@@ -101,16 +101,7 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Resume Link</Form.Label>
-              <Form.Control
-                type="text"
-                name="resume"
-                value={input.resume}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
               <Form.Label>Location</Form.Label>
               <Form.Control
                 type="text"
@@ -119,23 +110,26 @@ const EditIntroModal = ({ showIntroModal, setShowIntroModal }) => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3 d-flex align-items-center"
-              controlId="exampleForm.ControlInput1"
-            >
-              <Form.Label className="me-4 mb-0">Gender</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+              <Form.Label>Email *</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={input.email}
                 onChange={handleInputChange}
-                name="gender"
-                value={input.gender}
-                className="fs-14"
-              >
-                <option value="">Select your gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </Form.Select>
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="text"
+                name="phoneNumber"
+                value={input.phoneNumber}
+                onChange={handleInputChange}
+                maxLength={10}
+                pattern="[0-9]{10}"
+              />
             </Form.Group>
             <Modal.Footer>
               <Button

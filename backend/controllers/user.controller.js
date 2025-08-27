@@ -194,7 +194,7 @@ export const updateProfile = async (req, res) => {
       headline,
       resume,
       location,
-      gender,
+      // gender,
       phoneNumber,
       email,
       portfolio,
@@ -212,7 +212,7 @@ export const updateProfile = async (req, res) => {
       headline: headline?.trim().replace(/\s+/g, " "),
       resume: resume?.trim().replace(/\s+/g, ""),
       location: location?.trim().replace(/\s+/g, " "),
-      gender: gender?.trim().toLowerCase(),
+      // gender: gender?.trim().toLowerCase(),
       phoneNumber: phoneNumber,
       email: email?.trim(),
       portfolio: portfolio?.trim().replace(/\s+/g, ""),
@@ -301,17 +301,17 @@ export const updateProfile = async (req, res) => {
     if (cleaned.location !== undefined)
       updatedFields["profile.location"] = cleaned.location;
 
-    if (cleaned.gender !== undefined) {
-      const validGenders = ["male", "female", "other", ""];
-      if (!validGenders.includes(cleaned.gender)) {
-        return res.status(400).json({
-          message: "Invalid gender value",
-          success: false,
-        });
-      }
+    // if (cleaned.gender !== undefined) {
+    //   const validGenders = ["male", "female", "other", ""];
+    //   if (!validGenders.includes(cleaned.gender)) {
+    //     return res.status(400).json({
+    //       message: "Invalid gender value",
+    //       success: false,
+    //     });
+    //   }
 
-      updatedFields["profile.gender"] = cleaned.gender;
-    }
+    //   updatedFields["profile.gender"] = cleaned.gender;
+    // }
 
     if (cleaned.phoneNumber !== undefined)
       updatedFields.phoneNumber = cleaned.phoneNumber;

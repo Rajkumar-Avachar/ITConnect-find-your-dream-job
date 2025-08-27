@@ -31,11 +31,11 @@ const userSchema = new mongoose.Schema(
       headline: { type: String, default: "" },
       resume: { type: String, lowercase: true, default: "" },
       location: { type: String, default: "" },
-      gender: {
-        type: String,
-        enum: ["male", "female", "other", ""],
-        default: "",
-      },
+      // gender: {
+      //   type: String,
+      //   enum: ["male", "female", "other", ""],
+      //   default: "",
+      // },
       portfolio: {
         type: String,
         default: "",
