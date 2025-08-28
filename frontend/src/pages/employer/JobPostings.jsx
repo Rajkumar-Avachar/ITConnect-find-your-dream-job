@@ -43,6 +43,7 @@ const JobPostings = () => {
         Manage your job listings and track applications
       </p>
       <TableContainer component={Paper} className="border rounded-3 p-3 my-5">
+        <h6 className="fw-semibold">Jobs ({employerJobs?.length})</h6>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

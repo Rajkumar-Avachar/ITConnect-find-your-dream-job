@@ -192,7 +192,6 @@ export const updateProfile = async (req, res) => {
     const {
       fullname,
       headline,
-      resume,
       location,
       // gender,
       phoneNumber,
@@ -205,12 +204,19 @@ export const updateProfile = async (req, res) => {
     } = req.body;
 
     const profilePhotoUrl =
-      req.file?.path || (req.body.profilePhoto === "null" ? null : undefined);
+      req.files?.profilePhoto?.[0]?.path ||
+      (req.body.profilePhoto === "null" ? null : undefined);
+
+    const resumeFile = req.files?.resume?.[0];
+    const resumeUrl =
+      resumeFile?.path ||
+      (req.body.resume === "null" ? null : undefined);
+    const resumeName = resumeFile?.originalname || null;
+
 
     const cleaned = {
       fullname: fullname?.trim().replace(/\s+/g, " "),
       headline: headline?.trim().replace(/\s+/g, " "),
-      resume: resume?.trim().replace(/\s+/g, ""),
       location: location?.trim().replace(/\s+/g, " "),
       // gender: gender?.trim().toLowerCase(),
       phoneNumber: phoneNumber,
@@ -219,15 +225,15 @@ export const updateProfile = async (req, res) => {
       github: github?.trim().replace(/\s+/g, ""),
       linkedin: linkedin?.trim().replace(/\s+/g, ""),
       about: about?.trim().replace(/\s+/g, " "),
-      skills: skills?.trim().replace(/\s+/g, ""),
+      skills: skills?.trim().replace(/\s+/g, " "),
     };
 
-    if (!Object.keys(req.body).length && !profilePhotoUrl) {
-      return res.status(400).json({
-        message: "At least one field is required to update the profile",
-        success: false,
-      });
-    }
+    // if (!Object.keys(req.body).length && !profilePhotoUrl && !resumeUrl) {
+    //   return res.status(400).json({
+    //     message: "At least one field is required to update the profile",
+    //     success: false,
+    //   });
+    // }
 
     //validate full name
     if (cleaned.fullname !== undefined && !cleaned.fullname) {
@@ -292,11 +298,12 @@ export const updateProfile = async (req, res) => {
     if (profilePhotoUrl !== undefined)
       updatedFields["profile.profilePhoto"] = profilePhotoUrl;
 
+    if (resumeUrl !== undefined) {
+      updatedFields["profile.resume"] = resumeUrl;
+      updatedFields["profile.resumeName"] = resumeName;
+    }
     if (cleaned.headline !== undefined)
       updatedFields["profile.headline"] = cleaned.headline;
-
-    if (cleaned.resume !== undefined)
-      updatedFields["profile.resume"] = cleaned.resume;
 
     if (cleaned.location !== undefined)
       updatedFields["profile.location"] = cleaned.location;

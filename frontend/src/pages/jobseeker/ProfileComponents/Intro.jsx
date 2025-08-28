@@ -21,7 +21,10 @@ const Intro = () => {
           className="rounded-circle"
           onClick={() => setShowProfilePhotoModal(true)}
         />
-        <button className="btn btn-outline-dark border align-self-start fs-14 py-1 d-md-none">
+        <button
+          className="btn btn-outline-dark border align-self-start fs-14 py-1 d-md-none"
+          onClick={() => setShowIntroModal(true)}
+        >
           <SquarePen size={14} />
           &nbsp; Edit
         </button>

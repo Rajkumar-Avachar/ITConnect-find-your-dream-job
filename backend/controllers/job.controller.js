@@ -122,6 +122,7 @@ export const getJobs = async (req, res) => {
 
     if (jobs.length === 0) {
       return res.status(200).json({
+        jobs: [],
         message: "Jobs not Found",
         success: true,
       });
@@ -176,12 +177,6 @@ export const getJobsByEmployer = async (req, res) => {
       createdAt: -1,
     });
 
-    if (jobs?.length === 0) {
-      return res.status(200).json({
-        message: "You have not posted any Job",
-        success: true,
-      });
-    }
     return res.status(200).json({ jobs, success: true });
   } catch (error) {
     console.error(error);

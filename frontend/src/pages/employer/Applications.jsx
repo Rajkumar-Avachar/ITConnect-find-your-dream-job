@@ -80,7 +80,7 @@ const Applications = () => {
       </div>
 
       <TableContainer component={Paper} className="border rounded-3 p-3 my-5">
-        <h6 className="fw-semibold">Applications (5)</h6>
+        <h6 className="fw-semibold">Applications ({applications?.length})</h6>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -108,9 +108,9 @@ const Applications = () => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {application.applicant.fullname}
+                  {application.applicant?.fullname}
                 </TableCell>
-                <TableCell align="left">{application.job.title}</TableCell>
+                <TableCell align="left">{application.job?.title}</TableCell>
                 <TableCell align="left">
                   {new Date(application.createdAt)
                     .toLocaleDateString("en-GB")
@@ -119,12 +119,21 @@ const Applications = () => {
                 <TableCell align="left">{application.status}</TableCell>
                 <TableCell align="left" style={{ width: "0" }}>
                   <div className="d-flex gap-2 align-items-center">
-                    <Link to={application.resume}>
+                    {/* <Link to={application.resume}>
                       <button className="btn border fs-14 d-flex align-items-center gap-2 px-2 py-1 btn-secondary">
                         <Eye size={16} />
                         View
                       </button>
-                    </Link>
+                    </Link> */}
+                    <a
+                      href={application.resume}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-decoration-none d-flex align-items-center gap-1 bg-secondary text-light rounded-2 px-2 py-1"
+                    >
+                      <Eye size={16} />
+                      View
+                    </a>
                     <select className="form-select bg-light fs-14 w-auto py-1">
                       <option value="pending">Pending</option>
                       <option value="shortlisted">Shortlisted</option>

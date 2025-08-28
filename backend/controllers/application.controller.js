@@ -22,7 +22,7 @@ export const applyJob = async (req, res) => {
         success: false,
       });
     }
-    if (!resume.trim()) {
+    if (!resume?.trim()) {
       return res.status(400).json({
         message: "Resume is required",
         success: false,
@@ -88,6 +88,7 @@ export const getApplicationsByApplicant = async (req, res) => {
 
     if (applications.length === 0) {
       return res.status(200).json({
+        applications: [],
         message: "You have not applied for any job",
         success: true,
       });
@@ -110,23 +111,17 @@ export const getApplicationsForEmployer = async (req, res) => {
     const company = await Company.findOne({ employer: employerId });
 
     if (!company) {
-      return res.status(400).json({
-        message: "You have not associated with any company",
-        success: false,
-      });
-    }
-
-    const applications = await Application.find({
-      company: company._id,
-    })
-      .populate("applicant")
-      .populate("job");
-    if (applications.length === 0) {
       return res.status(200).json({
-        message: "No applications found",
+        applications: [],
+        message: "You have not associated with any company",
         success: true,
       });
     }
+
+    const applications = await Application.find({ company: company._id })
+      .populate("applicant")
+      .populate("job");
+
     return res.status(200).json({
       applications,
       success: true,
@@ -174,6 +169,7 @@ export const getApplicationsForSingleJobByEmployer = async (req, res) => {
 
     if (applications.length === 0) {
       return res.status(200).json({
+        applications: [],
         message: "No applications found for this job",
         success: true,
       });

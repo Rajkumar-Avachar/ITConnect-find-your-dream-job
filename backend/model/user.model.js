@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema(
       profilePhoto: { type: String, default: "" },
       headline: { type: String, default: "" },
       resume: { type: String, lowercase: true, default: "" },
+      resumeName: { type: String, default: "" },
       location: { type: String, default: "" },
       // gender: {
       //   type: String,
