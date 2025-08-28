@@ -210,9 +210,9 @@ export const updateApplicationStatus = async (req, res) => {
       });
     }
 
-    if (!["accepted", "rejected"].includes(status)) {
+    if (!["shortlisted", "rejected"].includes(status)) {
       return res.status(400).json({
-        message: "Invalid status value. Status must be accepted or rejected",
+        message: "Invalid status value. Status must be shortlisted or rejected",
         success: false,
       });
     }
@@ -277,10 +277,10 @@ export const cancelApplication = async (req, res) => {
       });
     }
 
-    if (["accepted", "rejected"].includes(application.status)) {
+    if (["shortlisted", "rejected"].includes(application.status)) {
       return res.status(400).json({
         message:
-          "You cannot cancel an application that has been accepted or rejected",
+          "You cannot cancel an application that has been shortlisted or rejected",
         success: false,
       });
     }

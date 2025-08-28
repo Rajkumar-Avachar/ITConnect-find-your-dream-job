@@ -41,7 +41,7 @@ export const createJob = async (req, res) => {
           : "0 years",
       jobType: jobType?.trim().replace(/\s+/g, ""),
       workMode: workMode?.trim().replace(/\s+/g, ""),
-      openings: openings,
+      openings: openings || 1,
       description: description?.trim().replace(/\s+/g, " "),
       requirements: requirements?.trim().replace(/\s+/g, " "),
       skills: skills
@@ -234,7 +234,7 @@ export const updateJob = async (req, res) => {
           : "0 years",
       jobType: jobType?.trim().replace(/\s+/g, ""),
       workMode: workMode?.trim().replace(/\s+/g, ""),
-      openings: openings,
+      openings: openings || 1,
       description: description?.trim().replace(/\s+/g, " "),
       requirements: requirements?.trim().replace(/\s+/g, " "),
       //   skills: skills

@@ -115,6 +115,8 @@ const JobPostingActions = ({ job }) => {
           Edit Job
         </MenuItem>
         <MenuItem
+          component={Link}
+          to={`/employer/applications`}
           onClick={handleClose}
           disableRipple
           className="text-black fs-14"

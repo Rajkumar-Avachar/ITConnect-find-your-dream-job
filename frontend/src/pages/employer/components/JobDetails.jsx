@@ -56,10 +56,10 @@ const JobDetails = () => {
           >
             <button className="btn btn-light border">
               <SquarePen size={16} className="me-2" />
-              Edit Profile
+              Edit Job
             </button>
           </Link>
-          <Link to={"/employer/company/edit"} className="text-decoration-none">
+          <Link to={"/employer/applications"} className="text-decoration-none">
             <button className="btn bg-blue">
               <Eye size={16} className="me-2" />
               View Applications
