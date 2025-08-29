@@ -28,7 +28,7 @@ const Skills = () => {
           <div className="d-flex flex-wrap gap-2 mt-3">
             {user?.profile?.skills.map((skill, index) => (
               <span
-                class="badge rounded-pill text-bg-light text-muted fw-normal border fs-14"
+                class="badge rounded-3 text-blue fw-medium bg-light-blue2 fs-14"
                 key={index}
               >
                 {skill}

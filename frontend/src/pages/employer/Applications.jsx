@@ -27,14 +27,28 @@ const Applications = () => {
   useApplications();
   const { applications, loading } = useSelector((store) => store.application);
   const { employerJobs } = useSelector((store) => store.job);
-
+  const jobTitles = [...new Set(employerJobs?.map((job) => job.title))];
   const [status, setStatus] = useState({});
 
-  // const statusLabels = {
-  //   pending: "Pending",
-  //   shortlist: "Shortlisted",
-  //   reject: "Rejected",
-  // };
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [positionFilter, setPositionFilter] = useState("all");
+
+  const filteredApplications = applications?.filter((application) => {
+    const matchStatus =
+      statusFilter === "all" || application.status === statusFilter;
+    const matchPosition =
+      positionFilter === "all" || application.job?.title === positionFilter;
+
+    const candidateName = application.applicant?.fullname?.toLowerCase() || "";
+    const jobTitle = application.job?.title?.toLowerCase() || "";
+    const matchSearch =
+      candidateName.includes(searchTerm.toLowerCase()) ||
+      jobTitle.includes(searchTerm.toLowerCase()) ||
+      searchTerm === "";
+
+    return matchStatus && matchPosition && matchSearch;
+  });
 
   const statusHandler = async (appId, newStatus) => {
     setStatus((prev) => ({ ...prev, [appId]: newStatus }));
@@ -134,32 +148,32 @@ const Applications = () => {
             type="text"
             placeholder="Search by candidate name or position..."
             className="form-control ps-5"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <select className="form-select bg-light w-auto fs-14">
+        <select
+          className="form-select bg-light w-auto fs-14"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
           <option value="all">All Status</option>
           <option value="pending">Pending</option>
           <option value="shortlisted">Shortlisted</option>
           <option value="rejected">Rejected</option>
         </select>
 
-        {/* <select className="form-select bg-light w-auto fs-14">
+        <select
+          className="form-select bg-light w-auto fs-14"
+          value={positionFilter}
+          onChange={(e) => setPositionFilter(e.target.value)}
+        >
           <option value="all">All Positions</option>
-          <option value="Senior React Developer">React Developer</option>
-          <option value="Product Manager">Product Manager</option>
-          <option value="UX Designer">UX Designer</option>
-          <option value="Backend Engineer">Backend Engineer</option>
-          <option value="Data Scientist">Data Scientist</option>
-        </select> */}
-        <select className="form-select bg-light w-auto fs-14">
-          <option value="all">All Positions</option>
-          {[...new Set(applications?.map((app) => app.job?.title))].map(
-            (title, index) => (
-              <option key={index} value={title}>
-                {title}
-              </option>
-            )
-          )}
+          {jobTitles.map((title) => (
+            <option key={title} value={title}>
+              {title}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -186,7 +200,7 @@ const Applications = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {applications?.map((application) => (
+            {filteredApplications?.map((application) => (
               <TableRow
                 key={application._id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
