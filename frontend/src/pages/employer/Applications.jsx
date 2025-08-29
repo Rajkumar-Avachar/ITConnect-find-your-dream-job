@@ -35,6 +35,7 @@ const Applications = () => {
   const [positionFilter, setPositionFilter] = useState("all");
 
   const filteredApplications = applications?.filter((application) => {
+    if (!application.job) return false;
     const matchStatus =
       statusFilter === "all" || application.status === statusFilter;
     const matchPosition =
@@ -178,7 +179,7 @@ const Applications = () => {
       </div>
 
       <TableContainer component={Paper} className="border rounded-3 p-3 my-5">
-        <h6 className="fw-semibold">Applications ({applications?.length})</h6>
+        <h6 className="fw-semibold">Applications ({filteredApplications?.length})</h6>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -208,7 +209,11 @@ const Applications = () => {
                 <TableCell component="th" scope="row">
                   {application.applicant?.fullname}
                 </TableCell>
-                <TableCell align="left">{application.job?.title}</TableCell>
+                <TableCell align="left">
+                  {application.job?.title || (
+                    <i className="text-danger">Deleted Job</i>
+                  )}
+                </TableCell>
                 <TableCell align="left">
                   {new Date(application.createdAt)
                     .toLocaleDateString("en-GB")

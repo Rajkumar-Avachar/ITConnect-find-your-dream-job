@@ -14,6 +14,11 @@ import EditSquareIcon from "@mui/icons-material/EditSquare";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { Link } from "react-router-dom";
+import { JOBS_API } from "../../../utils/apis";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { setEmployerJobs } from "../../../redux/jobSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -62,6 +67,8 @@ const StyledMenu = styled((props) => (
 }));
 
 const JobPostingActions = ({ job }) => {
+  const dispatch = useDispatch();
+  const { employerJobs } = useSelector((store) => store.job);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -69,6 +76,28 @@ const JobPostingActions = ({ job }) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const deleteJob = async () => {
+    try {
+      const res = await axios.delete(`${JOBS_API}/${job._id}`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        toast.success(res.data.message || "Job deleted successfully", {
+          position: "bottom-right",
+          autoClose: 1000,
+        });
+      }
+      dispatch(setEmployerJobs(employerJobs.filter((j) => j._id !== job._id)));
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to delete job", {
+        position: "bottom-right",
+        autoClose: 1000,
+      });
+    } finally {
+      handleClose();
+    }
   };
   return (
     <div>
@@ -125,7 +154,7 @@ const JobPostingActions = ({ job }) => {
           View Applications
         </MenuItem>
         <MenuItem
-          onClick={handleClose}
+          onClick={deleteJob}
           disableRipple
           className="text-danger fs-14"
         >

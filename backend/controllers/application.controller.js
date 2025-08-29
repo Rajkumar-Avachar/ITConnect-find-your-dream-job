@@ -227,6 +227,14 @@ export const updateApplicationStatus = async (req, res) => {
       });
     }
 
+    if (!application.job) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Cannot update status. The job for this application has been deleted.",
+      });
+    }
+
     if (application.job.postedBy.toString() !== req.user.userId) {
       return res.status(403).json({
         message:
