@@ -134,7 +134,7 @@ const Applications = () => {
       <p className="text-muted">
         Review and manage job applications from candidates
       </p>
-      <div className="d-flex border p-4 rounded-3 shadow-sm bg-white my-4 gap-3 justify-content-between">
+      <div className="d-flex bg-light my-5 gap-3 justify-content-between">
         <div style={{ position: "relative" }} className="flex-grow-1">
           <Search
             size={18}
@@ -149,13 +149,13 @@ const Applications = () => {
           <input
             type="text"
             placeholder="Search by candidate name or position..."
-            className="form-control ps-5"
+            className="form-control ps-5 fs-14 lh-lg"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <select
-          className="form-select bg-light w-auto fs-14"
+          className="form-select bg-white w-auto fs-14"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
@@ -166,7 +166,7 @@ const Applications = () => {
         </select>
 
         <select
-          className="form-select bg-light w-auto fs-14"
+          className="form-select bg-white w-auto fs-14"
           value={positionFilter}
           onChange={(e) => setPositionFilter(e.target.value)}
         >
