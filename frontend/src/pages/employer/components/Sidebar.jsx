@@ -2,10 +2,11 @@ import React from "react";
 import { LayoutDashboard, Briefcase, Users, Building2 } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import "./style.css";
+import UserActions from "./UserActions";
 
 const Sidebar = () => {
   return (
-    <div className="border d-flex flex-column sidebar">
+    <div className="border d-flex flex-column sidebar ">
       <div className="p-3 border-bottom">
         <Link to={"/employer/dashboard"} className="text-decoration-none">
           <img src="/logo/itconnectlogo.png" alt="Logo" width={120} />
@@ -71,12 +72,9 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <div className="d-flex align-items-center border-top p-3 mt-auto">
-        <i className="bi bi-person-circle text-primary fs-2 me-2"></i>
-        <div>
-          <p className="mb-0 fs-14 fw-medium">Raj Kumar</p>
-          <p className="text-muted fs-12 mb-0">HR Manager</p>
-        </div>
+      <div className="p-2 mt-auto">
+        
+        <UserActions/>
       </div>
     </div>
   );

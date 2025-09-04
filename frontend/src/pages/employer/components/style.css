@@ -18,7 +18,16 @@
 }
 
 .main-content {
-  margin-left: 300px; /* Same as sidebar width */
+  margin-left: 300px;
   min-height: 100vh;
 }
 
+.employer-account:hover {
+  background-color: ghostwhite !important;
+}
+
+.custom-menu {
+  width: 270px !important;
+  transform: translateY(-12px) !important;
+  padding: 8px;
+}

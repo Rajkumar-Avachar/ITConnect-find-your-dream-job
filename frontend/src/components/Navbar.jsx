@@ -8,7 +8,7 @@ import { BsBuildingsFill } from "react-icons/bs";
 import { IoLogOut } from "react-icons/io5";
 import LanguageIcon from "@mui/icons-material/Language";
 import { USER_API } from "../utils/apis";
-import { logout, setUser } from "../redux/authSlice";
+import { logout } from "../redux/authSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
