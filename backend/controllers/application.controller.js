@@ -52,6 +52,7 @@ export const applyJob = async (req, res) => {
     const application = await Application.create({
       applicant: applicantId,
       job: jobId,
+      jobTitle: job.title,
       resume: resume,
       company: job.company._id,
     });
@@ -77,12 +78,10 @@ export const applyJob = async (req, res) => {
 export const getApplicationsByApplicant = async (req, res) => {
   try {
     const applicantId = req.user.userId;
-
     const applications = await Application.find({ applicant: applicantId })
       .populate({
-        path: "job",
-        select: "title company",
-        populate: { path: "company", select: "name" },
+        path: "company",
+        select: "name",
       })
       .sort({ appliedAt: -1 });
 

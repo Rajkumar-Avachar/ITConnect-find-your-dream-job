@@ -24,7 +24,7 @@ import { APPLICATION_API } from "../../utils/apis";
 import { toast } from "react-toastify";
 
 const Applications = () => {
-  useApplications();
+  useApplications("employer");
   const { applications, loading } = useSelector((store) => store.application);
   const { employerJobs } = useSelector((store) => store.job);
   const jobTitles = [...new Set(employerJobs?.map((job) => job.title))];
@@ -83,20 +83,29 @@ const Applications = () => {
     switch (status) {
       case "pending":
         return (
-          <span className="fs-12 d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-warning-subtle text-warning fw-medium">
-            <Clock size={14} /> Pending
+          // <span className="fs-12 d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-warning-subtle text-warning fw-medium">
+          //   <Clock size={14} /> Pending
+          // </span>
+          <span class="badge bg-warning fs-12">
+            <Clock size={14} className="me-1" /> Pending
           </span>
         );
       case "shortlisted":
         return (
-          <span className="fs-12 d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-success-subtle text-success fw-medium">
-            <CircleCheckBig size={14} /> Shortlisted
+          // <span className="fs-12 d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-success-subtle text-success fw-medium">
+          //   <CircleCheckBig size={14} /> Shortlisted
+          // </span>
+          <span class="badge bg-primary fs-12">
+            <CircleCheckBig size={14} className="me-1" /> Shortlisted
           </span>
         );
       case "rejected":
         return (
-          <span className="fs-12 d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-danger-subtle text-danger fw-medium">
-            <CircleX size={14} /> Rejected
+          // <span className="fs-12 d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-danger-subtle text-danger fw-medium">
+          //   <CircleX size={14} /> Rejected
+          // </span>
+          <span class="badge bg-danger fs-12">
+            <CircleX size={14} className="me-1" /> Rejected
           </span>
         );
       default:
@@ -225,7 +234,7 @@ const Applications = () => {
                 <TableCell align="left">
                   {renderStatus(status[application._id] || application.status)}
                 </TableCell>
-                <TableCell align="left" style={{ width: "0" }}>
+                <TableCell align="left" style={{ width: "300px" }}>
                   <div className="d-flex gap-2 align-items-center">
                     <a
                       href={application.resume}
@@ -234,7 +243,7 @@ const Applications = () => {
                       className="text-decoration-none d-flex align-items-center gap-1 bg-secondary text-light rounded-2 px-2 py-1"
                     >
                       <Eye size={16} />
-                      View
+                      View Resume
                     </a>
                     <select
                       name="status"

@@ -4,30 +4,32 @@ import { APPLICATION_API } from "../utils/apis";
 import { setApplications, setLoading } from "../redux/applicationSlice";
 import axios from "axios";
 
-const useApplications = () => {
+const useApplications = (type = "employer") => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchApplications = async () => {
       dispatch(setLoading(true));
       try {
-        const res = await axios.get(
-          `${APPLICATION_API}/employer-applications`,
-          {
-            withCredentials: true,
-          }
-        );
+        const endpoint =
+          type === "employer"
+            ? `${APPLICATION_API}/employer-applications`
+            : `${APPLICATION_API}/jobseeker-applications`;
+
+        const res = await axios.get(endpoint, { withCredentials: true });
+
         if (res.data.success) {
           dispatch(setApplications(res.data.applications));
         }
       } catch (error) {
-        console.log("Failed to fetch applications", error);
+        console.error("Failed to fetch applications", error);
       } finally {
         dispatch(setLoading(false));
       }
     };
+
     fetchApplications();
-  }, [dispatch]);
+  }, [dispatch, type]);
 };
 
 export default useApplications;

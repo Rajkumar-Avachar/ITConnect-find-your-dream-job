@@ -17,7 +17,7 @@ const router = express.Router();
 router.route("/").post(isAuthenticated, isJobseeker, applyJob);
 
 router
-  .route("/applicant-applicatons")
+  .route("/jobseeker-applications")
   .get(isAuthenticated, isJobseeker, getApplicationsByApplicant);
 
 router
