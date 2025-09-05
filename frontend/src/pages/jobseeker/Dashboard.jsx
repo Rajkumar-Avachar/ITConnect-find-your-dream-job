@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import useApplications from "../../hooks/useApplications";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
@@ -140,7 +141,7 @@ const Dashboard = () => {
         <h3 className="fw-medium mb-4">My Applications</h3>
         <div className="row g-4">
           <div className="col-6 col-md-3 flex-grow-1">
-            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-4 hover-shadow-sm h-100">
+            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-2 p-sm-4 hover-shadow-sm h-100">
               <div>
                 <p className="text-muted fs-14 mb-0">Total Applications</p>
                 <p className="fs-4 fw-bold mb-0 mt-2">{applications?.length}</p>
@@ -154,7 +155,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="col-6 col-md-3 flex-grow-1">
-            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-4 hover-shadow-sm h-100">
+            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-2 p-sm-4 hover-shadow-sm h-100">
               <div>
                 <p className="text-muted fs-14 mb-0">Shortlisted</p>
                 <p className="fs-4 fw-bold mb-0 mt-2">
@@ -174,7 +175,7 @@ const Dashboard = () => {
           </div>
 
           <div className="col-6 col-md-3 flex-grow-1">
-            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-4 hover-shadow-sm h-100">
+            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-2 p-sm-4 hover-shadow-sm h-100">
               <div>
                 <p className="text-muted fs-14 mb-0">Pending</p>
                 <p className="fs-4 fw-bold mb-0 mt-2">
@@ -193,7 +194,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="col-6 col-md-3 flex-grow-1">
-            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-4 hover-shadow-sm h-100">
+            <div className="d-flex justify-content-between align-items-center border bg-white rounded-3 p-2 p-sm-4 hover-shadow-sm h-100">
               <div>
                 <p className="text-muted fs-14 mb-0">Rejected</p>
                 <p className="fs-4 fw-bold mb-0 mt-2">
@@ -213,7 +214,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="d-flex bg-light my-5 gap-3 justify-content-between">
+        <div className="d-flex flex-wrap bg-light my-5 gap-3 justify-content-between">
           <div style={{ position: "relative" }} className="flex-grow-1">
             <Search
               size={18}
@@ -234,7 +235,7 @@ const Dashboard = () => {
             />
           </div>
           <select
-            className="form-select bg-white w-25 fs-14"
+            className="form-select bg-white fs-14 w-auto"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -274,7 +275,12 @@ const Dashboard = () => {
                     scope="row"
                     className="fs-6 fw-semibold"
                   >
-                    {application.jobTitle}
+                    <Link
+                      to={`/job/${application.job}`}
+                      className="text-decoration-none"
+                    >
+                      {application.jobTitle}
+                    </Link>
                   </TableCell>
                   <TableCell align="left">
                     {application.company?.name}
