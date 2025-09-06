@@ -29,7 +29,7 @@ export const applyJob = async (req, res) => {
       });
     }
 
-    const job = await Job.findById(jobId);
+    const job = await Job.findById(jobId).populate("company");
     if (!job) {
       return res.status(404).json({
         message: "Job not Found",
@@ -55,6 +55,7 @@ export const applyJob = async (req, res) => {
       jobTitle: job.title,
       resume: resume,
       company: job.company._id,
+      companyName: job.company.name,
     });
 
     job.applications.push(application._id);

@@ -283,7 +283,7 @@ const Dashboard = () => {
                     </Link>
                   </TableCell>
                   <TableCell align="left">
-                    {application.company?.name}
+                    {application.companyName}
                   </TableCell>
                   <TableCell align="left">
                     {new Date(application.createdAt)

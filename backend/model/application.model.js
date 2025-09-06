@@ -13,7 +13,7 @@ const applicationSchema = new mongoose.Schema(
       required: true,
     },
     jobTitle: {
-      type: "String",
+      type: String,
       required: true,
     },
     resume: {
@@ -32,6 +32,10 @@ const applicationSchema = new mongoose.Schema(
     company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
+      required: true,
+    },
+    companyName: {
+      type: String,
       required: true,
     },
   },
