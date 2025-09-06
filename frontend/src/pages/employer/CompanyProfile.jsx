@@ -10,9 +10,12 @@ import {
   SquareArrowOutUpRight,
   SquarePen,
   Pencil,
+  Trash,
 } from "lucide-react";
 import { COMPANY_API } from "../../utils/apis";
 import { setLoading } from "../../redux/companySlice";
+import { toast } from "react-toastify";
+import { setUser } from "../../redux/authSlice";
 
 const CompanyProfile = () => {
   const { user } = useSelector((store) => store.auth);
@@ -70,6 +73,7 @@ const CompanyProfile = () => {
   if (!company) return null;
 
   const {
+    _id,
     name,
     logo,
     industry,
@@ -81,16 +85,49 @@ const CompanyProfile = () => {
     specialties,
   } = company;
 
+  const deleteCompany = async (id) => {
+    try {
+      const res = await axios.delete(`${COMPANY_API}/${id}`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        toast.success("Company deleted successfully", {
+          position: "bottom-right",
+          autoClose: 1000,
+        });
+        setCompany(null);
+        dispatch(setUser({ ...user, company: null }));
+        navigate("/employer/company/setup", { replace: true });
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to delete Company.",
+        {
+          position: "bottom-right",
+          autoClose: 2000,
+        }
+      );
+    }
+  };
+
   return (
     <div className="p-4 bg-light h-100">
       <nav className="d-flex justify-content-between align-items-center">
         <h3 className="fw-bold">Company Profile</h3>
-        <Link to={"/employer/company/edit"} className="text-decoration-none">
-          <button className="btn bg-blue">
-            <SquarePen size={16} className="me-2" />
-            Edit Profile
+        <div className="d-flex gap-2">
+          <Link to={"/employer/company/edit"} className="text-decoration-none">
+            <button className="btn bg-blue fs-14">
+              <SquarePen size={14} className="me-2" />
+              Edit Profile
+            </button>
+          </Link>
+          <button
+            className="btn btn-outline-danger fs-14"
+            onClick={() => deleteCompany(_id)}
+          >
+            <i class="bi bi-trash-fill"></i> Delete Company
           </button>
-        </Link>
+        </div>
       </nav>
       <div className="container">
         <div className="row">
