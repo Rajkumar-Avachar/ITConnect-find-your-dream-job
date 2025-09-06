@@ -8,9 +8,12 @@ import {
   deleteCompany,
 } from "../controllers/company.controller.js";
 import { isAuthenticated, isEmployer } from "../middlewares/authMiddleware.js";
+import { companyLogoUpload } from "../utils/upload.js";
 const router = express.Router();
 
-router.route("/").post(isAuthenticated, isEmployer, createCompany);
+router
+  .route("/")
+  .post(isAuthenticated, isEmployer, companyLogoUpload, createCompany);
 
 router.route("/").get(getAllCompanies);
 

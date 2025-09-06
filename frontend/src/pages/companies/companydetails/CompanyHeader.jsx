@@ -20,7 +20,7 @@ const CompanyHeader = ({ company }) => {
         <div className="d-flex gap-3">
           <div className="border p-2 bg-white rounded-4 companyLogo">
             <img
-              src="/logo/company.png"
+              src={company.logo}
               alt="CompanyLogo"
               className="w-100 rounded-4"
             />

@@ -59,5 +59,5 @@ export const profileResumeUpload = multer({
 
 
 export const companyLogoUpload = multer({ storage: companyLogoStorage }).single(
-  "companyLogo"
+  "logo"
 );

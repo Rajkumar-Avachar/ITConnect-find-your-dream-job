@@ -27,10 +27,7 @@ const CreateCompany = () => {
   useEffect(() => {
     if (user?.role !== "employer") {
       navigate("/", { replace: true });
-    } 
-    // else if (user?.company) {
-    //   navigate("/employer/company/profile", { replace: true });
-    // }
+    }
   }, [user, navigate]);
 
   const handleInputChange = (e) => {
@@ -56,17 +53,15 @@ const CreateCompany = () => {
     }
     try {
       dispatch(setLoading(true));
-      // const formData = new FormData();
-      // for (const key in input) {
-      //   formData.append(key, input[key]);
-      // }
-      // const res = await axios.post(`${COMPANY_API}/`, formData, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      //   withCredentials: true,
-      // });
-      const res = await axios.post(`${COMPANY_API}/`, input, {
+      const formData = new FormData();
+      for (const key in input) {
+        formData.append(key, input[key]);
+      }
+      const res = await axios.post(`${COMPANY_API}/`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
+      
       if (res.data.success) {
         dispatch(setUser({ ...user, company: res.data.company }));
         console.log("Company created successfully:", res.data.company);
@@ -123,7 +118,7 @@ const CreateCompany = () => {
               className="form-control bg-light"
               id="logo"
               name="logo"
-              accept="image/*"
+              accept=".jpg,.jpeg,.png"
               onChange={handleFileChange}
             />
           </div>

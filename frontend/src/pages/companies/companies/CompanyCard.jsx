@@ -10,7 +10,7 @@ const CompanyCard = ({ company }) => {
           <div className="d-flex align-items-center gap-3 justify-content-between w-100">
             <div className="d-flex align-items-center">
               <img
-                src="logo/company.png"
+                src={company.logo}
                 alt="Logo"
                 width={50}
                 className="me-3 rounded-3 bg-light"

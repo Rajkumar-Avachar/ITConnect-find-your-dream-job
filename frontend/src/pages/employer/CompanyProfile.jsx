@@ -71,6 +71,7 @@ const CompanyProfile = () => {
 
   const {
     name,
+    logo,
     industry,
     location,
     size,
@@ -109,7 +110,7 @@ const CompanyProfile = () => {
               <div className="d-flex gap-3">
                 <div className="border p-2 rounded-3 bg-white rounded-4 companyLogo">
                   <img
-                    src="/logo/company.png"
+                    src={logo}
                     alt="CompanyLogo"
                     className="w-100 rounded-4"
                   />

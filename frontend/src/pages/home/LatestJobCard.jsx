@@ -22,7 +22,7 @@ const LatestJobCard = ({ job }) => {
         </div> */}
         <div className="d-flex align-items-center mb-3">
           <img
-            src="logo/company.png"
+            src={job.company?.logo}
             alt="Logo"
             width={50}
             className="me-3 rounded-3"

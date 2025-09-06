@@ -117,7 +117,7 @@ export const createJob = async (req, res) => {
 export const getJobs = async (req, res) => {
   try {
     const jobs = await Job.find()
-      .populate("company", "name")
+      .populate("company", "name logo")
       .sort({ createdAt: -1 });
 
     if (jobs.length === 0) {
@@ -149,7 +149,7 @@ export const getJobById = async (req, res) => {
     }
     const job = await Job.findById(jobId)
       .populate("applications", "applicant")
-      .populate("company", "name about");
+      .populate("company", "name logo about");
     if (!job) {
       return res.status(404).json({
         message: "Job not Found",

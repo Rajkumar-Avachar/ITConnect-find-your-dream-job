@@ -17,6 +17,8 @@ export const createCompany = async (req, res) => {
       specialties,
     } = req.body;
 
+    console.log(req.body);
+
     const employerId = req.user?.userId;
 
     const cleaned = {
@@ -30,6 +32,9 @@ export const createCompany = async (req, res) => {
       specialties: specialties?.trim().replace(/\s+/g, " "),
     };
 
+    const companyLogoUrl = req.file?.path;
+    console.log(companyLogoUrl);
+
     if (
       !cleaned.name ||
       !cleaned.industry ||
@@ -39,7 +44,8 @@ export const createCompany = async (req, res) => {
       !cleaned.website ||
       !cleaned.about ||
       !cleaned.specialties ||
-      !employerId
+      !employerId ||
+      !companyLogoUrl
     ) {
       return res.status(400).json({
         message: "All fields are required to create a company profile",
@@ -66,6 +72,7 @@ export const createCompany = async (req, res) => {
     const company = await Company.create({
       ...cleaned,
       employer: employerId,
+      logo: companyLogoUrl,
     });
 
     await User.findByIdAndUpdate(employerId, { company: company._id });

@@ -87,7 +87,7 @@ const JobCard = ({ job }) => {
       <div className="shadow-sm rounded-3 p-3 p-sm-4 bg-white border">
         <div className="d-flex align-items-center mb-4">
           <img
-            src="/logo/company.png"
+            src={job.company?.logo}
             alt="Logo"
             width={60}
             className="me-3 rounded-3"
