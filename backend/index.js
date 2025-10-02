@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 //middlewares
 app.use(
   cors({
-    origin: "https://itconnect.vercel.app/", 
+    origin: "https://itconnect.vercel.app",
     credentials: true,
   })
 );
