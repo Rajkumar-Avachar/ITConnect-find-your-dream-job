@@ -66,6 +66,9 @@ const StyledMenu = styled((props) => (
 }));
 
 const UserActions = () => {
+
+  const {user} = useSelector((state) => state.auth);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -140,7 +143,7 @@ const UserActions = () => {
           disabled
         >
           <CircleUserRound size={16} className="me-2" />
-          rajavachar59@gmail.com
+          {user?.email}
         </MenuItem>
         <MenuItem disableRipple className="fs-14 rounded-3">
           <Settings size={16} className=" me-2" />
