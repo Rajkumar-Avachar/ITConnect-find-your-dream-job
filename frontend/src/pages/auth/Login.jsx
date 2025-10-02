@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { USER_API } from "../../utils/apis";
@@ -14,6 +14,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    document.title = "Log in | ITConnect";
+  }, []);
 
   const handleInputChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });

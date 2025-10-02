@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect } from "react";
 import SearchCompany from "./SearchCompany";
 import CompanyResults from "./CompanyResults";
 import useCompanies from "../../../hooks/useCompanies";
@@ -7,6 +7,11 @@ import { useSelector } from "react-redux";
 const CompaniesPage = () => {
   useCompanies();
   const { loading } = useSelector((store) => store.company);
+
+  useEffect(() => {
+    document.title = "Companies | ITConnect";
+  }, []);
+
   if (loading) {
     return (
       <div

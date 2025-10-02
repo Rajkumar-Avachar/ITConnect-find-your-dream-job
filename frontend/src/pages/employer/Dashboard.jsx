@@ -15,6 +15,9 @@ import JobDetails from "./components/JobDetails";
 import EditJob from "./components/EditJob";
 
 const Dashboard = () => {
+  useEffect(() => {
+    document.title = "Employer Dashboard | ITConnect";
+  }, []);
   return (
     <div className="d-flex">
       <Sidebar />
@@ -26,7 +29,7 @@ const Dashboard = () => {
           <Route path="post-job" element={<PostJob />} />"
           <Route path="job-postings" element={<JobPostings />} />
           <Route path="job-postings/:id" element={<JobDetails />} />
-          <Route path="job-postings/:id/edit" element={<EditJob/>} />
+          <Route path="job-postings/:id/edit" element={<EditJob />} />
           <Route path="applications" element={<Applications />} />
           <Route path="company/setup" element={<CompanySetup />} />
           <Route path="company/create" element={<CreateCompany />} />

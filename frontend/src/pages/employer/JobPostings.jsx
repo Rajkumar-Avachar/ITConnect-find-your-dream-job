@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,6 +14,10 @@ import { useSelector } from "react-redux";
 const JobPostings = () => {
   useEmployerJobs();
   const { employerJobs, loading } = useSelector((store) => store.job);
+
+  useEffect(() => {
+    document.title = "Job Postings | ITConnect";
+  }, [employerJobs]);
 
   if (loading) {
     return (

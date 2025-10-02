@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Briefcase,
   Users,
@@ -55,8 +55,11 @@ const Dashboard = () => {
   useApplications("jobseeker");
   const { applications } = useSelector((store) => store.application);
   const [status, setStatus] = useState({});
-
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    document.title = "JobSeeker Dashboard | Job Portal";
+  }, []);
 
   const renderStatus = (status) => {
     switch (status) {

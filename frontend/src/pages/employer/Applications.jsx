@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Search,
   MapPin,
@@ -33,6 +33,10 @@ const Applications = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [positionFilter, setPositionFilter] = useState("all");
+
+   useEffect(() => {
+    document.title = "Applications | ITConnect";
+  }, [applications]);
 
   const filteredApplications = applications?.filter((application) => {
     if (!application.job) return false;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchJobs from "./SearchJobs";
 import JobFilters from "./JobFilters";
 import JobResults from "./JobResults";
@@ -8,6 +8,10 @@ import { useSelector } from "react-redux";
 const JobsPage = () => {
   useJobs();
   const { loading } = useSelector((store) => store.job);
+
+  useEffect(() => {
+    document.title = "Jobs | ITConnect";
+  }, []);
 
   if (loading) {
     return (

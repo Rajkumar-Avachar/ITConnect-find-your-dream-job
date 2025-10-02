@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { USER_API } from "../../utils/apis";
@@ -19,6 +19,10 @@ const Signup = () => {
   });
 
   const [role, setRole] = useState("jobseeker");
+
+  useEffect(() => {
+    document.title = "Sign up | ITConnect";
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

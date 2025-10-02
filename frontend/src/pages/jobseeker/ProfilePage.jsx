@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Jobseeker.css";
 import Intro from "./ProfileComponents/Intro";
 import ContactInfo from "./ProfileComponents/ContactInfo";
@@ -9,6 +9,9 @@ import Education from "./ProfileComponents/Education";
 import Resume from "./ProfileComponents/Resume";
 
 const ProfilePage = () => {
+  useEffect(() => {
+    document.title = "Profile | JobSeeker";
+  }, []);
   return (
     <div className="mx-auto my-4 container col-lg-8">
       <Intro />

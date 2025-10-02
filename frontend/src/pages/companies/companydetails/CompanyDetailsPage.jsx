@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import CompanyHeader from "./CompanyHeader";
 import CompanyInfo from "./CompanyInfo";
@@ -10,6 +10,10 @@ const CompanyDetailsPage = () => {
   useCompanyDetails(id);
 
   const { companyDetails, loading } = useSelector((store) => store.company);
+
+  useEffect(() => {
+    document.title = `${companyDetails?.name} | ITConnect`;
+  }, [companyDetails]);
 
   if (loading) {
     return (

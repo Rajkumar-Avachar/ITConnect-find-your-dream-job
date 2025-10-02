@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import JobCard from "./JobCard";
 import AboutCompanyCard from "./AboutCompanyCard";
@@ -12,6 +12,10 @@ const JobDetailsPage = () => {
 
   const { jobDetails } = useSelector((store) => store.job);
   const { loading } = useSelector((store) => store.job);
+
+  useEffect(() => {
+    document.title = `${jobDetails?.title} | ITConnect`;
+  }, [jobDetails]);
 
   if (loading) {
     return (

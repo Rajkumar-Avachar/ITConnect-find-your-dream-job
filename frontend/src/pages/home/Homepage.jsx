@@ -1,40 +1,3 @@
-// import React, { useEffect } from "react";
-// import Hero from "./Hero";
-// import LatestJobs from "./LatestJobs";
-// import "./Homepage.css";
-// import HowItWorks from "./HowItWorks";
-// import EmployerPromo from "./EmployerPromo";
-// import JobSeekerCTA from "./JobSeekerCTA";
-// import CompanyLogoCarousel from "./CompanyLogoCarousel";
-// import useJobs from "../../hooks/useJobs";
-// import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-
-// const Homepage = () => {
-//   const { user } = useSelector((store) => store.auth);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     if (user?.role === "employer") {
-//       navigate("/employer/dashboard", { replace: true });
-//     }
-//   }, [user, navigate]);
-
-//   useJobs();
-//   return (
-//     <div className="bg-light">
-//       <Hero />
-//       <LatestJobs />
-//       <HowItWorks />
-//       <EmployerPromo />
-//       <CompanyLogoCarousel />
-//       <JobSeekerCTA />
-//     </div>
-//   );
-// };
-
-// export default Homepage;
-
 import React, { useEffect } from "react";
 import Hero from "./Hero";
 import LatestJobs from "./LatestJobs";
@@ -48,8 +11,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
+  
   const { user, loading } = useSelector((store) => store.auth);
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    document.title = "Home | ITConnect";
+  }, []);
 
   useJobs();
 

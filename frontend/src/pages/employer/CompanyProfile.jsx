@@ -24,6 +24,10 @@ const CompanyProfile = () => {
   const navigate = useNavigate();
   const [company, setCompany] = useState(null);
 
+   useEffect(() => {
+    document.title = `${company?.name} | ITConnect`;
+  }, [company]);
+
   useEffect(() => {
     if (!user?.company) {
       navigate("/employer/company/setup", { replace: true });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import useJobDetails from "../../../hooks/useJobDetails";
@@ -9,6 +9,11 @@ const JobDetails = () => {
   useJobDetails(id);
   const { jobDetails } = useSelector((store) => store.job);
   const { loading } = useSelector((store) => store.job);
+
+  useEffect(() => {
+    document.title = `${jobDetails?.title} | ITConnect`;
+  }, [jobDetails]);
+  
   const {
     _id,
     title,

@@ -33,6 +33,10 @@ const EditCompany = () => {
   }, [user, navigate]);
 
   useEffect(() => {
+    document.title = "Edit Company Profile | ITConnect";
+  }, []);
+
+  useEffect(() => {
     const fetchCompany = async () => {
       try {
         dispatch(setLoading(true));

@@ -31,6 +31,10 @@ const EditJob = () => {
   });
 
   useEffect(() => {
+    document.title = "Edit Job | ITConnect";
+  }, []);
+
+  useEffect(() => {
     const fetchJobDetails = async () => {
       try {
         dispatch(setLoading(true));
@@ -120,7 +124,7 @@ const EditJob = () => {
 
   return (
     <div className="p-4 bg-light h-100">
-      <h3 className="fw-bold mb-0">Post New Job</h3>
+      <h3 className="fw-bold mb-0">Edit Job</h3>
       <p className="text-muted">
         Create a detailed job posting to attract the right candidates
       </p>
