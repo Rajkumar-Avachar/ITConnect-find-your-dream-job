@@ -17,11 +17,12 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://itconnect.vercel.app"]
-        : ["http://localhost:5173"],
+        ? "https://itconnect.vercel.app"
+        : "http://localhost:5173",
     credentials: true,
   })
 );
+
 
 // const allowedOrigins =
 //   process.env.NODE_ENV === "production"
