@@ -13,35 +13,36 @@ import applicationRoutes from "./routes/application.route.js";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// app.use(
-//   cors({
-//     origin:
-//       process.env.NODE_ENV === "production"
-//         ? ["https://itconnect.vercel.app"]
-//         : ["http://localhost:5173"],
-//     credentials: true,
-//   })
-// );
-
-const allowedOrigins =
-  process.env.NODE_ENV === "production"
-    ? ["https://itconnect.vercel.app"]
-    : ["http://localhost:5173"];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests like Postman with no origin
-      if (!origin) return callback(null, true);
-
-      if (!allowedOrigins.includes(origin)) {
-        return callback(new Error("CORS policy blocked this origin"), false);
-      }
-      return callback(null, true);
-    },
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://itconnect.vercel.app"
+        : "http://localhost:5173",
     credentials: true,
   })
 );
+
+
+// const allowedOrigins =
+//   process.env.NODE_ENV === "production"
+//     ? ["https://itconnect.vercel.app"]
+//     : ["http://localhost:5173"];
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       // allow requests like Postman with no origin
+//       if (!origin) return callback(null, true);
+
+//       if (!allowedOrigins.includes(origin)) {
+//         return callback(new Error("CORS policy blocked this origin"), false);
+//       }
+//       return callback(null, true);
+//     },
+//     credentials: true,
+//   })
+// );
 
 
 app.use(express.json());
