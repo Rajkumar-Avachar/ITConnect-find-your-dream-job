@@ -13,21 +13,21 @@ import applicationRoutes from "./routes/application.route.js";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// app.use(
-//   cors({
-//     origin:
-//       process.env.NODE_ENV === "production"
-//         ? "https://itconnect.vercel.app"
-//         : "http://localhost:5173",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://itconnect.vercel.app"
+        : "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 
-app.use(cors({
-  origin: "https://itconnect.vercel.app",
-  credentials: true
-}));
+// app.use(cors({
+//   origin: "https://itconnect.vercel.app",
+//   credentials: true
+// }));
 
 
 app.use(express.json());

@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
-// import { isUrlLive } from '@the-node-forge/url-validator';
 
 //Register User
 export const register = async (req, res) => {
@@ -142,8 +141,8 @@ export const login = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .json({
