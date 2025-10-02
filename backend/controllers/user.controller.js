@@ -143,7 +143,7 @@ export const login = async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .json({
@@ -209,10 +209,8 @@ export const updateProfile = async (req, res) => {
 
     const resumeFile = req.files?.resume?.[0];
     const resumeUrl =
-      resumeFile?.path ||
-      (req.body.resume === "null" ? null : undefined);
+      resumeFile?.path || (req.body.resume === "null" ? null : undefined);
     const resumeName = resumeFile?.originalname || null;
-
 
     const cleaned = {
       fullname: fullname?.trim().replace(/\s+/g, " "),
