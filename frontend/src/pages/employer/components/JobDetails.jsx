@@ -30,6 +30,8 @@ const JobDetails = () => {
     createdAt,
   } = jobDetails;
 
+  console.log(jobDetails);
+
   if (loading) {
     return (
       <div
