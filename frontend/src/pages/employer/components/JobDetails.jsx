@@ -13,7 +13,22 @@ const JobDetails = () => {
   useEffect(() => {
     document.title = `${jobDetails?.title} | ITConnect`;
   }, [jobDetails]);
-  
+
+  if (!jobDetails) {
+    return (
+      <div
+        style={{
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p className="text-muted">No job details found.</p>
+      </div>
+    );
+  }
+
   const {
     _id,
     title,
