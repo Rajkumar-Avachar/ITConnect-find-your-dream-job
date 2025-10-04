@@ -18,7 +18,6 @@ const useJobDetails = (jobId) => {
         });
         if (res.data.success) {
           dispatch(setJobDetails(res.data.job));
-          console.log(`job ${res.data.job}`);
         }
       } catch (error) {
         toast.error(error.response?.data?.message || "Error", {
