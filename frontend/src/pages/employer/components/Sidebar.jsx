@@ -9,8 +9,9 @@ const Sidebar = () => {
     <div className="border d-flex flex-column sidebar ">
       <div className="p-3 border-bottom">
         <Link to={"/employer/dashboard"} className="text-decoration-none">
-          <img src="/logo/itconnectlogo.png" alt="Logo" width={120} />
-          <p className="fs-12 text-muted mb-0">Employer Dashboard</p>
+          {/* <img src="/logo/itconnectlogo.png" alt="Logo" width={120} /> */}
+          <img src="/logo/jobgridslogo1.png" alt="Logo" width={130}/>
+          <p className="fs-14 text-black mb-0">Employer Dashboard</p>
         </Link>
       </div>
       <div className="p-3 border-bottom">
@@ -73,8 +74,7 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="p-2 mt-auto">
-        
-        <UserActions/>
+        <UserActions />
       </div>
     </div>
   );

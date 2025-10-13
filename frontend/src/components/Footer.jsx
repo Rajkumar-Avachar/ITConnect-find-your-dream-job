@@ -4,20 +4,17 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer
-      className="p-4 text-light"
-      style={{ backgroundColor: "#111827" }}
-    >
+    <footer className="p-4 text-light" style={{ backgroundColor: "#111827" }}>
       <div className="row ms-lg-5 ps-lg-5 gx-5 mt-3">
         <div className="col-12 col-md-3">
           <Link
             className="navbar-brand fw-bold text-light fs-3 me-5 mb-0"
             to="/"
           >
-            <span className="bg-white text-dark px-1">IT</span>
-            <span> Connect</span>
+            {/* <img src="/logo/jobgridslogo1.png" alt="Logo" /> */}
+            <h3 className="fw-bold m-0">JobGrids</h3>
           </Link>
-          <p className="mt-3">
+          <p style={{"marginTop":"-30px"}}>
             Your destination for discovering career opportunities and connecting
             with top companies.
           </p>

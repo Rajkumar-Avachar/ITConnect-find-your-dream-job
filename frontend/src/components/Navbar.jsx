@@ -53,7 +53,8 @@ const Navbar = () => {
             to="/"
             onClick={closeMobileDrawer}
           >
-            <img src="/logo/itconnectlogo.png" alt="Logo" />
+            <img src="/logo/jobgridslogo1.png" alt="Logo"/>
+            
           </Link>
 
           <button
@@ -167,7 +168,7 @@ const Navbar = () => {
               to="/"
               onClick={closeMobileDrawer}
             >
-              <img src="/logo/itconnectlogo.png" alt="Logo" />
+              <img src="/logo/jobgridslogo1.png" alt="Logo" />
             </Link>
           </div>
         )}
