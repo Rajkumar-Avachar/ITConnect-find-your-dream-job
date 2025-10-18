@@ -10,7 +10,6 @@ import companyRoutes from "./routes/company.route.js";
 import jobRoutes from "./routes/job.route.js";
 import applicationRoutes from "./routes/application.route.js";
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -24,18 +23,10 @@ app.use(
   })
 );
 
-
-// app.use(cors({
-//   origin: "https://itconnect.vercel.app",
-//   credentials: true
-// }));
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//DB Connection
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
@@ -46,11 +37,14 @@ const connectDB = async () => {
 };
 connectDB();
 
-//apis
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/companies", companyRoutes);
 app.use("/api/v1/jobs", jobRoutes);
 app.use("/api/v1/applications", applicationRoutes);
+
+app.get("/", (req, res) => {
+  res.status(200).send("JobGrids backend is running");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
